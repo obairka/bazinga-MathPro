@@ -10,15 +10,15 @@ namespace MathPro.Domain.Concrete
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+
+
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+
+        
     }
-    public class ApplicationDbContextInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
-    {
-        protected override void Seed(ApplicationDbContext context)
-        {
-        }
-    }
+     
 }

@@ -19,8 +19,11 @@ namespace MathPro.WebUI
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            //Database.SetInitializer(new EFDbContextInitializer());
-            Database.SetInitializer(new ApplicationDbContextInitializer());
+
+            // Set the database intializer which is run once during application start
+            // This seeds the database with admin user credentials and admin role
+            
+            Database.SetInitializer<ApplicationDbContext>(new ApplicationDbInitializer()); ;
         }
     }
 }
