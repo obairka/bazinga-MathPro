@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathPro.Domain", "MathPro.Domain\MathPro.Domain.csproj", "{89C2D091-A16D-43C0-ACF8-818D01894C9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathPro.WebUI", "MathPro.WebUI\MathPro.WebUI.csproj", "{98A4E57C-301E-4085-B765-856E0CB595A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathPro.UnitTest", "MathPro.UnitTest\MathPro.UnitTest.csproj", "{7A03561A-92A9-4DE7-B608-9DE450289999}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{89C2D091-A16D-43C0-ACF8-818D01894C9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89C2D091-A16D-43C0-ACF8-818D01894C9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89C2D091-A16D-43C0-ACF8-818D01894C9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89C2D091-A16D-43C0-ACF8-818D01894C9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98A4E57C-301E-4085-B765-856E0CB595A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98A4E57C-301E-4085-B765-856E0CB595A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98A4E57C-301E-4085-B765-856E0CB595A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98A4E57C-301E-4085-B765-856E0CB595A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A03561A-92A9-4DE7-B608-9DE450289999}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A03561A-92A9-4DE7-B608-9DE450289999}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A03561A-92A9-4DE7-B608-9DE450289999}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A03561A-92A9-4DE7-B608-9DE450289999}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
