@@ -141,6 +141,13 @@ namespace MathPro.WebUI.Controllers
             {
                 Id = user.Id,
                 Email = user.Email,
+                UserName = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                BirthDate = user.BirthDate,
+                Rating = user.Rating,
+               
+
                 RolesList = RoleManager.Roles.ToList().Select(x => new SelectListItem()
                 {
                     Selected = userRoles.Contains(x.Name),

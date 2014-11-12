@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace MathPro.Domain.Entities
 {
@@ -15,5 +17,12 @@ namespace MathPro.Domain.Entities
             // Add custom user claims here
             return userIdentity;
         }
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateTime? BirthDate { get; set; }
+        public DateTime LastVisitDate { get; set; }
+        public DateTime RegistrationDate { get; set; }
+        public int Rating { get; set; }
     }
 }

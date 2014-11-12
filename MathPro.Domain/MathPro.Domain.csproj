@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Concrete\ApplicationDbContext.cs" />
+    <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

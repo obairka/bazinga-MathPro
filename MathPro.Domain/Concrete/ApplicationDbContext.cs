@@ -11,13 +11,10 @@ namespace MathPro.Domain.Concrete
         {
         }
 
-
-
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
-
         
     }
      

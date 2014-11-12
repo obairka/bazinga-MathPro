@@ -117,7 +117,8 @@ namespace MathPro.WebUI
         {
             var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var roleManager = HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();
-            const string name = "admin@example.com";
+            const string name = "admin";
+            const string email = "admin@example.com";
             const string password = "Admin@123456";
             const string roleName = "Admin";
 
@@ -132,7 +133,17 @@ namespace MathPro.WebUI
             var user = userManager.FindByName(name);
             if (user == null)
             {
-                user = new ApplicationUser { UserName = name, Email = name };
+                user = new ApplicationUser 
+                {
+                    UserName = name,
+                    Email = email,
+                    FirstName = name,
+                    LastName = name,
+                    Rating = 0,
+                    // TODO: 
+                    RegistrationDate = DateTime.Now,
+                    LastVisitDate = DateTime.Now,
+                };
                 var result = userManager.Create(user, password);
                 result = userManager.SetLockoutEnabled(user.Id, false);
             }
