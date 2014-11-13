@@ -114,6 +114,12 @@
     <Compile Include="Concrete\ApplicationDbContext.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
+    <Compile Include="Entities\Complexity.cs" />
+    <Compile Include="Entities\MathAssignment.cs" />
+    <Compile Include="Entities\MathAssignmentSubsection.cs" />
+    <Compile Include="Entities\Section.cs" />
+    <Compile Include="Entities\Subsection.cs" />
+    <Compile Include="Entities\TaskComment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
