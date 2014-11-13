@@ -1,4 +1,5 @@
-﻿using MathPro.Domain.Entities;
+﻿using MathPro.Domain.Concrete;
+using MathPro.Domain.Entities;
 using MathPro.WebUI.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -34,7 +35,7 @@ namespace MathPro.WebUI.Controllers
                 _userManager = value;
             }
         }
-
+         
         //
         // GET: /Account/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
@@ -48,8 +49,11 @@ namespace MathPro.WebUI.Controllers
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
 
+            // var user = UserManager.FindById(User.Identity.GetUserId());
+            // TODO : if (user != null)
+            
             var model = new IndexViewModel
-            {
+            { 
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(User.Identity.GetUserId()),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(User.Identity.GetUserId()),
@@ -59,7 +63,6 @@ namespace MathPro.WebUI.Controllers
             return View(model);
         }
 
-        
         //
         // GET: /Account/RemoveLogin
         public ActionResult RemoveLogin()

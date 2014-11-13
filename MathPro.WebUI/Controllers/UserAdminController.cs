@@ -161,7 +161,7 @@ namespace MathPro.WebUI.Controllers
         // POST: /Users/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Email,Id")] EditUserViewModel editUser, params string[] selectedRole)
+        public async Task<ActionResult> Edit([Bind(Include = "Email,Id,UserName,FirstName,LastName,BirthDate,Rating")] EditUserViewModel editUser, params string[] selectedRole)
         {
             if (ModelState.IsValid)
             {
@@ -170,10 +170,15 @@ namespace MathPro.WebUI.Controllers
                 {
                     return HttpNotFound();
                 }
-
-                user.UserName = editUser.Email;
+                // TODO: UserName uniqueness
+                user.UserName = editUser.UserName;
                 user.Email = editUser.Email;
-
+                user.FirstName = editUser.FirstName;
+                user.LastName = editUser.LastName;
+                user.BirthDate = editUser.BirthDate;
+                // TODO: Can Admin change Rating?
+                user.Rating = editUser.Rating;
+                
                 var userRoles = await UserManager.GetRolesAsync(user.Id);
 
                 selectedRole = selectedRole ?? new string[] { };
@@ -192,6 +197,9 @@ namespace MathPro.WebUI.Controllers
                     ModelState.AddModelError("", result.Errors.First());
                     return View();
                 }
+
+
+                 
                 return RedirectToAction("Index");
             }
             ModelState.AddModelError("", "Something failed.");
