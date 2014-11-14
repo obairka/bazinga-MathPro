@@ -26,7 +26,6 @@ namespace MathPro.WebUI
             Database.SetInitializer<ApplicationDbContext>(new ApplicationDbInitializer()); 
             Database.SetInitializer<EFDbContext>(new EFDbInitializer());
  
-        
         }
     }
 }

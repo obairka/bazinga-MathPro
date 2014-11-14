@@ -40,19 +40,19 @@ namespace MathPro.Domain.Entities
         [NotMapped]
         // TODO: delete : People cant live longer than 200 years :D
         [Range(0, 200)]
-        public int Age 
+        public int? Age 
         {
             get
             {
                 if (null == BirthDate)
                 {
-                    return 0;
+                    return null;
                 }
                 DateTime today = DateTime.Today;
                 int age = today.Year - BirthDate.Value.Year;
                 if (BirthDate.Value > today.AddYears(-age)) age--;
                 return age;
-            } 
+            }  
         }
       
         [Required]
