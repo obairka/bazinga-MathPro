@@ -6,7 +6,9 @@ namespace MathPro.Domain.Entities
 {
     public class MathAssignmentSubsection
     {
-        
+        [Key]
+        public int MathAssignmentSubsectionId { get; set; }
+
         public int MathAssignmentId { get; set; }
         
         
