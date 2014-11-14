@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using MathPro.Domain.Infrastructure;
+using System.Collections.Generic;
 
 namespace MathPro.Domain.Entities
 {
@@ -62,5 +63,8 @@ namespace MathPro.Domain.Entities
 
         [Required]               
         public int Rating { get; set; }
+
+        public virtual ICollection<TaskComment> TaskComments { get; set; }
+
     }
 }

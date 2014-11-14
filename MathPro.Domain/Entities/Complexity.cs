@@ -9,7 +9,7 @@ namespace MathPro.Domain.Entities
 {
     public class Complexity
     {
-        [Key]
+        
         public int ComplexityId { get; set; }
       
         public string Name { get; set; }

@@ -10,14 +10,16 @@ namespace MathPro.Domain.Entities
 {
     public class TaskComment
     {
-        [Key]
+        
         public int TaskCommentId { get; set; }
 
-        [ForeignKey("ApplicationUserId")]
+        
         public int ApplicationUserId { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
 
-        [ForeignKey("MathAssignmentId")]
+        
         public int MathAssignmentId { get; set; }
+        public MathAssignment MathAssignment { get; set; }
 
         public string Details { get; set; }
 

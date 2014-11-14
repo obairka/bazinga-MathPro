@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MathPro.Domain.Entities;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace MathPro.Domain.Concrete
 {
@@ -37,6 +38,10 @@ namespace MathPro.Domain.Concrete
                 .HasMany(c => c.MathAssignmentSubsections)
                 .WithRequired()
                 .HasForeignKey(c => c.SubsectionId);
+
+            modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
+            modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
+            modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
         }
     }
 

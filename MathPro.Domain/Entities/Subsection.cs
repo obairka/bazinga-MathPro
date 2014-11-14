@@ -9,7 +9,7 @@ namespace MathPro.Domain.Entities
 {
     public class Subsection
     {
-        [Key]
+        
         public int SubsectionId { get; set; }
        
         public string Name { get; set; }

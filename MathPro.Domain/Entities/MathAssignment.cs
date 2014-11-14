@@ -11,14 +11,17 @@ namespace MathPro.Domain.Entities
 {
     public class MathAssignment
     {
-        [Key]
+        
         public int MathAssignmentId { get; set; }
 
-        [ForeignKey("SectionId")]
+        
         public int SectionId { get; set; }
+        public virtual Section Section { get; set; }
 
-        [ForeignKey("ComplexityId")]
+        
         public int ComplexityId { get; set; }
+        public Complexity Complexity { get; set; }
+
 
         public string AssignmentText { get; set; }
 

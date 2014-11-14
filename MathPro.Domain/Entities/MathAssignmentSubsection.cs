@@ -6,11 +6,12 @@ namespace MathPro.Domain.Entities
 {
     public class MathAssignmentSubsection
     {
-        [ForeignKey("MathAssignmentId")]
+        
         public int MathAssignmentId { get; set; }
-
-        [ForeignKey("SubsectionId")]
+        
+        
         public int SubsectionId { get; set; }
+
 
         public virtual ICollection<MathAssignment> MathAssignments { get; set; }
 
