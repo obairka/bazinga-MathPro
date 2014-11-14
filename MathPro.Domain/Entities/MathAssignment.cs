@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -27,5 +28,7 @@ namespace MathPro.Domain.Entities
         public string Answer { get; set; }
 
         public virtual List<TaskComment> TaskComments { get; set; }
+
+        public virtual ICollection<MathAssignmentSubsection> MathAssignmentSubsections { get; set; }
     }
 }

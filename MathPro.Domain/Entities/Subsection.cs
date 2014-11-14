@@ -13,5 +13,7 @@ namespace MathPro.Domain.Entities
         public int SubsectionId { get; set; }
        
         public string Name { get; set; }
+
+        public virtual ICollection<MathAssignmentSubsection> MathAssignmentSubsections { get; set; }
     }
 }

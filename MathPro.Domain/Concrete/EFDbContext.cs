@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -21,10 +22,27 @@ namespace MathPro.Domain.Concrete
         public DbSet<TaskComment> TaskComments { get; set; }
         public DbSet<MathAssignment> MathAssignments { get; set; }
         public DbSet<MathAssignmentSubsection> MathAssignmentSubsections { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<MathAssignmentSubsection>()
+                .HasKey(c => new {c.MathAssignmentId, c.SubsectionId});
+            
+            modelBuilder.Entity<MathAssignment>()
+                .HasMany(c => c.MathAssignmentSubsections)
+                .WithRequired()
+                .HasForeignKey(c => c.MathAssignmentId);
+            
+            modelBuilder.Entity<Subsection>()
+                .HasMany(c => c.MathAssignmentSubsections)
+                .WithRequired()
+                .HasForeignKey(c => c.SubsectionId);
+        }
     }
 
     public class EFDbInitializer : DropCreateDatabaseIfModelChanges<EFDbContext>
     {
+
         protected override void Seed(EFDbContext context)
         {
 
@@ -76,15 +94,45 @@ namespace MathPro.Domain.Concrete
                         MathAssignmentId = 1,
                         PostedTime = new DateTime(1993, 12, 3)
                     }
-                }
+                },
             };
             context.MathAssignments.Add(math1);
 
             //MathAssignmentSubsection Initialization with test data
             MathAssignmentSubsection mathSub1 = new MathAssignmentSubsection()
             {
-                MathAssignmentId = 1,
-                SubsectionId = 1
+                MathAssignments = new Collection<MathAssignment>()
+                {
+                    new MathAssignment()
+                    {
+                        SectionId = 1,
+                        ComplexityId = 1,
+                        AssignmentText = "Task1 ...",
+                        Answer = "Answer for task 1",
+                        TaskComments = new List<TaskComment>()
+                        {
+                            new TaskComment()
+                            {
+                                ApplicationUserId = 1, 
+                                Details = "Comment 1",
+                                MathAssignmentId = 1,
+                                PostedTime = new DateTime(1993, 12, 3)
+                            }
+                        }
+                    }
+                },
+                Subsections = new Collection<Subsection>()
+                {
+                    new Subsection()
+                    {
+                        Name = "Subsection1"
+                    },
+                    new Subsection()
+                    {
+                        Name = "Subsection2"
+                    }
+                }
+                
             };
             MathAssignmentSubsection mathSub2 = new MathAssignmentSubsection()
             {
