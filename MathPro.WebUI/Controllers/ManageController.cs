@@ -49,9 +49,6 @@ namespace MathPro.WebUI.Controllers
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
 
-            // var user = UserManager.FindById(User.Identity.GetUserId());
-            // TODO : if (user != null)
-            
             var model = new IndexViewModel
             { 
                 HasPassword = HasPassword(),

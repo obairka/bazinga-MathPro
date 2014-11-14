@@ -23,11 +23,9 @@ namespace MathPro.WebUI.Controllers
            
         }
 
-        public UserProfileController(ApplicationUserManager userManager, ApplicationRoleManager roleManager)
-        {
-            
+        public UserProfileController(ApplicationUserManager userManager)
+        {   
             UserManager = userManager;
-            RoleManager = roleManager;
         }
         private ApplicationUserManager _userManager;
         public ApplicationUserManager UserManager
@@ -41,41 +39,19 @@ namespace MathPro.WebUI.Controllers
                 _userManager = value;
             }
         }
-
-
-        private ApplicationRoleManager _roleManager;
-        public ApplicationRoleManager RoleManager
-        {
-            get
-            {
-                return _roleManager ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
-            }
-            private set
-            {
-                _roleManager = value;
-            }
-        }
-
-        /*
-        // GET: UserProfile
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        */
-
+         
         //
-        // GET: /Account/Details
-        public async Task<ActionResult> Details()
+        // GET: /UserProfile
+        public async Task<ActionResult> Index()
         {
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            // TODO: 
 
-            return View(user);
+            return View("Details", new UserProfileViewModel(user));
         }
 
         //
-        // GET: /Account/Edit
+        // GET: /UserProfile/Edit
         public async Task<ActionResult> Edit()
         {
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
@@ -84,29 +60,18 @@ namespace MathPro.WebUI.Controllers
             {
                 return HttpNotFound();
             }
-            return View(new EditUserViewModel()
-            {
-                Id = user.Id,
-                Email = user.Email,
-                UserName = user.UserName,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                BirthDate = user.BirthDate,
-                Rating = user.Rating,
-
-            });
+            return View(new UserProfileViewModel(user));
         }
 
         //
-        // POST: 
+        // POST: /UserProfile/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(EditUserViewModel editUser)
+        public async Task<ActionResult> Edit(UserProfileViewModel editUser)
         {
 
             if (ModelState.IsValid)
             {
-                // see http://stackoverflow.com/a/22835540/1264738
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
 
                 // TODO:
@@ -117,7 +82,6 @@ namespace MathPro.WebUI.Controllers
 
                 //user.UserName = editUser.Email;
                 //user.Email = editUser.Email;
-
                 user.FirstName = editUser.FirstName;
                 user.LastName = editUser.LastName;
                 user.BirthDate = editUser.BirthDate;
@@ -132,24 +96,15 @@ namespace MathPro.WebUI.Controllers
             }
             else
             {
+                // TODO:
                 ModelState.AddModelError("", "Something failed.");
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                //TODO:
+                
                 if (user == null)
                 {
                     return HttpNotFound();
                 }
-                return View(new EditUserViewModel()
-                {
-                    Id = user.Id,
-                    Email = user.Email,
-                    UserName = user.UserName,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    BirthDate = user.BirthDate,
-                    Rating = user.Rating,
-
-                });
+                return View(editUser);
             }
         }
         

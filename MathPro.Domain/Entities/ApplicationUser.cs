@@ -4,6 +4,8 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using MathPro.Domain.Infrastructure;
 
 namespace MathPro.Domain.Entities
 {
@@ -18,11 +20,47 @@ namespace MathPro.Domain.Entities
             return userIdentity;
         }
 
+        [Required]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 2)]
         public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 2)]
         public string LastName { get; set; }
+
+        // BirthDate should be expressed as a date without time component
+        
+        [DataType(DataType.Date)]
+        // BirthDate can't be in the future or present
+        [PastDate(ErrorMessage = "Birthdate can't be in the future or present")]
         public DateTime? BirthDate { get; set; }
+
+        
+        [NotMapped]
+        // TODO: delete : People cant live longer than 200 years :D
+        [Range(0, 200)]
+        public int Age 
+        {
+            get
+            {
+                return DateTime.Now.Year - BirthDate.Value.Year;
+            }
+            set
+            {   // TODO: check
+                // birthYear = (NowYear-Age)
+                // dyear = oldBirthYear  - (NowYear-Age);
+                // birthYear = oldBirthYear + dYear
+                BirthDate.Value.AddYears(BirthDate.Value.Year - (DateTime.Now.Year - value) );
+            }
+        }
+      
+        [Required]
         public DateTime LastVisitDate { get; set; }
+        
+        [Required]        
         public DateTime RegistrationDate { get; set; }
+
+        [Required]               
         public int Rating { get; set; }
     }
 }

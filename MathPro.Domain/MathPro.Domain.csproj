@@ -120,6 +120,7 @@
     <Compile Include="Entities\Section.cs" />
     <Compile Include="Entities\Subsection.cs" />
     <Compile Include="Entities\TaskComment.cs" />
+    <Compile Include="Infrastructure\PastDateAtrtribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
