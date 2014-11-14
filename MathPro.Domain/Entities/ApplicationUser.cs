@@ -44,15 +44,15 @@ namespace MathPro.Domain.Entities
         {
             get
             {
-                return DateTime.Now.Year - BirthDate.Value.Year;
-            }
-            set
-            {   // TODO: check
-                // birthYear = (NowYear-Age)
-                // dyear = oldBirthYear  - (NowYear-Age);
-                // birthYear = oldBirthYear + dYear
-                BirthDate.Value.AddYears(BirthDate.Value.Year - (DateTime.Now.Year - value) );
-            }
+                if (null == BirthDate)
+                {
+                    return 0;
+                }
+                DateTime today = DateTime.Today;
+                int age = today.Year - BirthDate.Value.Year;
+                if (BirthDate.Value > today.AddYears(-age)) age--;
+                return age;
+            } 
         }
       
         [Required]

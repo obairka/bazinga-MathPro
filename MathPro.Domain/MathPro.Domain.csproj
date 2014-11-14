@@ -121,7 +121,6 @@
     <Compile Include="Entities\Subsection.cs" />
     <Compile Include="Entities\TaskComment.cs" />
     <Compile Include="Infrastructure\PastDateAtrtribute.cs" />
-    <Compile Include="Migrations\ApplicationDbContext\Configuration.cs" />
     <Compile Include="Migrations\EFDbContext\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

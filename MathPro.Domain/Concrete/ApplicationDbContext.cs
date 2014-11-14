@@ -1,4 +1,5 @@
 ﻿using MathPro.Domain.Entities;
+
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 
@@ -10,6 +11,7 @@ namespace MathPro.Domain.Concrete
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+
 
         public static ApplicationDbContext Create()
         {
