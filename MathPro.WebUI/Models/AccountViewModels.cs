@@ -31,7 +31,7 @@ namespace MathPro.WebUI.Models
 
 
         [Display(Name = "Возраст")]
-        public int Age { get; set; }
+        public int? Age { get; set; }
 
         [Display(Name = "Рейтинг")]
         public int Rating { get; set; }
