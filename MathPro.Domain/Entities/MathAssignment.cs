@@ -14,20 +14,21 @@ namespace MathPro.Domain.Entities
         
         public int MathAssignmentId { get; set; }
 
-        
+        [Required]
         public int SectionId { get; set; }
         public virtual Section Section { get; set; }
 
-        
+        [Required]
         public int ComplexityId { get; set; }
         public Complexity Complexity { get; set; }
 
-
+        [Required]
         public string AssignmentText { get; set; }
 
         //if amount of points for assignment is different from default, then this value is used
         public int? PointsForAssignment { get; set; }
 
+        [Required]
         public string Answer { get; set; }
 
         public virtual List<TaskComment> TaskComments { get; set; }

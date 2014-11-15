@@ -13,16 +13,18 @@ namespace MathPro.Domain.Entities
         
         public int TaskCommentId { get; set; }
 
-        
+        [Required]
         public int ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
 
-        
+        [Required]
         public int MathAssignmentId { get; set; }
         public MathAssignment MathAssignment { get; set; }
 
+        [Required]
         public string Details { get; set; }
 
+        [Required]
         public DateTime PostedTime { get; set; }
     }
 }

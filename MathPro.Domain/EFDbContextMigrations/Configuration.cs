@@ -14,6 +14,7 @@ namespace MathPro.Domain.EFDbContextMigrations
             AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;
             MigrationsDirectory = @"EFDbContextMigrations";
+            ContextKey = "MathPro.Domain.Concrete.EFDbContext";
         }
 
         protected override void Seed(MathPro.Domain.Concrete.EFDbContext context)

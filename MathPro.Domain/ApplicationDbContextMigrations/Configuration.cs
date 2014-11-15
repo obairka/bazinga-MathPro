@@ -14,6 +14,7 @@ namespace MathPro.Domain.ApplicationDbContextMigrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
             MigrationsDirectory = @"ApplicationDbContextMigrations";
             ContextKey = "MathPro.Domain.Concrete.ApplicationDbContext";
         }
@@ -56,9 +57,7 @@ namespace MathPro.Domain.ApplicationDbContextMigrations
                         result = userManager.AddToRole(user.Id, role.Name);
                     }
                 }
-             
             }
-            
             base.Seed(context);
         }
     }

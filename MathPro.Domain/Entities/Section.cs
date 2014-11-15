@@ -12,6 +12,7 @@ namespace MathPro.Domain.Entities
         
         public int SectionId { get; set; }
 
+        [Required]
         public string Name { get; set; }
     }
 }

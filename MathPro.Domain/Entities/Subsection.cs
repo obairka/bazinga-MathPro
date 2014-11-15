@@ -11,7 +11,8 @@ namespace MathPro.Domain.Entities
     {
         
         public int SubsectionId { get; set; }
-       
+
+        [Required]
         public string Name { get; set; }
 
         public virtual ICollection<MathAssignmentSubsection> MathAssignmentSubsections { get; set; }
