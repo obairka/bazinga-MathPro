@@ -9,9 +9,10 @@ namespace MathPro.Domain.Entities
         [Key]
         public int MathAssignmentSubsectionId { get; set; }
 
+        [Required]
         public int MathAssignmentId { get; set; }
-        
-        
+
+        [Required]
         public int SubsectionId { get; set; }
 
 

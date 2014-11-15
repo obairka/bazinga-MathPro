@@ -11,8 +11,10 @@ namespace MathPro.Domain.Entities
     {
         public int ComplexityId { get; set; }
       
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         public int DefaultPoints { get; set; }
     }
 }
