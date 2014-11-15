@@ -12,6 +12,7 @@ namespace MathPro.Domain.EFDbContextMigrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
             MigrationsDirectory = @"EFDbContextMigrations";
         }
 

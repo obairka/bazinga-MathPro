@@ -10,6 +10,7 @@ namespace MathPro.Domain.Concrete
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, MathPro.Domain.ApplicationDbContextMigrations.Configuration>("DefaultConnection"));
         }
 
 

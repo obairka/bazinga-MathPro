@@ -1,5 +1,9 @@
+using Microsoft.AspNet.Identity;
+
 namespace MathPro.Domain.ApplicationDbContextMigrations
 {
+    using MathPro.Domain.Entities;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -16,18 +20,44 @@ namespace MathPro.Domain.ApplicationDbContextMigrations
 
         protected override void Seed(MathPro.Domain.Concrete.ApplicationDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            const string roleName = "Admin";
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            if (!context.Roles.Any())
+            {
+                var roleStore = new RoleStore<IdentityRole>(context);
+                var roleManager = new RoleManager<IdentityRole>(roleStore);
+                var role = new IdentityRole
+                {
+                    Name = roleName
+                };
+                roleManager.Create(role);
+                const string name = "admin";
+                var userStore = new UserStore<ApplicationUser>(context);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+                if (userManager.FindByName(name) == null)
+                {
+                    var user = new ApplicationUser
+                    {
+                        Email = "Admin@123",
+                        UserName = name,
+                        FirstName = name,
+                        LastName = name,
+                        Rating = 0,
+                        // TODO: 
+                        RegistrationDate = DateTime.Now,
+                        LastVisitDate = DateTime.Now,
+                    };
+                    var result = userManager.Create(user, "Admin@123");
+                    result = userManager.SetLockoutEnabled(user.Id, false);
+
+                    var rolesForUser = userManager.GetRoles(user.Id);
+                    if (!rolesForUser.Contains(role.Name))
+                    {
+                        result = userManager.AddToRole(user.Id, role.Name);
+                    }
+             
+            }
+            
             base.Seed(context);
         }
     }

@@ -15,6 +15,7 @@ namespace MathPro.Domain.Concrete
         public EFDbContext()
             : base("DefaultConnection")
         {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<EFDbContext, MathPro.Domain.EFDbContextMigrations.Configuration>("DefaultConnection"));
         }
 
         public DbSet<Complexity> Complexities { get; set; }

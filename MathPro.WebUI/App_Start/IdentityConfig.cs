@@ -145,6 +145,7 @@ namespace MathPro.WebUI
                     LastVisitDate = DateTime.Now,
                 };
                 var result = userManager.Create(user, password);
+                
                 result = userManager.SetLockoutEnabled(user.Id, false);
             }
 
