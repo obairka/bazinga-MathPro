@@ -55,6 +55,7 @@ namespace MathPro.Domain.ApplicationDbContextMigrations
                     {
                         result = userManager.AddToRole(user.Id, role.Name);
                     }
+                }
              
             }
             
