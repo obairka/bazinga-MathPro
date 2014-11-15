@@ -1,4 +1,6 @@
-namespace MathPro.Domain.Migrations.EFDbContext
+using MathPro.Domain.Entities;
+
+namespace MathPro.Domain.EFDbContextMigrations
 {
     using System;
     using System.Data.Entity;
@@ -10,7 +12,7 @@ namespace MathPro.Domain.Migrations.EFDbContext
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            MigrationsDirectory = @"Migrations\EFDbContext";
+            MigrationsDirectory = @"EFDbContextMigrations";
         }
 
         protected override void Seed(MathPro.Domain.Concrete.EFDbContext context)
@@ -27,6 +29,15 @@ namespace MathPro.Domain.Migrations.EFDbContext
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+            //Complexity Initialize with test data
+            Complexity easyComplexity = new Complexity() { Name = "Новичок", DefaultPoints = 20 };
+            Complexity intermediateComplexity = new Complexity() { Name = "Продвинутый", DefaultPoints = 30 };
+            Complexity hardComplexity = new Complexity() { Name = "Профессионал", DefaultPoints = 40 };
+            context.Complexities.AddOrUpdate(p => p.Name, easyComplexity);
+            context.Complexities.AddOrUpdate(p => p.Name, intermediateComplexity);
+            context.Complexities.AddOrUpdate(p => p.Name, hardComplexity);
+            context.SaveChanges();
+            base.Seed(context);
         }
     }
 }
