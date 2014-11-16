@@ -47,7 +47,7 @@ namespace MathPro.WebUI.Controllers
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             // TODO: 
 
-            return View("Details", new UserProfileViewModel(user));
+            return View(new UserProfileViewModel(user));
         }
 
         //
@@ -79,9 +79,8 @@ namespace MathPro.WebUI.Controllers
                 {
                     return HttpNotFound();
                 }
-
-                //user.UserName = editUser.Email;
-                //user.Email = editUser.Email;
+                
+                // This field User can edit
                 user.FirstName = editUser.FirstName;
                 user.LastName = editUser.LastName;
                 user.BirthDate = editUser.BirthDate;
@@ -92,7 +91,7 @@ namespace MathPro.WebUI.Controllers
                     ModelState.AddModelError("", result.Errors.First());
                 }
 
-                return RedirectToAction("Details");
+                return RedirectToAction("Index");
             }
             else
             {

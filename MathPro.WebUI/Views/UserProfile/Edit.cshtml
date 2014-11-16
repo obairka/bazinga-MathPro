@@ -1,11 +1,11 @@
 ﻿@model MathPro.WebUI.Models.UserProfileViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Редактировать информацию";
 }
 
 
-<h2>Edit.</h2>
+<h2>@ViewBag.Title</h2>
 
 
 @using (Html.BeginForm())
@@ -13,10 +13,10 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Edit User Form.</h4>
+        <h4>@Model.FullName</h4>
         <hr />
         @Html.ValidationSummary(true)
-        @Html.HiddenFor(model => model.Id)
+        
 
         <div class="form-group">
             @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
@@ -38,7 +38,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FirstName, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @Value = (Model == null) ? "" : Model.FirstName })
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @Value =  Model.FirstName })
                 @Html.ValidationMessageFor(model => model.FirstName)
             </div>
         </div>
@@ -46,7 +46,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.LastName, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @Value = (Model == null) ? "" : Model.LastName })
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @Value = Model.LastName })
                 @Html.ValidationMessageFor(model => model.LastName)
             </div>
         </div>
@@ -55,7 +55,7 @@
             @Html.LabelFor(model => model.BirthDate, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <!-- TODO: Datepeeker -->
-                @Html.TextBoxFor(m => m.BirthDate, new { @class = "form-control", @Value = (Model == null) ? "" : Model.BirthDate.ToString() })
+                @Html.TextBoxFor(m => m.BirthDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @Value = Model.BirthDate == null ? "" : Model.BirthDate.Value.Date.ToString("dd.MM.yyyy") })
                 @Html.ValidationMessageFor(model => model.BirthDate)
             </div>
         </div>

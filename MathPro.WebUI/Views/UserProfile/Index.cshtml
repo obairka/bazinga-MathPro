@@ -1,13 +1,12 @@
-﻿@model MathPro.Domain.Entities.ApplicationUser
-
+﻿@model MathPro.WebUI.Models.UserProfileViewModel
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Информация о пользователе";
 }
 
-<h2>Details.</h2>
+<h2>@ViewBag.Title</h2>
 
 <div>
-    <h4>User</h4>
+    <h4>@Model.FullName </h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -73,5 +72,5 @@
 </div> 
 
 <p>
-    @Html.ActionLink("Edit", "Edit") 
+    @Html.ActionLink("Изменить", "Edit") 
 </p>
