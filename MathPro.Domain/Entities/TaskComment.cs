@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 namespace MathPro.Domain.Entities
 {
     public class TaskComment
-    {
-        
+    {        
         public int TaskCommentId { get; set; }
 
         [Required]

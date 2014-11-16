@@ -127,9 +127,11 @@
     <Compile Include="Entities\Complexity.cs" />
     <Compile Include="Entities\MathAssignment.cs" />
     <Compile Include="Entities\MathAssignmentSubsection.cs" />
+    <Compile Include="Entities\Message.cs" />
     <Compile Include="Entities\Section.cs" />
     <Compile Include="Entities\Subsection.cs" />
     <Compile Include="Entities\TaskComment.cs" />
+    <Compile Include="Entities\UserAttempt.cs" />
     <Compile Include="Infrastructure\PastDateAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

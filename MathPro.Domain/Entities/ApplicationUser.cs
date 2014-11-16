@@ -65,6 +65,8 @@ namespace MathPro.Domain.Entities
         public int Rating { get; set; }
 
         public virtual ICollection<TaskComment> TaskComments { get; set; }
+        // All one user's attempts
+        public virtual ICollection<UserAttempt> UserAttempts { get; set; }
 
     }
 }
