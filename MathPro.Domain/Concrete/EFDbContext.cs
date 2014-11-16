@@ -25,6 +25,9 @@ namespace MathPro.Domain.Concrete
         public DbSet<MathAssignment> MathAssignments { get; set; }
         public DbSet<MathAssignmentSubsection> MathAssignmentSubsections { get; set; }
 
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<UserAttempt> UserAttempts { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<MathAssignmentSubsection>()

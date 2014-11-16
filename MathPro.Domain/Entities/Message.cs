@@ -10,11 +10,11 @@ namespace MathPro.Domain.Entities
         // TODO: use or not to use complex key ?
         public int MessageId { get; set; }
                 
-        public int SenderId { get; set; }
+        public string SenderId { get; set; }
         [ForeignKey("SenderId")]
         public virtual ApplicationUser Sender { get; set; }
 
-        public int RecipientId { get; set; }
+        public string RecipientId { get; set; }
         [ForeignKey("RecipientId")]
         public virtual ApplicationUser Recipient { get; set; }
 
