@@ -39,6 +39,8 @@ namespace MathPro.Domain.Entities
 
         public virtual ICollection<TaskComment> TaskComments { get; set; }
 
+        public virtual ICollection<Subsection> Subsections { get; set; }
+
         // All users' all attempts on this assignment
         public virtual ICollection<UserAttempt> UserAttempts { get; set; }
 
