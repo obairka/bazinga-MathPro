@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace MathPro.Domain.Entities
         public int SubsectionId { get; set; }
 
         [Required]
+        [DisplayName("Подраздел")]
         public string Name { get; set; }
 
         public virtual ICollection<MathAssignment> MathAssignments{ get; set; }

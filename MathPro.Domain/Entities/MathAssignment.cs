@@ -43,7 +43,5 @@ namespace MathPro.Domain.Entities
 
         // All users' all attempts on this assignment
         public virtual ICollection<UserAttempt> UserAttempts { get; set; }
-
-        public virtual ICollection<Subsection> Subsections { get; set; }
     }
 }
