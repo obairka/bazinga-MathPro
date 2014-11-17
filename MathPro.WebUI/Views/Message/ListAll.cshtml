@@ -1,0 +1,23 @@
+﻿@model IEnumerable<MathPro.WebUI.Models.MessageViewModel> 
+@{
+    ViewBag.Title = "Сообщения";
+}
+
+<h2>ViewBag.Title</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.RenderPartial("_Message", item)
+            </td>
+        </tr>
+    }
+</table>

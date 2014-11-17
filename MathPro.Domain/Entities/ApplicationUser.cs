@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Security.Claims;
@@ -68,5 +69,29 @@ namespace MathPro.Domain.Entities
         // All one user's attempts
         public virtual ICollection<UserAttempt> UserAttempts { get; set; }
 
+
+        [InverseProperty("SenderId")]
+        public virtual ICollection<Message> MessagesISend { get; set; }
+        [InverseProperty("RecipientId")]
+        public virtual ICollection<Message> MessagesIReceive { get; set; }
+
+        [NotMapped]
+        public IEnumerable<Message> MyMessages
+        {
+            get
+            {
+                return MessagesISend.Union(MessagesIReceive).OrderBy(m => m.Created); 
+            }
+        }
+
+        [NotMapped]
+        // Users in converstion
+        public IEnumerable<ApplicationUser> Interlocutors
+        {
+            get
+            {
+                return MyMessages.Select(m => m.SenderId != this.Id ? m.Sender : m.Recipient);
+            }
+        }
     }
 }

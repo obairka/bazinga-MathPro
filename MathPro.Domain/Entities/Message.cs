@@ -19,10 +19,11 @@ namespace MathPro.Domain.Entities
         public virtual ApplicationUser Recipient { get; set; }
 
         public DateTime Created { get; set; }
-        // TODO: status is string ?
-        public string Status { get; set; }
         
-    
+        // TODO: Default: IsRead = false
+        [Required]
+        public bool IsRead { get; set; }
+        
         public string Subject { get; set; }
         
         [Required]

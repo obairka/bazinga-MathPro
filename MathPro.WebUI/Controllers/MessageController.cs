@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.Mvc;
 using MathPro.Domain.Concrete;
 using System.Data;
+using MathPro.WebUI.Models;
 
 namespace MathPro.WebUI.Controllers
 {
@@ -82,12 +83,11 @@ namespace MathPro.WebUI.Controllers
                         return HttpNotFound();
                     }
                     message.Created = DateTime.Now.ToUniversalTime();
+                    message.IsRead = false;
 
                     db.Messages.Add(message);
                     db.SaveChanges();
-
-                    // Send notify
-
+                    
 
                     // TODO:
                     return RedirectToAction("Send");
@@ -100,6 +100,24 @@ namespace MathPro.WebUI.Controllers
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
             return View(message);
+        }
+
+      
+        // 
+        // GET: 
+        public async Task<ActionResult> ListAll()
+        {
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            //TODO:
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            // select last message with every user sorted by created date
+
+            var messages = user.MyMessages.Select(m => new MessageViewModel(m, m.RecipientId == user.Id ? m.Sender : m.Recipient));
+
+            return View(messages);
         }
 
         public ActionResult RedirectAction { get; set; }

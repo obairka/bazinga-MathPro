@@ -1,0 +1,12 @@
+﻿@model MathPro.WebUI.Models.MessageViewModel
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"> @Model.User.UserName</h3>
+        <p class="text-muted">@Model.Subject | @Model.Created</p>
+    </div>
+
+    <div class="panel-body">
+        <p class="text-info">@Model.Body</p>
+    </div>
+</div>
