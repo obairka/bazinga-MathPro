@@ -70,9 +70,9 @@ namespace MathPro.Domain.Entities
         public virtual ICollection<UserAttempt> UserAttempts { get; set; }
 
 
-        [InverseProperty("SenderId")]
+        [InverseProperty("Sender")]
         public virtual ICollection<Message> MessagesISend { get; set; }
-        [InverseProperty("RecipientId")]
+        [InverseProperty("Recipient")]
         public virtual ICollection<Message> MessagesIReceive { get; set; }
 
         [NotMapped]

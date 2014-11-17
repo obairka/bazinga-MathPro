@@ -120,6 +120,14 @@ namespace MathPro.WebUI.Controllers
             return View(messages);
         }
 
+        public JsonResult Autocomplete(string term)
+        {
+            var result = new List<KeyValuePair<string, string>>();
+            UserManager.Users.ToList().ForEach(u => result.Add(new KeyValuePair<string, string>( u.Id, u.UserName)));
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
         public ActionResult RedirectAction { get; set; }
     }
 }
