@@ -15,6 +15,6 @@ namespace MathPro.Domain.Entities
         [Required]
         public string Name { get; set; }
 
-        public virtual ICollection<MathAssignmentSubsection> MathAssignmentSubsections { get; set; }
+        public virtual ICollection<MathAssignment> MathAssignments { get; set; }
     }
 }
