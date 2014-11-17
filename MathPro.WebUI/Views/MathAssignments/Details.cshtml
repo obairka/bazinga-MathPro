@@ -1,0 +1,58 @@
+﻿@model MathPro.Domain.Entities.MathAssignment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MathAssignment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Complexity.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Complexity.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Section.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Section.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AssignmentText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AssignmentText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PointsForAssignment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PointsForAssignment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Answer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Answer)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MathAssignmentId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

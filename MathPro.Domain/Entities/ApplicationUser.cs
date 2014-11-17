@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using MathPro.Domain.Infrastructure;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MathPro.Domain.Entities
 {
@@ -67,6 +68,28 @@ namespace MathPro.Domain.Entities
         public virtual ICollection<TaskComment> TaskComments { get; set; }
         // All one user's attempts
         public virtual ICollection<UserAttempt> UserAttempts { get; set; }
+
+        [InverseProperty("Sender")]
+        public virtual ICollection<Message> MessagesISend { get; set; }
+        [InverseProperty("Recipient")]
+        public virtual ICollection<Message> MessagesIReceive { get; set; }
+        [NotMapped]
+        public IEnumerable<Message> MyMessages
+        {
+            get
+            {
+                return MessagesISend.Union(MessagesIReceive).OrderBy(m => m.Created);
+            }
+        }
+        [NotMapped]
+        // Users in converstion
+        public IEnumerable<ApplicationUser> Interlocutors
+        {
+            get
+            {
+                return MyMessages.Select(m => m.SenderId != this.Id ? m.Sender : m.Recipient);
+            }
+        }
 
     }
 }
