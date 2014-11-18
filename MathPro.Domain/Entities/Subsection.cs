@@ -18,5 +18,6 @@ namespace MathPro.Domain.Entities
         public string Name { get; set; }
 
         public virtual ICollection<MathAssignment> MathAssignments{ get; set; }
+
     }
 }

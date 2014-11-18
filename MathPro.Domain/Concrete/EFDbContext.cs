@@ -25,16 +25,16 @@ namespace MathPro.Domain.Concrete
         public DbSet<MathAssignment> MathAssignments { get; set; }
 
         public DbSet<Message> Messages { get; set; }
-        public DbSet<UserAttempt> UserAttempt { get; set; }
+        public DbSet<UserAttempt> UserAttempts { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<MathAssignment>()
-              .HasMany(c => c.Subsections).WithMany(i => i.MathAssignments)
-              .Map(t => t.MapLeftKey("MathAssignmentId")
-                  .MapRightKey("SubsectionId")
-                  .ToTable("MathAssignmentSubsection"));
-
+             .HasMany(c => c.Subsections).WithMany(i => i.MathAssignments)
+             .Map(t => t.MapLeftKey("MathAssignmentId")
+                 .MapRightKey("SubsectionId")
+                 .ToTable("MathAssignmentSubsection"));
+            
         }
     }
 }

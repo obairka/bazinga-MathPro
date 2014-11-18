@@ -8,6 +8,7 @@ namespace MathPro.Domain.Entities
     {
         // TODO: use or not to use complex key ?
         public int MessageId { get; set; }
+        
         public string SenderId { get; set; }
         [ForeignKey("SenderId")]
         public virtual ApplicationUser Sender { get; set; }
@@ -15,9 +16,11 @@ namespace MathPro.Domain.Entities
         [ForeignKey("RecipientId")]
         public virtual ApplicationUser Recipient { get; set; }
         public DateTime Created { get; set; }
+       
         // TODO: Default: IsRead = false
         [Required]
         public bool IsRead { get; set; }
+        
         public string Subject { get; set; }
         [Required]
         public string Body { get; set; }

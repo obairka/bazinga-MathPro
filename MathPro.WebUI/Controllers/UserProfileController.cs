@@ -69,7 +69,6 @@ namespace MathPro.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(UserProfileViewModel editUser)
         {
-
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
