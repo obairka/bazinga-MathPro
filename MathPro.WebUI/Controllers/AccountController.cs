@@ -19,6 +19,17 @@ namespace MathPro.WebUI.Controllers
     public class AccountController : Controller
     {
         private ApplicationUserManager _userManager;
+
+        public AccountController()
+        {
+        }
+        
+
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        {
+            UserManager = userManager;
+            SignInManager = signInManager;
+        }
         public ApplicationUserManager UserManager
         {
             get
@@ -30,6 +41,7 @@ namespace MathPro.WebUI.Controllers
                 _userManager = value;
             }
         }
+
         private ApplicationSignInManager _signInManager;
         public ApplicationSignInManager SignInManager
         {
@@ -40,16 +52,6 @@ namespace MathPro.WebUI.Controllers
             private set { _signInManager = value; }
         }
 
-        public AccountController()
-        {
-        }
-
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-         
 
         //
         // GET: /Account/Login

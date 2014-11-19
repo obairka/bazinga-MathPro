@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 using MathPro.Domain.Entities;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace MathPro.Domain.Concrete
+namespace MathPro.WebUI.DbContexts
 {
     public class EFDbContext : DbContext
     {
         public EFDbContext()
             : base("DefaultConnection")
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<EFDbContext, MathPro.Domain.EFDbContextMigrations.Configuration>("DefaultConnection"));
+            
         }
 
         public DbSet<Complexity> Complexities { get; set; }
@@ -34,6 +34,11 @@ namespace MathPro.Domain.Concrete
              .Map(t => t.MapLeftKey("MathAssignmentId")
                  .MapRightKey("SubsectionId")
                  .ToTable("MathAssignmentSubsection"));
+
+            // see http://stackoverflow.com/questions/19994590/asp-net-identity-validation-error
+            modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
+            modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
+            modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
             
         }
     }

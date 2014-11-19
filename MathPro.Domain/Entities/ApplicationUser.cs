@@ -8,7 +8,6 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using MathPro.Domain.Infrastructure;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace MathPro.Domain.Entities
 {
