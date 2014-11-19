@@ -14,7 +14,7 @@ namespace MathPro.WebUI.Controllers
     [Authorize(Roles = "Admin")]
     public class SubsectionsController : Controller
     {
-        private EFDbContext db = new EFDbContext();
+        private ApplicationDb db = new ApplicationDb();
 
         // GET: Subsections
         public ActionResult Index()

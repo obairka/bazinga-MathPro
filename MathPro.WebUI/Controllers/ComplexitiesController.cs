@@ -14,7 +14,7 @@ namespace MathPro.WebUI.Controllers
     [Authorize(Roles = "Admin")]
     public class ComplexitiesController : Controller
     {
-        private EFDbContext db = new EFDbContext();
+        private ApplicationDb db = new ApplicationDb();
 
         // GET: Complexities
         public ActionResult Index()

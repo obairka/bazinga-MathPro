@@ -28,7 +28,7 @@ namespace MathPro.WebUI.Controllers
             
         }
 
-        private EFDbContext db = new EFDbContext();
+        private ApplicationDb db = new ApplicationDb();
         private ApplicationUserManager _userManager;
         public ApplicationUserManager UserManager
         {

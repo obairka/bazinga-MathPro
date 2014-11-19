@@ -16,7 +16,7 @@ namespace MathPro.WebUI.Controllers
     [Authorize(Roles = "Admin")]
     public class MathAssignmentsController : Controller
     {
-        private EFDbContext db = new EFDbContext();
+        private ApplicationDb db = new ApplicationDb();
 
         // GET: MathAssignments
         public ActionResult Index()

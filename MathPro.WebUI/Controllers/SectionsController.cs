@@ -14,7 +14,7 @@ namespace MathPro.WebUI.Controllers
     [Authorize(Roles = "Admin")]
     public class SectionsController : Controller
     {
-        private EFDbContext db = new EFDbContext();
+        private ApplicationDb db = new ApplicationDb();
 
         // GET: Sections
         public ActionResult Index()

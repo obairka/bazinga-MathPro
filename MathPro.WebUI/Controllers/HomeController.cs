@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using System.Net;
 using MathPro.WebUI.Models;
+using MathPro.WebUI.DbContexts;
 
 namespace MathPro.WebUI.Controllers
 {
@@ -51,14 +52,15 @@ namespace MathPro.WebUI.Controllers
 
 
         //
-        // Rating
+        // Ratings
         // GET:
         public async Task<ActionResult> Ratings()
         {
-            IList<UserProfileBriefViewModel> list = new List<UserProfileBriefViewModel>();
-            await UserManager.Users.ForEachAsync(u => list.Add(new UserProfileBriefViewModel(u)));                 
-            
-            return View(list);
+            var users = await UserManager.Users.ToListAsync();
+            var result = users.Where(u => !UserManager.IsInRole(u.Id, "Admin"))
+                .Select(s => new UserProfileBriefViewModel(s)).ToList();
+                
+            return View(result);
         }
     }
 }

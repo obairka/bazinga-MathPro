@@ -23,18 +23,16 @@ namespace MathPro.Domain.Entities
         }
 
         [Required]
-        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 2)]
         public string FirstName { get; set; }
 
         [Required]
-        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 2)]
         public string LastName { get; set; }
 
         // BirthDate should be expressed as a date without time component
         
         [DataType(DataType.Date)]
         // BirthDate can't be in the future or present
-        [PastDate(ErrorMessage = "Birthdate can't be in the future or present")]
+        [PastDate]
         public DateTime? BirthDate { get; set; }
 
         
