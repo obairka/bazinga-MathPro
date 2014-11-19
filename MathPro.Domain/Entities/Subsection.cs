@@ -17,7 +17,8 @@ namespace MathPro.Domain.Entities
         [DisplayName("Подраздел")]
         public string Name { get; set; }
 
-        public virtual ICollection<MathAssignment> MathAssignments{ get; set; }
+        public bool IsSelected { get; set; }
 
+        public virtual ICollection<MathAssignment> MathAssignments{ get; set; }
     }
 }

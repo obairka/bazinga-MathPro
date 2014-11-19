@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Dynamic;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using MathPro.Domain.Concrete;
@@ -43,7 +45,11 @@ namespace MathPro.WebUI.Controllers
         {
             ViewBag.ComplexityId = new SelectList(db.Complexities, "ComplexityId", "Name");
             ViewBag.SectionId = new SelectList(db.Sections, "SectionId", "Name");
-            return View();
+
+            MathAssignmentSubsectionViewModel maSm = new MathAssignmentSubsectionViewModel();
+            maSm.subsections = new List<Subsection>(db.Subsections);
+
+            return View(maSm);
         }
 
         // POST: MathAssignments/Create
@@ -51,18 +57,37 @@ namespace MathPro.WebUI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MathAssignmentId,SectionId,ComplexityId,AssignmentText,PointsForAssignment,Answer")] MathAssignment mathAssignment)
+        //public ActionResult Create([Bind(Include = "MathAssignmentId,SectionId,ComplexityId,AssignmentText,PointsForAssignment,Answer,Subsections")] MathAssignment mathAssignment)
+        public string Create(MathAssignmentSubsectionViewModel maSm)
         {
-            if (ModelState.IsValid)
+            if (maSm.subsections.Count(x => x.IsSelected) == 0)
             {
-                db.MathAssignments.Add(mathAssignment);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return "You haven't chosen anything, please try again";
             }
+            else
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("You selected - ");
+                foreach (var el in maSm.subsections)
+                {
+                    if (el.IsSelected)
+                    {
+                        sb.Append(el.Name + ", ");
+                    }
+                }
+                sb.Remove(sb.ToString().LastIndexOf(","), 1);
+                return sb.ToString();
+            }
+            //if (ModelState.IsValid)
+            //{
+            //    db.MathAssignments.Add(mathAssignment);
+            //    db.SaveChanges();
+            //    return RedirectToAction("Index");
+            //}
 
-            ViewBag.ComplexityId = new SelectList(db.Complexities, "ComplexityId", "Name", mathAssignment.ComplexityId);
-            ViewBag.SectionId = new SelectList(db.Sections, "SectionId", "Name", mathAssignment.SectionId);
-            return View(mathAssignment);
+            //ViewBag.ComplexityId = new SelectList(db.Complexities, "ComplexityId", "Name", mathAssignment.ComplexityId);
+            //ViewBag.SectionId = new SelectList(db.Sections, "SectionId", "Name", mathAssignment.SectionId);
+            //return View();
         }
 
         // GET: MathAssignments/Edit/5

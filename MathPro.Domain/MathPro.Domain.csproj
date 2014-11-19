@@ -111,21 +111,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationDbContextMigrations\201411150918370_InitialCreate.cs" />
-    <Compile Include="ApplicationDbContextMigrations\201411150918370_InitialCreate.Designer.cs">
-      <DependentUpon>201411150918370_InitialCreate.cs</DependentUpon>
+    <Compile Include="ApplicationDbContextMigrations\201411181645187_Initial.cs" />
+    <Compile Include="ApplicationDbContextMigrations\201411181645187_Initial.Designer.cs">
+      <DependentUpon>201411181645187_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="ApplicationDbContextMigrations\Configuration.cs" />
     <Compile Include="Concrete\ApplicationDbContext.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="EFDbContextMigrations\201411151000319_Initial.cs" />
-    <Compile Include="EFDbContextMigrations\201411151000319_Initial.Designer.cs">
-      <DependentUpon>201411151000319_Initial.cs</DependentUpon>
-    </Compile>
     <Compile Include="EFDbContextMigrations\Configuration.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\Complexity.cs" />
     <Compile Include="Entities\MathAssignment.cs" />
+    <Compile Include="Entities\MathAssignmentSubsectionViewModel.cs" />
     <Compile Include="Entities\Message.cs" />
     <Compile Include="Entities\Section.cs" />
     <Compile Include="Entities\Subsection.cs" />
@@ -135,17 +133,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ApplicationDbContextMigrations\201411150918370_InitialCreate.resx">
-      <DependentUpon>201411150918370_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EFDbContextMigrations\201411151000319_Initial.resx">
-      <DependentUpon>201411151000319_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="ApplicationDbContextMigrations\201411181645187_Initial.resx">
+      <DependentUpon>201411181645187_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
