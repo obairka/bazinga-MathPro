@@ -114,6 +114,7 @@
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\Complexity.cs" />
     <Compile Include="Entities\MathAssignment.cs" />
+    <Compile Include="Entities\MathAssignmentSubsectionViewModel.cs" />
     <Compile Include="Entities\Message.cs" />
     <Compile Include="Entities\Section.cs" />
     <Compile Include="Entities\Subsection.cs" />
@@ -126,6 +127,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
