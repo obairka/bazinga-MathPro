@@ -6,9 +6,16 @@ using System.Web;
 
 namespace MathPro.WebUI.Models
 {
+    public class PagingInfo
+    {
+        public int TotalPages { get; set; }
+        public int ItemsPerPage { get; set; }
+        public int CurrentPage { get; set; }
+    }
+
     public class MessageViewModel
     {
-        public MessageViewModel(Message message, ApplicationUser other)
+        public MessageViewModel(Message message, ApplicationUser sender, ApplicationUser recipient)
         {
             MessageId = message.MessageId;
             IsRead = message.IsRead;
@@ -16,12 +23,14 @@ namespace MathPro.WebUI.Models
             Body = message.Body;
             Created = message.CreatedOn;
 
-            User = other;
+            Sender = sender;
+            Recipient = recipient;
         
         }
         public int MessageId { get; set; }
 
-        public ApplicationUser User { get; set; }
+        public ApplicationUser Sender { get; set; }
+        public ApplicationUser Recipient { get; set; }
 
         public DateTime Created { get; set; }
 
@@ -31,6 +40,13 @@ namespace MathPro.WebUI.Models
         public string Subject { get; set; }
 
         public string Body { get; set; }
+
+    }
+
+    public class MessageListViewModel
+    {
+        public IEnumerable<MessageViewModel> Messages { get; set; }
+        public PagingInfo PagingInfo { get; set; }
 
     }
 }

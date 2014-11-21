@@ -1,18 +1,35 @@
-﻿@model IEnumerable<MathPro.WebUI.Models.MessageViewModel> 
+﻿@model MathPro.WebUI.Models.MessageListViewModel
 @{
-    ViewBag.Title = "Сообщения";
+    ViewBag.Title = "Мои сообщения";
+    
 }
 
-<h2>@ViewBag.Title</h2>
+<div class="page-header">
+    <h2>@ViewBag.Title</h2>
+</div>
 
+@if (Model.PagingInfo.TotalPages == 0)
+{
+    <div class="row">
+        <div class="col-md-4">
+            <div class="alert alert-info" role="alert">
+                <p>Ooops! У тебя нет сообщений !</p>
+            </div>
+        </div>
+        <div class="col-md-8">
 
+        </div>
+    </div>
+
+}
+else { 
 <table class="table">
     <tr>
         <th>
-            
+                    
         </th>
     </tr>
-    @foreach (var item in Model)
+    @foreach (var item in Model.Messages)
     {
         <tr>
             <td>
@@ -22,6 +39,7 @@
     }
 </table>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+<div>
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("Index", new { page = x }))
+</div>
 }

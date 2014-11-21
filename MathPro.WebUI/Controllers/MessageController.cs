@@ -17,6 +17,9 @@ namespace MathPro.WebUI.Controllers
     [Authorize]
     public class MessageController : Controller
     {
+
+        public int PagesSize = 4;
+
         public MessageController()
         {
            
@@ -24,8 +27,7 @@ namespace MathPro.WebUI.Controllers
 
         public MessageController(ApplicationUserManager userManager)
         {   
-            UserManager = userManager;
-            
+            UserManager = userManager;            
         }
 
         private ApplicationDb db = new ApplicationDb();
@@ -41,6 +43,38 @@ namespace MathPro.WebUI.Controllers
                 _userManager = value;
             }
         }
+
+
+
+        // 
+        // GET: 
+        public async Task<ActionResult> Index(int page=1)
+        {
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            //TODO:
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            // select last message with every user sorted by created date
+
+            MessageListViewModel model = new MessageListViewModel
+            {
+                Messages = user.MyMessages.Select( m => new MessageViewModel(m, m.Sender, m.Recipient))
+                    .OrderByDescending(mv => mv.Created)
+                    .Skip( (page-1) * PagesSize)
+                    .Take(PagesSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PagesSize,
+                    TotalPages = user.MyMessages.Count()
+                }
+            };
+
+            return View(model);
+        }
+
          
         // GET: 
         public async Task<ActionResult> Send()
@@ -95,33 +129,5 @@ namespace MathPro.WebUI.Controllers
             }
             return View(message);
         }
-
-      
-        // 
-        // GET: 
-        public async Task<ActionResult> Index()
-        {
-            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-            //TODO:
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            // select last message with every user sorted by created date
-
-            var messages = user.MyMessages.Select(m => new MessageViewModel(m, m.RecipientId == user.Id ? m.Sender : m.Recipient));
-
-            return View(messages);
-        }
-
-        public JsonResult Autocomplete(string term)
-        {
-            var result = new List<KeyValuePair<string, string>>();
-            UserManager.Users.ToList().ForEach(u => result.Add(new KeyValuePair<string, string>( u.Id, u.UserName)));
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
-
-        public ActionResult RedirectAction { get; set; }
     }
 }
