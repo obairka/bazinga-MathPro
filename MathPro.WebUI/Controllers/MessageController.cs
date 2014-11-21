@@ -12,6 +12,8 @@ using MathPro.WebUI.DbContexts;
 using System.Data;
 using MathPro.WebUI.Models;
 
+
+
 namespace MathPro.WebUI.Controllers
 {
     [Authorize]
@@ -85,9 +87,9 @@ namespace MathPro.WebUI.Controllers
             {
                 return HttpNotFound();
             }
-            Message message = new Message
+            MessageSendModel message = new MessageSendModel
             {
-                Sender = user
+
             };
             return View(message);
         }
@@ -96,29 +98,38 @@ namespace MathPro.WebUI.Controllers
         // POST: /
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Send(Message message)
+        public async Task<ActionResult> Send(MessageSendModel sendMessage)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     // check recipient id
-                    var user = await UserManager.FindByIdAsync(message.RecipientId);
-
+                    var user = await UserManager.FindByNameAsync(sendMessage.RecipientUserName);
+                    var me = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                     // TODO:
                     if (user == null)
                     {
                         return HttpNotFound();
                     }
-                    message.CreatedOn = DateTime.Now.ToUniversalTime();
-                    message.IsRead = false;
+                    Message message = new Message
+                    {
+                        RecipientId = user.Id,
+                        //Recipient = user,
+                        SenderId = me.Id,
+                        //Sender = me,
+                        Subject = sendMessage.Subject,
+                        Body = sendMessage.Body,
+                        CreatedOn = DateTime.Now.ToUniversalTime(),
+                        IsRead = false,
+                    };
 
                     db.Messages.Add(message);
                     db.SaveChanges();
                     
 
                     // TODO:
-                    return RedirectToAction("Send");
+                    return RedirectToAction("Index");
 
                 }
             }
@@ -127,17 +138,21 @@ namespace MathPro.WebUI.Controllers
                 // TODO: Log the error (uncomment dex variable name and add a line here to write a log.
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
-            return View(message);
+            return View(sendMessage);
         }
 
-        public JSonResult AutoComplete(string piece)
+        [HttpPost]
+        public JsonResult AutoCompleteUserNames(string term)
         {
-            string starter = piece.Trim();
+            string starter = term.Trim();
             var userNames = UserManager.Users.ToList()
-                .Where(u => u.UserName.StartsWith(starter))
-                
+                .Select(u => u.UserName)
+                .Where(s => s.Contains(starter))
+                .OrderBy(n => n)
+                .Take(4)
+                .ToList();
 
-            return null;
+            return Json(userNames);
         }
         
     }

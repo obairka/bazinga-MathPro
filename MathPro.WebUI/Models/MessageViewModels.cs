@@ -1,6 +1,7 @@
 ﻿using MathPro.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -41,6 +42,16 @@ namespace MathPro.WebUI.Models
 
         public string Body { get; set; }
 
+    }
+
+    public class MessageSendModel
+    {
+        [Required]
+        public string RecipientUserName { get; set; }
+        [Required]
+        public string Subject { get; set; }
+        [Required]
+        public string Body { get; set; }
     }
 
 
