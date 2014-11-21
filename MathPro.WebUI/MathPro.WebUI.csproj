@@ -304,6 +304,7 @@
     <Content Include="Views\Message\_Message.cshtml" />
     <Content Include="Views\UserProfile\_BriefProfile.cshtml" />
     <Content Include="Views\Shared\_UserProfileBreadcrumbs.cshtml" />
+    <Content Include="Views\Shared\_MessageBreadcrumbs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
