@@ -3,10 +3,11 @@
     padding-bottom: 20px;
 }
 
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -14,4 +15,31 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+/* Dropdown list */
+#TableListDropDown {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    position: absolute;
+    display: none;
+    z-index: 50;
+    background: #000;
+}
+
+#TableEdit:hover #TableListDropDown {
+    display: block;
+}
+
+.DropDownElement {
+    height: 30px;
+    width: auto;
+}
+
+
+
+.user-panel {
+    padding-top: 30px
 }

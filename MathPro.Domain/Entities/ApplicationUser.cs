@@ -21,11 +21,8 @@ namespace MathPro.Domain.Entities
             // Add custom user claims here
             return userIdentity;
         }
-
-        [Required]
+    
         public string FirstName { get; set; }
-
-        [Required]
         public string LastName { get; set; }
 
         // BirthDate should be expressed as a date without time component
@@ -37,7 +34,6 @@ namespace MathPro.Domain.Entities
 
         
         [NotMapped]
-        // TODO: delete : People cant live longer than 200 years :D
         [Range(0, 200)]
         public int? Age 
         {
@@ -54,6 +50,7 @@ namespace MathPro.Domain.Entities
             }  
         }
       
+        // TODO: auto setting
         [Required]
         public DateTime LastVisitDate { get; set; }
         
@@ -77,7 +74,7 @@ namespace MathPro.Domain.Entities
         {
             get
             {
-                return MessagesISend.Union(MessagesIReceive).OrderBy(m => m.Created);
+                return MessagesISend.Union(MessagesIReceive).OrderBy(m => m.CreatedOn);
             }
         }
 

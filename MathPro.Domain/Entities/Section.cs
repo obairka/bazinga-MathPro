@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 namespace MathPro.Domain.Entities
 {
     public class Section
-    {
-        
+    {        
         public int SectionId { get; set; }
 
         [Required]

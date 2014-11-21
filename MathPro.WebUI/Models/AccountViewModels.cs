@@ -19,7 +19,9 @@ namespace MathPro.WebUI.Models
             Email = user.Email;
             Age = user.Age;
             Rating = user.Rating;
+            UserId = user.Id;
         }
+        public string UserId { get; set; }
 
         [Required]
         [StringLength(30, ErrorMessage = "Логин должен быть не короче {2} символов", MinimumLength = 6)]
@@ -82,7 +84,11 @@ namespace MathPro.WebUI.Models
         {
             get
             {
-
+                // FullName - username if firstname or lastname wasn't set
+                if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName))
+                {
+                    return UserName;
+                }
                 return FirstName + " " + LastName;
             }
         }
@@ -146,16 +152,6 @@ namespace MathPro.WebUI.Models
 
     public class RegisterViewModel : UserProfileBriefViewModel
     {
-        [Required]
-        [StringLength(30, ErrorMessage = "Имя должно быть не короче {2} символов.", MinimumLength = 2)]
-        [Display(Name = "Имя")] 
-        public string FirstName { get; set; }
-
-        [Required]
-        [StringLength(30, ErrorMessage = "Фамилия должна быть не короче {2} символов.", MinimumLength = 2)]
-        [Display(Name = "Фамилия")]
-        public string LastName { get; set; } 
-
         [Required]
         [StringLength(100, ErrorMessage = "Пароль должен быть не короче {2} символов.", MinimumLength = 6)]
         [DataType(DataType.Password)]

@@ -62,7 +62,7 @@ namespace MathPro.WebUI.DbContexts
         
     }
 
-    public class ApplicationDbInitializer : DropCreateDatabaseAlways<ApplicationDb>
+    public class ApplicationDbInitializer : DropCreateDatabaseIfModelChanges<ApplicationDb>
     {
         protected override void Seed(ApplicationDb context)
         {

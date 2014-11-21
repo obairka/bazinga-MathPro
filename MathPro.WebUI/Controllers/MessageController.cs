@@ -42,12 +42,6 @@ namespace MathPro.WebUI.Controllers
             }
         }
          
-        //
-        // GET: 
-        public ActionResult Index()
-        {
-            return View();
-        }
         // GET: 
         public async Task<ActionResult> Send()
         {
@@ -82,7 +76,7 @@ namespace MathPro.WebUI.Controllers
                     {
                         return HttpNotFound();
                     }
-                    message.Created = DateTime.Now.ToUniversalTime();
+                    message.CreatedOn = DateTime.Now.ToUniversalTime();
                     message.IsRead = false;
 
                     db.Messages.Add(message);
@@ -105,7 +99,7 @@ namespace MathPro.WebUI.Controllers
       
         // 
         // GET: 
-        public async Task<ActionResult> ListAll()
+        public async Task<ActionResult> Index()
         {
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             //TODO:

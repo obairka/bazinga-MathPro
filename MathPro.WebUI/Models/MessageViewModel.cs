@@ -14,7 +14,7 @@ namespace MathPro.WebUI.Models
             IsRead = message.IsRead;
             Subject = message.Subject;
             Body = message.Body;
-            Created = message.Created;
+            Created = message.CreatedOn;
 
             User = other;
         

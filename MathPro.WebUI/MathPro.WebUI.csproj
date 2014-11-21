@@ -203,7 +203,6 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="CSS\dropDown.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -214,6 +213,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Resources\Images\user.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
@@ -276,7 +276,7 @@
     <Content Include="Views\UsersAdmin\Edit.cshtml" />
     <Content Include="Views\UsersAdmin\Index.cshtml" />
     <Content Include="Views\UserProfile\Edit.cshtml" />
-    <Content Include="Views\UserProfile\Index.cshtml" />
+    <Content Include="Views\UserProfile\Me.cshtml" />
     <Content Include="Views\Home\Ratings.cshtml" />
     <Content Include="Views\Complexities\Create.cshtml" />
     <Content Include="Views\Complexities\Delete.cshtml" />
@@ -299,8 +299,9 @@
     <Content Include="Views\MathAssignments\Edit.cshtml" />
     <Content Include="Views\MathAssignments\Index.cshtml" />
     <Content Include="Views\Message\Send.cshtml" />
-    <Content Include="Views\Message\ListAll.cshtml" />
+    <Content Include="Views\Message\Index.cshtml" />
     <Content Include="Views\Message\_Message.cshtml" />
+    <Content Include="Views\UserProfile\_BriefProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
