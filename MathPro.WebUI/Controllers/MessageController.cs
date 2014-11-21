@@ -129,5 +129,16 @@ namespace MathPro.WebUI.Controllers
             }
             return View(message);
         }
+
+        public JSonResult AutoComplete(string piece)
+        {
+            string starter = piece.Trim();
+            var userNames = UserManager.Users.ToList()
+                .Where(u => u.UserName.StartsWith(starter))
+                
+
+            return null;
+        }
+        
     }
 }

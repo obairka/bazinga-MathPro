@@ -123,17 +123,6 @@ namespace MathPro.WebUI.Controllers
             }
             return PartialView("_BriefProfile",new UserProfileBriefViewModel(user));            
         }
-        /*
-        [Authorize]
-        public JSonResult AutoComplete(string piece)
-        {
-            string starter = piece.Trim();
-            var userNames = UserManager.Users.ToList()
-                .Where(u => u.UserName.StartsWith(starter))
-                
-
-            return null;
-        }
-        */
+        
     }
 }
