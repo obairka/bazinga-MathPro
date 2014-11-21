@@ -11,10 +11,13 @@
             <img src="~/Resources/Images/user.png" alt="user_default_image" class="img-thumbnail">
             <h4 class="text-center"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> Rating: @Model.Rating</h4>
             <div class="list-group">
-                @Html.ActionLink("Мой профиль", "Me", "UserProfile", htmlAttributes: new { @class = "list-group-item" })
+                @Html.ActionLink("Мой профиль", "Me", new { controller = "UserProfile" }, new { @class = "list-group-item" })
                 <a href="@Url.Action("Index", "Message")" class="list-group-item">Мои Сообщения<span class="badge">4</span></a>
-                @Html.ActionLink("Мои попытки", "Index", "UserAttempt", htmlAttributes: new { @class = "list-group-item" })
-                @Html.ActionLink("Настройки", "Edit", "UserProfile", htmlAttributes: new { @class = "list-group-item" })
+                @Html.ActionLink("Мои попытки", "MyAttempts", new { controller = "UserAttempt" }, new { @class = "list-group-item" })               
+                @Html.ActionLink("Настройки аккаунта", "Index", new { controller = "Manage" }, new { @class = "list-group-item" })
+                
+
+
             </div>
         </div>
     </div>

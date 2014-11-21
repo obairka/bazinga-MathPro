@@ -97,7 +97,7 @@ namespace MathPro.WebUI.Controllers
                     ModelState.AddModelError("", result.Errors.First());
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Me");
             }
             else
             {

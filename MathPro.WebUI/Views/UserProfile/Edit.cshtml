@@ -3,18 +3,21 @@
 @{
     ViewBag.Title = "Редактировать информацию";
 }
+@Html.Partial("~/Views/Shared/_UserProfileBreadcrumbs.cshtml")
 
 
-<h2>@ViewBag.Title</h2>
-
+<div class="page-header">
+    <h2 class="text-info">@Model.FullName</h2>
+</div>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>@Model.FullName</h4>
-        <hr />
+        
+       
+        
         @Html.ValidationSummary(true)
         
 
