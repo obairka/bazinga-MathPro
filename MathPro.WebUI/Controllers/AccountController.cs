@@ -160,12 +160,10 @@ namespace MathPro.WebUI.Controllers
                 { 
                     UserName = model.UserName, 
                     Email = model.Email,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
                     Rating = 0,
                     // TODO: 
-                    RegistrationDate = DateTime.Now,
-                    LastVisitDate = DateTime.Now,
+                    RegistrationDate = DateTime.Now.ToUniversalTime(),
+                    LastVisitDate = DateTime.Now.ToUniversalTime(),
                 };
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

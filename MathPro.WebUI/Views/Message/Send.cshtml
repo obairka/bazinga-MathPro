@@ -1,76 +1,76 @@
-﻿@model MathPro.Domain.Entities.Message
+﻿@model MathPro.WebUI.Models.MessageSendModel
 
 @{
-    ViewBag.Title = "Отправить сообщение";
+    ViewBag.Title = "Написать сообщение";
+    AjaxOptions ajaxOpts = new AjaxOptions
+    {
+        UpdateTargetId = "tableBody",
+        Url = Url.Action("GetPeopleData"),
+        LoadingElementId = "loading",
+        LoadingElementDuration = 1000,
+        Confirm = "Do you wish to request new data?"
+    };
 }
 
-<h2>@ViewBag.Title</h2>
+@Html.Partial("~/Views/Shared/_MessageBreadcrumbs.cshtml")
 
-<link href="/Content/jquery.autocomplete.css" rel="stylesheet" type="text/css" media="screen" />
-<script type="text/javascript" src="/Scripts/jquery-1.2.6.js"></script>
-<script type="text/javascript" src="/Scripts/jquery.autocomplete.js"></script>
+<div class="page-header">
+    <h2>@ViewBag.Title</h2>
+</div>
 
-<form class="form-horizontal">
+
+@using (Html.BeginForm("Send", "Message", FormMethod.Post, new { @class = "form", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <div class="form-group">                                         
+        @Html.TextBoxFor(m => m.RecipientUserName, new { @class="form-control", id="whom", placeholder="Кому"}) 
+    </div>
+        
+    
     <div class="form-group">
-        <label class="control-label col-xs-2">Получатель</label>
-        <div class="col-xs-10">
-            
-            <div class="input-group">
-                
-                @Html.TextBoxFor(m => m.RecipientId, new { @class ="form-control", id = "Users" })              
-            </div>
-            
-        </div>
+        @Html.TextBoxFor(m => m.Subject, new { @class = "form-control", placeholder = "Тема" })
+        
     </div>
 
+
     <div class="form-group">
-        <label for="inputPassword" class="control-label col-xs-2">Текст</label>
-
-        <div class="col-xs-10">
-            <textarea class="form-control" rows="3"></textarea>
-        </div>
-
+        @Html.TextAreaFor(m => m.Body, new { @class="form-control", rows="8", placeholder="Введите сообщение"})
     </div>
     
     <div class="form-group">
-
-        <div class="col-xs-offset-2 col-xs-10">
-
-            <button type="submit" class="btn btn-primary">Send</button>
-
-        </div>
-
+            <input type="submit" class="btn btn-primary" value="Отправить" />
     </div>
-
-</form>
-
-
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#Users").autocomplete({
-            source: function(request,response) {
-                $.ajax({
-                    url: "/Message/Autocomplete",
-                    type: "POST",
-                    dataType: "json",
-                    data: { term: request.term },
-                    success: function (data) {
-                        response($.map(data, function (item) {
-                            return { label: item.Key, value: item.Vaue };
-                        }))
-
-                    }
-                })
-            },
-            messages: {
-                noResults: "", results: ""
-            }
-        });
-    })
-</script>
-
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    
 }
+
+<script>
+    $(document).ready( function()
+    {
+        $("#whom").autocomplete(
+            {
+                source: function(request, response)
+                {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Message/AutoCompleteUserNames",
+                        data: {term: request.term},
+                        dataType: "json",
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return { label: item, value: item}
+                            }))
+                        },
+                    });
+                },
+                messages: {
+
+                    noResults: "", results: ""
+
+                }
+            }
+        );
+    });
+
+</script>

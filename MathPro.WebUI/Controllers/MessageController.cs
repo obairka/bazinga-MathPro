@@ -12,11 +12,16 @@ using MathPro.WebUI.DbContexts;
 using System.Data;
 using MathPro.WebUI.Models;
 
+
+
 namespace MathPro.WebUI.Controllers
 {
     [Authorize]
     public class MessageController : Controller
     {
+
+        public int PagesSize = 4;
+
         public MessageController()
         {
            
@@ -24,8 +29,7 @@ namespace MathPro.WebUI.Controllers
 
         public MessageController(ApplicationUserManager userManager)
         {   
-            UserManager = userManager;
-            
+            UserManager = userManager;            
         }
 
         private ApplicationDb db = new ApplicationDb();
@@ -41,71 +45,12 @@ namespace MathPro.WebUI.Controllers
                 _userManager = value;
             }
         }
-         
-        //
-        // GET: 
-        public ActionResult Index()
-        {
-            return View();
-        }
-        // GET: 
-        public async Task<ActionResult> Send()
-        {
-            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-            //TODO:
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            Message message = new Message
-            {
-                Sender = user
-            };
-            return View(message);
-        }
 
-        //
-        // POST: /
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Send(Message message)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    // check recipient id
-                    var user = await UserManager.FindByIdAsync(message.RecipientId);
 
-                    // TODO:
-                    if (user == null)
-                    {
-                        return HttpNotFound();
-                    }
-                    message.Created = DateTime.Now.ToUniversalTime();
-                    message.IsRead = false;
 
-                    db.Messages.Add(message);
-                    db.SaveChanges();
-                    
-
-                    // TODO:
-                    return RedirectToAction("Send");
-
-                }
-            }
-            catch (DataException /* dex */)
-            {
-                // TODO: Log the error (uncomment dex variable name and add a line here to write a log.
-                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-            }
-            return View(message);
-        }
-
-      
         // 
         // GET: 
-        public async Task<ActionResult> ListAll()
+        public async Task<ActionResult> Index(int page=1)
         {
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             //TODO:
@@ -115,19 +60,100 @@ namespace MathPro.WebUI.Controllers
             }
             // select last message with every user sorted by created date
 
-            var messages = user.MyMessages.Select(m => new MessageViewModel(m, m.RecipientId == user.Id ? m.Sender : m.Recipient));
+            MessageListViewModel model = new MessageListViewModel
+            {
+                Messages = user.MyMessages.Select( m => new MessageViewModel(m, m.Sender, m.Recipient))
+                    .OrderByDescending(mv => mv.Created)
+                    .Skip( (page-1) * PagesSize)
+                    .Take(PagesSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PagesSize,
+                    TotalPages = user.MyMessages.Count()
+                }
+            };
 
-            return View(messages);
+            return View(model);
         }
 
-        public JsonResult Autocomplete(string term)
+         
+        // GET: 
+        public async Task<ActionResult> Send()
         {
-            var result = new List<KeyValuePair<string, string>>();
-            UserManager.Users.ToList().ForEach(u => result.Add(new KeyValuePair<string, string>( u.Id, u.UserName)));
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            //TODO:
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            MessageSendModel message = new MessageSendModel
+            {
+
+            };
+            return View(message);
         }
 
+        //
+        // POST: /
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Send(MessageSendModel sendMessage)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    // check recipient id
+                    var user = await UserManager.FindByNameAsync(sendMessage.RecipientUserName);
+                    var me = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                    // TODO:
+                    if (user == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    Message message = new Message
+                    {
+                        RecipientId = user.Id,
+                        //Recipient = user,
+                        SenderId = me.Id,
+                        //Sender = me,
+                        Subject = sendMessage.Subject,
+                        Body = sendMessage.Body,
+                        CreatedOn = DateTime.Now.ToUniversalTime(),
+                        IsRead = false,
+                    };
 
-        public ActionResult RedirectAction { get; set; }
+                    db.Messages.Add(message);
+                    db.SaveChanges();
+                    
+
+                    // TODO:
+                    return RedirectToAction("Index");
+
+                }
+            }
+            catch (DataException /* dex */)
+            {
+                // TODO: Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            }
+            return View(sendMessage);
+        }
+
+        [HttpPost]
+        public JsonResult AutoCompleteUserNames(string term)
+        {
+            string starter = term.Trim();
+            var userNames = UserManager.Users.ToList()
+                .Select(u => u.UserName)
+                .Where(s => s.Contains(starter))
+                .OrderBy(n => n)
+                .Take(4)
+                .ToList();
+
+            return Json(userNames);
+        }
+        
     }
 }

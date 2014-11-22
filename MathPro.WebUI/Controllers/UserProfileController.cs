@@ -14,8 +14,7 @@ using MathPro.Domain.Entities;
 using MathPro.WebUI.DbContexts;
 
 namespace MathPro.WebUI.Controllers
-{
-    [Authorize]
+{    
     public class UserProfileController : Controller
     {
         public UserProfileController()
@@ -40,18 +39,25 @@ namespace MathPro.WebUI.Controllers
             }
         }
          
-        //
-        // GET: /UserProfile
-        public async Task<ActionResult> Index()
-        {
-            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-            // TODO: 
 
+        // GET: /UserProfile/id
+        public async Task<ActionResult> Index(string id)
+        {
+            var user = await UserManager.FindByIdAsync(id);
             return View(new UserProfileViewModel(user));
         }
 
-        //
+        
+        // GET: /UserProfile/Me
+        [Authorize]
+        public async Task<ActionResult> Me()
+        {
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            return View(new UserProfileViewModel(user));
+        }
+
         // GET: /UserProfile/Edit
+        [Authorize]
         public async Task<ActionResult> Edit()
         {
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
@@ -65,6 +71,7 @@ namespace MathPro.WebUI.Controllers
 
         //
         // POST: /UserProfile/Edit
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(UserProfileViewModel editUser)
@@ -90,7 +97,7 @@ namespace MathPro.WebUI.Controllers
                     ModelState.AddModelError("", result.Errors.First());
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Me");
             }
             else
             {
@@ -104,6 +111,17 @@ namespace MathPro.WebUI.Controllers
                 }
                 return View(editUser);
             }
+        }
+        [Authorize]
+        // Get
+        public ActionResult BriefProfile()
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            if (null == user)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("_BriefProfile",new UserProfileBriefViewModel(user));            
         }
         
     }

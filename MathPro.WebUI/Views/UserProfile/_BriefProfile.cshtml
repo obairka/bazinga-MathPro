@@ -1,0 +1,22 @@
+﻿@model MathPro.WebUI.Models.UserProfileBriefViewModel
+
+<div class="user-panel">
+    <div class="panel panel-primary">
+
+        <div class="panel-heading">
+            <h3 class="panel-title">@Model.UserName</h3>
+        </div>
+        <div class="panel-body">
+            <!--User photo-->
+            <img src="~/Resources/Images/user.png" alt="user_default_image" class="img-thumbnail">
+            <h4 class="text-center"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> Рейтинг: @Model.Rating</h4>
+            <div class="list-group">
+                @Html.ActionLink("Мой профиль", "Me", new { controller = "UserProfile" }, new { @class = "list-group-item" })
+                <a href="@Url.Action("Index", "Message")" class="list-group-item">Мои Сообщения<span class="badge">4</span></a>
+                @Html.ActionLink("Мои попытки", "MyAttempts", new { controller = "UserAttempt" }, new { @class = "list-group-item" })               
+                @Html.ActionLink("Настройки аккаунта", "Index", new { controller = "Manage" }, new { @class = "list-group-item" })
+                
+            </div>
+        </div>
+    </div>
+</div>
