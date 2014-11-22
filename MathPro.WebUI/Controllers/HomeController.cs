@@ -46,17 +46,44 @@ namespace MathPro.WebUI.Controllers
             return View();
         }
 
-
+        private const int RatingPagesSize = 4;
         //
         // Ratings
         // GET:
-        public async Task<ActionResult> Ratings()
+        public async Task<ActionResult> Ratings(string sortOrder,int page = 1)
         {
-            var users = await UserManager.Users.ToListAsync();
-            var result = users.Where(u => !UserManager.IsInRole(u.Id, "Admin"))
-                .Select(s => new UserProfileBriefViewModel(s)).ToList();
+            ViewBag.RatingSortParam = String.IsNullOrEmpty(sortOrder) ? "rating_desc" : "" ;
 
-            return View(result);
+            var allUsers = await UserManager.Users.ToListAsync();
+            var users = allUsers.Where(u => !UserManager.IsInRole(u.Id, "Admin"))
+                .Select(s => new UserProfileBriefViewModel(s));          
+
+            switch (sortOrder)
+            {
+                case "rating_desc":
+                    users = users.OrderByDescending(u => u.Rating);
+                    break;
+                default:
+                    users = users.OrderBy(u => u.Rating);
+                    break;
+            }
+
+
+            UserRatingViewModel userRatingViewModel = new UserRatingViewModel
+            {
+                Users = users
+                    .Skip( (page-1) * RatingPagesSize)
+                    .Take(RatingPagesSize)
+                    .ToList(),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = RatingPagesSize,
+                    TotalItems = users.Count()
+                }
+            };
+
+            return View(userRatingViewModel);
         }
 
         [HttpGet]

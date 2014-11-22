@@ -20,7 +20,7 @@ namespace MathPro.WebUI.Controllers
     public class MessageController : Controller
     {
 
-        public int PagesSize = 4;
+        private const int PagesSize = 4;
 
         public MessageController()
         {
@@ -70,7 +70,7 @@ namespace MathPro.WebUI.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = PagesSize,
-                    TotalPages = user.MyMessages.Count()
+                    TotalItems = user.MyMessages.Count()
                 }
             };
 

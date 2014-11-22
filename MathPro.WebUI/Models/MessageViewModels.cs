@@ -7,13 +7,6 @@ using System.Web;
 
 namespace MathPro.WebUI.Models
 {
-    public class PagingInfo
-    {
-        public int TotalPages { get; set; }
-        public int ItemsPerPage { get; set; }
-        public int CurrentPage { get; set; }
-    }
-
     public class MessageViewModel
     {
         public MessageViewModel(Message message, ApplicationUser sender, ApplicationUser recipient)
