@@ -2,14 +2,6 @@
 
 @{
     ViewBag.Title = "Написать сообщение";
-    AjaxOptions ajaxOpts = new AjaxOptions
-    {
-        UpdateTargetId = "tableBody",
-        Url = Url.Action("GetPeopleData"),
-        LoadingElementId = "loading",
-        LoadingElementDuration = 1000,
-        Confirm = "Do you wish to request new data?"
-    };
 }
 
 @Html.Partial("~/Views/Shared/_MessageBreadcrumbs.cshtml")

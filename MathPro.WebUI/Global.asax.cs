@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MathPro.WebUI.Infrastructure.Binders;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -13,10 +14,13 @@ namespace MathPro.WebUI
     {
         protected void Application_Start()
        {
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);  
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            ModelBinders.Binders.Add(typeof(DateTime?), new DateTimeModelBinder()); 
         }
     }
 }

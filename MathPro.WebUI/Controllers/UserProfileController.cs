@@ -39,11 +39,20 @@ namespace MathPro.WebUI.Controllers
             }
         }
          
-
+        [Authorize]
         // GET: /UserProfile/id
-        public async Task<ActionResult> Index(string id)
+        public async Task<ActionResult> Index(string username)
         {
-            var user = await UserManager.FindByIdAsync(id);
+            if (string.IsNullOrEmpty(username))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var user = await UserManager.FindByNameAsync(username);
+            if (null == user)
+            {
+                // TODO:
+                return RedirectToAction("Index", "Home");
+            }
             return View(new UserProfileViewModel(user));
         }
 
@@ -53,6 +62,7 @@ namespace MathPro.WebUI.Controllers
         public async Task<ActionResult> Me()
         {
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+         
             return View(new UserProfileViewModel(user));
         }
 

@@ -10,11 +10,6 @@
 
 @Html.Partial("_Profile", Model)
 
-@using (Html.BeginForm("Send", "Message"))
-{
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(m => m.UserId)
-    
-    <button class="btn btn-inverse" title="Send" type="submit">Написать</button>
-}
+@Html.ActionLink("Написать", "Reply", "Message", new { username = Model.UserName }, null)
+
 

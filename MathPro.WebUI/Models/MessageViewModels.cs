@@ -9,27 +9,13 @@ namespace MathPro.WebUI.Models
 {
     public class MessageViewModel
     {
-        public MessageViewModel(Message message, ApplicationUser sender, ApplicationUser recipient, ApplicationUser other)
-        {
-            MessageId = message.MessageId;
-            IsRead = message.IsRead;
-            Subject = message.Subject;
-            Body = message.Body;
-            Created = message.CreatedOn;
 
-            Sender = sender;
-            Recipient = recipient;
-
-            OtherUser = other;
-        
-        }
         public int MessageId { get; set; }
+        public string OtherUser { get; set; }
+        public string Sender { get; set; }
+        public string Recipient { get; set; }
 
-        public ApplicationUser OtherUser { get; set; }
-        public ApplicationUser Sender { get; set; }
-        public ApplicationUser Recipient { get; set; }
-
-        public DateTime Created { get; set; }
+        public string Created { get; set; }
 
         // TODO: Default: IsRead = false
         public bool IsRead { get; set; }
