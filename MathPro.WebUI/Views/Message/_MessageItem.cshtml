@@ -1,0 +1,21 @@
+﻿@model MathPro.WebUI.Models.MessageViewModel
+
+
+<div class="media">
+    <a class="media-left" href="@Url.Action("Index", "UserProfile", new { id = Model.OtherUser.Id })">
+        <img src="~/Resources/Images/user_small.png" alt="user_default_image" class="img-thumbnail">
+    </a>
+
+    <a class="media-body" href="@Url.Action("Reply", "Message", new { id = Model.OtherUser.Id, messageViewModel = Model })">
+        <h4 class="media-heading">@Model.OtherUser.UserName</h4>
+        <h4 class="text-info"> @Model.Subject</h4>
+        <p class="text-muted" >
+            
+            @Model.Body.Substring(0, Math.Min(Model.Body.Length, 10))
+            <br />
+            ...
+            
+        </p>
+    </a>
+</div>
+

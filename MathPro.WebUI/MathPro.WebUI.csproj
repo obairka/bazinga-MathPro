@@ -251,6 +251,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Resources\Images\user.png" />
+    <Content Include="Resources\Images\user_small.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
@@ -339,12 +340,14 @@
     <Content Include="Views\MathAssignments\Index.cshtml" />
     <Content Include="Views\Message\Send.cshtml" />
     <Content Include="Views\Message\Index.cshtml" />
-    <Content Include="Views\Message\_Message.cshtml" />
+    <Content Include="Views\Message\_MessageItem.cshtml" />
     <Content Include="Views\Home\Assignments.cshtml" />
     <Content Include="Views\Home\AssignmentView.cshtml" />
     <Content Include="Views\UserProfile\_BriefProfile.cshtml" />
     <Content Include="Views\Shared\_UserProfileBreadcrumbs.cshtml" />
     <Content Include="Views\Shared\_MessageBreadcrumbs.cshtml" />
+    <Content Include="Views\UserProfile\_Profile.cshtml" />
+    <Content Include="Views\UserProfile\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

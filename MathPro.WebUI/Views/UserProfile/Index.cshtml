@@ -3,10 +3,18 @@
     ViewBag.Title = "Информация о пользователе";
 }
 
-@Html.Partial("~/Views/Shared/_UserProfileBreadcrumbs.cshtml")
 
 <div class="page-header">
     <h2>@ViewBag.Title <span class="text-info">@Model.FullName</span> </h2>
 </div>
 
 @Html.Partial("_Profile", Model)
+
+@using (Html.BeginForm("Send", "Message"))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.UserId)
+    
+    <button class="btn btn-inverse" title="Send" type="submit">Написать</button>
+}
+

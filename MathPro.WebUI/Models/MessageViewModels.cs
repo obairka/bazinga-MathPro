@@ -9,7 +9,7 @@ namespace MathPro.WebUI.Models
 {
     public class MessageViewModel
     {
-        public MessageViewModel(Message message, ApplicationUser sender, ApplicationUser recipient)
+        public MessageViewModel(Message message, ApplicationUser sender, ApplicationUser recipient, ApplicationUser other)
         {
             MessageId = message.MessageId;
             IsRead = message.IsRead;
@@ -19,10 +19,13 @@ namespace MathPro.WebUI.Models
 
             Sender = sender;
             Recipient = recipient;
+
+            OtherUser = other;
         
         }
         public int MessageId { get; set; }
 
+        public ApplicationUser OtherUser { get; set; }
         public ApplicationUser Sender { get; set; }
         public ApplicationUser Recipient { get; set; }
 
@@ -45,6 +48,9 @@ namespace MathPro.WebUI.Models
         public string Subject { get; set; }
         [Required]
         public string Body { get; set; }
+
+        public bool ShowPrevMessage { get; set; }
+        public MessageViewModel PrevMessage { get; set; }
     }
 
 

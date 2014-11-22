@@ -18,6 +18,10 @@
     <h2>@ViewBag.Title</h2>
 </div>
 
+@if (Model.ShowPrevMessage){
+    Html.Partial("_MessageItem", Model.PrevMessage);
+}
+
 
 @using (Html.BeginForm("Send", "Message", FormMethod.Post, new { @class = "form", role = "form" }))
 {

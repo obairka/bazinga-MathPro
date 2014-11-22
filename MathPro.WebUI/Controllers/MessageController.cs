@@ -62,7 +62,7 @@ namespace MathPro.WebUI.Controllers
 
             MessageListViewModel model = new MessageListViewModel
             {
-                Messages = user.MyMessages.Select( m => new MessageViewModel(m, m.Sender, m.Recipient))
+                Messages = user.MyMessages.Select( m => new MessageViewModel(m, m.Sender, m.Recipient, !m.Sender.Id.Equals(user.Id) ? m.Sender : m.Recipient ))
                     .OrderByDescending(mv => mv.Created)
                     .Skip( (page-1) * PagesSize)
                     .Take(PagesSize),
@@ -77,6 +77,24 @@ namespace MathPro.WebUI.Controllers
             return View(model);
         }
 
+        // GET:
+        public async Task<ActionResult> Reply(string id, MessageViewModel messageViewModel)
+        {
+            var recipient = await UserManager.FindByIdAsync(id);
+            if (recipient == null)
+            {
+                return HttpNotFound();
+            }
+            MessageSendModel message = new MessageSendModel
+            {
+                RecipientUserName = recipient.UserName,
+                ShowPrevMessage = (messageViewModel != null),
+                PrevMessage = messageViewModel,
+            };
+            return View("Send", message);
+    
+
+        }
          
         // GET: 
         public async Task<ActionResult> Send()
@@ -87,9 +105,11 @@ namespace MathPro.WebUI.Controllers
             {
                 return HttpNotFound();
             }
+            
             MessageSendModel message = new MessageSendModel
             {
-
+                ShowPrevMessage = false,
+                PrevMessage = null,
             };
             return View(message);
         }
