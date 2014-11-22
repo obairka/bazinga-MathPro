@@ -44,7 +44,7 @@
     </div>
     
 }
-
+@section Scripts {
 <script>
     $(document).ready( function()
     {
@@ -62,15 +62,13 @@
                                 return { label: item, value: item}
                             }))
                         },
+                        
                     });
                 },
-                messages: {
-
-                    noResults: "", results: ""
-
-                }
+                minLength: 2,
             }
         );
     });
 
 </script>
+}
