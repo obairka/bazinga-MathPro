@@ -1,4 +1,5 @@
-﻿@model MathPro.Domain.Entities.MathAssignmentSubsectionViewModel
+﻿@using MvcCheckBoxList.Model
+@model MathPro.WebUI.Models.MathAssignmentViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -18,15 +19,15 @@
         <div class="form-group">
             @Html.LabelFor(model => model.mathAssignment.SectionId, "Раздел", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("SectionId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.mathAssignment.SectionId, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(m => m.mathAssignment.SectionId, new SelectList(Model.sections, "SectionId", "Name"), String.Empty, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.mathAssignment.Section, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.mathAssignment.ComplexityId, "Сложность", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("ComplexityId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.mathAssignment.ComplexityId, new SelectList(Model.complexities, "ComplexityId", "Name"), String.Empty, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.mathAssignment.ComplexityId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -59,11 +60,13 @@
             @Html.LabelFor(model => model.subsections, "Подразделы", htmlAttributes: new { @class = "control-label col-md-2" })
             
             <div class="col-md-10">
-                @foreach (var subs in Model.subsections)
+                @using (Html.BeginForm("Create", "MathAssignments", FormMethod.Post))
                 {
-                    @Html.Label(subs.Name);
-                    @Html.CheckBoxFor(s => subs.IsSelected);
-                    //@Html.CheckBox("Subsection", new { value = subs.SubsectionId, @checked = false });
+                    @Html.CheckBoxListFor(model => model.subsections.PostedSubsection.SubsectionIds,
+                        model => model.subsections.AvailableSubsection,
+                        subs => subs.SubsectionId,
+                        subs => subs.Name,
+                        model => model.subsections.SelectedSubsection, Position.Vertical)
                 }
             </div>
         </div>

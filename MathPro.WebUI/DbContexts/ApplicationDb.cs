@@ -62,13 +62,15 @@ namespace MathPro.WebUI.DbContexts
         
     }
 
-    public class ApplicationDbInitializer : DropCreateDatabaseAlways<ApplicationDb>
+    public class ApplicationDbInitializer : DropCreateDatabaseIfModelChanges<ApplicationDb>
     {
         protected override void Seed(ApplicationDb context)
         {
             InitializeIdentity(context);
             InitializeComplexity(context);
             InitializeSection(context);
+            InitializeSubsection(context);
+            InitializeMathAssignment(context);
             context.SaveChanges();
             base.Seed(context);
         }
@@ -104,6 +106,48 @@ namespace MathPro.WebUI.DbContexts
             context.Sections.AddOrUpdate(discreteMathematicsSection);
             context.Sections.AddOrUpdate(numericalAnalysisSection);
         }
+
+        public static void InitializeSubsection(ApplicationDb context)
+        {
+            //Complexity Initialize with test data
+            Subsection subsection1 = new Subsection() { Name = "Подраздел1" };
+            Subsection subsection2 = new Subsection() { Name = "Подраздел2" };
+            
+            context.Subsections.AddOrUpdate(p => p.Name, subsection1);
+            context.Subsections.AddOrUpdate(p => p.Name, subsection2);
+        }
+
+        public static void InitializeMathAssignment(ApplicationDb context)
+        {
+            MathAssignment math1 = new MathAssignment
+            {
+                Section = new Section()
+                {
+                    Name = "Математический анализ"
+                },
+                Complexity = new Complexity()
+                {
+                    Name = "Новичок",
+                    DefaultPoints = 20
+                },
+                AssignmentText = "text",
+                Answer = "answer",
+                Subsections = new Collection<Subsection>()
+                {
+                    new Subsection()
+                    {
+                        Name = "Подраздел1"
+                    },
+                    new Subsection()
+                    {
+                        Name = "Подраздел2"
+                    }
+                }
+            };
+            context.MathAssignments.AddOrUpdate(math1);
+        }
+
+
 
         public static void InitializeIdentity(ApplicationDb context)
         {

@@ -23,14 +23,14 @@ namespace MathPro.Domain.Entities
         [Required]
         [DisplayName("Сложность")]
         public int ComplexityId { get; set; }
-        public Complexity Complexity { get; set; }
+        public virtual Complexity Complexity { get; set; }
 
         [Required]
         [DisplayName("Условие задачи")]
         public string AssignmentText { get; set; }
 
         //if amount of points for assignment is different from default, then this value is used
-        [DisplayName("Количество баллов (опционально)")]
+        [DisplayName("Количество баллов")]
         public int? PointsForAssignment { get; set; }
 
         [Required]

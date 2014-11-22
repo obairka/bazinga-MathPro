@@ -114,7 +114,6 @@
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\Complexity.cs" />
     <Compile Include="Entities\MathAssignment.cs" />
-    <Compile Include="Entities\MathAssignmentSubsectionViewModel.cs" />
     <Compile Include="Entities\Message.cs" />
     <Compile Include="Entities\Section.cs" />
     <Compile Include="Entities\Subsection.cs" />

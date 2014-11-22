@@ -15,3 +15,24 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/*DropDownMenu*/
+#TableListDropDown {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    position: absolute;
+    display: none;
+    z-index: 50;
+    background: #000;
+}
+
+#TableEdit:hover #TableListDropDown {
+    display: block;
+}
+
+.DropDownElement {
+    height: 30px;
+    width: auto;
+}

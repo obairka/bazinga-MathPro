@@ -52,7 +52,7 @@
         <td>
             @foreach (var subs in item.Subsections)
             {
-                @Html.Display(subs.Name)
+                @Html.DisplayFor(modelItem => subs.Name)
             }
         </td>
         <td>
