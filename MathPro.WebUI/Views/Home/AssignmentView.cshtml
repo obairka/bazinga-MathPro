@@ -18,6 +18,8 @@
         <tr>
             <td colspan="12">
                 @Html.TextAreaFor(model => model.userAttempt.AssignmentAnswer, new {id = "MathInput", cols = "60", rows = "10", onkeyup = "UpdateMathAnswer(this.value)", style = "margin-top:5px"})
+                @Html.HiddenFor(model => model.userAttempt.ApplicationUser.Id)
+                @Html.HiddenFor(model => model.userAttempt.MathAssignmentId)
                 @Html.Raw("<br> <b> Preview: </b> <br>")
                 <div class="box" id="box">
                     <div id="MathOutputAnswer" class="output" style="border: 1px solid; padding: 3px; width: 50%; height: 100%; margin-top: 5px">$${}$$</div>
