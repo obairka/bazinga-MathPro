@@ -199,6 +199,9 @@ namespace MathPro.WebUI.Controllers
             MathAssignmentViewModel maSmToView = new MathAssignmentViewModel();
             maSmToView.mathAssignment = db.MathAssignments.Find(MathAssignmentId);
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            //if user is not registered then redirect to register page
+            if (user == null)
+                return RedirectToAction("Register", "Account");
             var attemptId = db.UserAttempts.Where(c => c.ApplicationUser.Id == user.Id && c.MathAssignmentId == MathAssignmentId).Select(c => c.ApplicationUserId).ToList();
             //if uses has already solved this task
             if (attemptId.Count() != 0)
@@ -219,6 +222,17 @@ namespace MathPro.WebUI.Controllers
         [HttpPost]
         public async Task<ActionResult> AssignmentView(MathAssignmentViewModel maSm)
         {
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            UserAttempt userAttempt = new UserAttempt();
+            userAttempt.AttemptDateTime = DateTime.Now;
+            userAttempt.ApplicationUser = new ApplicationUser();
+            userAttempt.ApplicationUser = user;
+            //userAttempt.AssignmentAnswer = maSm.userAttempt.AssignmentAnswer;
+
+
+            db.Users.Attach(user);
+            user.UserAttempts.Add(userAttempt);
+            db.SaveChanges();
             return RedirectToAction("Assignments");
         }
     }

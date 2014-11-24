@@ -23,7 +23,7 @@ namespace MathPro.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult MyAttempts()
+        public ActionResult MyAttempts(int? id)
         {
             return View();
         }
