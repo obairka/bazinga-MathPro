@@ -186,6 +186,7 @@
     <Compile Include="Controllers\SectionsController.cs" />
     <Compile Include="Controllers\SubsectionsController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
+    <Compile Include="Controllers\UserAttemptController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="DbContexts\ApplicationDb.cs" />
     <Compile Include="Global.asax.cs">
@@ -356,6 +357,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\UserAttempt\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

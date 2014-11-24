@@ -43,6 +43,11 @@ namespace MathPro.WebUI.Controllers
         // GET: /UserProfile/id
         public async Task<ActionResult> Index(string username)
         {
+            if (User.Identity.GetUserName().Equals(username))
+            {
+                // it's me
+                return RedirectToAction("Me");
+            }
             if (string.IsNullOrEmpty(username))
             {
                 return RedirectToAction("Index", "Home");
