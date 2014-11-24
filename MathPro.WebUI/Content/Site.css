@@ -38,8 +38,16 @@ textarea {
     width: auto;
 }
 
-
-
 .user-panel {
     padding-top: 30px
+}
+
+.TableBottomBorder {
+    border-bottom: 1px solid black;
+}
+
+.TableNoneBorder > td {
+    border-top: none !important;
+    vertical-align: middle !important;
+    horiz-align: center !important;
 }

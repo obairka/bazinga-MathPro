@@ -1,4 +1,6 @@
-﻿using MathPro.Domain.Entities;
+﻿using System.Data.Entity.Migrations;
+using MathPro.Domain.Entities;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -17,6 +19,7 @@ namespace MathPro.WebUI.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDb db = new ApplicationDb();
         public HomeController()
         {
 
@@ -62,7 +65,6 @@ namespace MathPro.WebUI.Controllers
         [HttpGet]
         public ActionResult Assignments()
         {
-            ApplicationDb db = new ApplicationDb();
             MathAssignmentViewModel maSm = new MathAssignmentViewModel();
             maSm.subsections = new SubsectionViewModel();
             maSm.subsections.AvailableSubsection = new List<Subsection>(db.Subsections);
@@ -70,14 +72,12 @@ namespace MathPro.WebUI.Controllers
             maSm.sections = db.Sections;
             maSm.complexities = db.Complexities;
             maSm.mathAssignments = db.MathAssignments.ToList();
-
             return View(maSm);
         }
 
         [HttpPost]
         public ActionResult Assignments(MathAssignmentViewModel maSm)
         {
-            ApplicationDb db = new ApplicationDb();
             MathAssignmentViewModel maSmToView = new MathAssignmentViewModel();
             maSmToView.subsections = new SubsectionViewModel();
             List<int> subsectionFilter = new List<int>();
@@ -107,31 +107,48 @@ namespace MathPro.WebUI.Controllers
                 }
 
                 maSm.subsections.AvailableSubsection = new List<Subsection>(db.Subsections);
-                
+
                 maSm.subsections.SelectedSubsection = selectedSubsections;
                 maSm.mathAssignment.Subsections = selectedSubsections;
 
-                subsectionFilter = db.MathAssignments.ToList().Where(a => selectedSubsections.All(subs => a.Subsections.Contains(subs))).Select(c => c.MathAssignmentId).ToList();
+                subsectionFilter =
+                    db.MathAssignments.ToList()
+                        .Where(a => selectedSubsections.All(subs => a.Subsections.Contains(subs)))
+                        .Select(c => c.MathAssignmentId)
+                        .ToList();
                 maSmToView.subsections.SelectedSubsection = selectedSubsections;
             }
 
             maSm.mathAssignment.Complexity = db.Complexities.Find(maSm.mathAssignment.ComplexityId);
             maSm.mathAssignment.Section = db.Sections.Find(maSm.mathAssignment.SectionId);
 
-            var complexityFilter = db.MathAssignments.Where(c => c.ComplexityId == maSm.mathAssignment.ComplexityId).Select(c => c.MathAssignmentId).ToList();
-            var sectionFilter = db.MathAssignments.Where(c => c.SectionId == maSm.mathAssignment.SectionId).Select(c => c.MathAssignmentId).ToList();
-            
+            var complexityFilter =
+                db.MathAssignments.Where(c => c.ComplexityId == maSm.mathAssignment.ComplexityId)
+                    .Select(c => c.MathAssignmentId)
+                    .ToList();
+            var sectionFilter =
+                db.MathAssignments.Where(c => c.SectionId == maSm.mathAssignment.SectionId)
+                    .Select(c => c.MathAssignmentId)
+                    .ToList();
+
 
             //List<int> filter = new List<int>();
             //find distinct MathAssignmentIds to view
             List<int> filter = (
                 maSm.mathAssignment.Complexity != null || complexityFilter.Count != 0
-                    ? complexityFilter.Intersect(maSm.mathAssignment.Subsections != null || subsectionFilter.Count != 0 ? subsectionFilter : complexityFilter)
-                        .Intersect(maSm.mathAssignment.Section != null || sectionFilter.Count != 0 ? sectionFilter : complexityFilter).ToList() :
-                maSm.mathAssignment.Subsections != null || subsectionFilter.Count != 0
-                    ? subsectionFilter.Intersect(maSm.mathAssignment.Section != null || sectionFilter.Count != 0 ? sectionFilter : subsectionFilter).ToList() :
-                maSm.mathAssignment.Section != null || sectionFilter.Count != 0
-                    ? sectionFilter : new List<int>());
+                    ? complexityFilter.Intersect(maSm.mathAssignment.Subsections != null || subsectionFilter.Count != 0
+                        ? subsectionFilter
+                        : complexityFilter)
+                        .Intersect(maSm.mathAssignment.Section != null || sectionFilter.Count != 0
+                            ? sectionFilter
+                            : complexityFilter).ToList()
+                    : maSm.mathAssignment.Subsections != null || subsectionFilter.Count != 0
+                        ? subsectionFilter.Intersect(maSm.mathAssignment.Section != null || sectionFilter.Count != 0
+                            ? sectionFilter
+                            : subsectionFilter).ToList()
+                        : maSm.mathAssignment.Section != null || sectionFilter.Count != 0
+                            ? sectionFilter
+                            : new List<int>());
 
             //if there is nothing was chosen to filter then Assignment list should be full
             if (maSm.mathAssignment.Complexity == null && maSm.mathAssignment.Subsections == null &&
@@ -147,6 +164,35 @@ namespace MathPro.WebUI.Controllers
             maSmToView.sections = db.Sections;
             maSmToView.complexities = db.Complexities;
             return View(maSmToView);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> AssignmentView(int MathAssignmentId)
+        {
+            MathAssignmentViewModel maSmToView = new MathAssignmentViewModel();
+            maSmToView.mathAssignment = db.MathAssignments.Find(MathAssignmentId);
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            var attemptId = db.UserAttempts.Where(c => c.ApplicationUser.Id == user.Id && c.MathAssignmentId == MathAssignmentId).Select(c => c.ApplicationUserId).ToList();
+            //if uses has already solved this task
+            if (attemptId.Count() != 0)
+            {
+                maSmToView.userAttempt = db.UserAttempts.Find(attemptId.First());
+            }
+            else
+            {
+                maSmToView.userAttempt = new UserAttempt();
+                maSmToView.userAttempt.ApplicationUser = user;
+                maSmToView.userAttempt.MathAssignmentId = MathAssignmentId;
+                maSmToView.userAttempt.MathAssignment = db.MathAssignments.Find(MathAssignmentId);
+                maSmToView.userAttempt.AttemptDateTime = DateTime.Now;
+            }
+            return View(maSmToView);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AssignmentView(MathAssignmentViewModel maSm)
+        {
+            return RedirectToAction("Assignments");
         }
     }
 }

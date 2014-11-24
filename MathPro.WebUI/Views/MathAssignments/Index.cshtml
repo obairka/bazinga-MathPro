@@ -53,6 +53,7 @@
             @foreach (var subs in item.Subsections)
             {
                 @Html.DisplayFor(modelItem => subs.Name)
+                @Html.Raw("<br>")
             }
         </td>
         <td>

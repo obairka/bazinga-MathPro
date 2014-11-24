@@ -1,4 +1,4 @@
-﻿@using MvcCheckBoxList.Model
+﻿@using System.Web.Mvc.Html
 @model MathPro.WebUI.Models.MathAssignmentViewModel
 
 @{
@@ -10,29 +10,42 @@
 {
     <table>
         <tr>
-            <td colspan="2">@Html.LabelFor(model => model.mathAssignment.SectionId, "Раздел", htmlAttributes: new {@class = "control-label col-md-2"})</td>
-            <td colspan="2">@Html.LabelFor(model => model.mathAssignment.ComplexityId, "Сложность", htmlAttributes: new {@class = "control-label col-md-2"})</td>
-            <td colspan="2">@Html.LabelFor(model => model.subsections, "Подразделы", htmlAttributes: new {@class = "control-label col-md-2"})</td>
+            <td colspan="2">@Html.LabelFor(model => model.mathAssignment.SectionId, "Раздел", htmlAttributes: new { @class = "control-label col-md-2" })</td>
+            <td colspan="2">@Html.LabelFor(model => model.mathAssignment.ComplexityId, "Сложность", htmlAttributes: new { @class = "control-label col-md-2" })</td>
+            <td colspan="2">@Html.LabelFor(model => model.subsections, "Подразделы", htmlAttributes: new { @class = "control-label col-md-2" })</td>
         </tr>
         <tr>
             <td colspan="2">
                 <div class="col-md-10">
-                    @Html.DropDownListFor(m => m.mathAssignment.SectionId, new SelectList(Model.sections, "SectionId", "Name"), String.Empty)
+                    @Html.DropDownListFor(m => m.mathAssignment.SectionId, new SelectList(Model.sections, "SectionId", "Name"), String.Concat("--Выберете раздел--"))
                 </div>
             </td>
             <td colspan="2">
                 <div class="col-md-10">
-                    @Html.DropDownListFor(m => m.mathAssignment.ComplexityId, new SelectList(Model.complexities, "ComplexityId", "Name"), String.Empty)
+                    @Html.DropDownListFor(m => m.mathAssignment.ComplexityId, new SelectList(Model.complexities, "ComplexityId", "Name"), String.Concat("--Выберете подраздел--"))
                 </div>
             </td>
             <td colspan="2">
                 <div class="col-md-10">
-                    @Html.CheckBoxListFor(model => model.subsections.PostedSubsection.SubsectionIds,
-                        model => model.subsections.AvailableSubsection,
-                        subs => subs.SubsectionId,
-                        subs => subs.Name,
-                        model => model.subsections.SelectedSubsection, Position.Horizontal)
+                    <div>
+                        @Html.ListBoxFor(model => model.subsections.PostedSubsection.SubsectionIds,
+                        new MultiSelectList(Model.subsections.AvailableSubsection,
+                        "SubsectionId", "Name",
+                        Model.subsections.SelectedSubsection),
+                        new
+                        {
+                            @class = "chosen",
+                            multiple = "multiple",
+                            style = "width: 350px;",
+                        })
+                    </div>
 
+                    <script type="text/javascript">
+                        $(".chosen").chosen({ });
+                        $(".chosen-deselect").chosen({ allow_single_deselect: true });
+                        $(".chosen").chosen().change();
+                        $(".chosen").trigger('liszt:updated');
+                    </script>
                 </div>
             </td>
             <td colspan="2">
@@ -48,55 +61,57 @@
 
 @Html.Raw("<br>")
 
-<table class="table">
+<table class="table" >
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.mathAssignment.Complexity.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.mathAssignment.Section.Name)
-        </th>
-        <th>
+        <th colspan="8">
             @Html.DisplayNameFor(model => model.mathAssignment.AssignmentText)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.mathAssignment.PointsForAssignment)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.mathAssignment.Answer)
+            @Html.DisplayNameFor(model => model.mathAssignment.Complexity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.mathAssignment.Section)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.mathAssignment.Subsections)
         </th>
         <th></th>
     </tr>
-
-@foreach (var item in Model.mathAssignments)
-{
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Complexity.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Section.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AssignmentText)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PointsForAssignment)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Answer)
-        </td>
-        <td>
-            @foreach (var subs in item.Subsections)
-            {
-                @Html.DisplayFor(modelItem => subs.Name)
-                @Html.Raw("<br>");
-            }
-        </td>
-    </tr>
-}
+    @foreach (var item in Model.mathAssignments)
+    {
+        <tr class ="TableNoneBorder">
+            <td colspan="8">
+                @Html.DisplayFor(modelItem => item.AssignmentText)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PointsForAssignment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Complexity.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Section.Name)
+            </td>
+            <td id="AssignmentInfoTable">
+                @foreach (var subs in item.Subsections)
+                {
+                    @Html.DisplayFor(modelItem => subs.Name)
+                    @Html.Raw("<br>");
+                }
+            </td>
+        </tr>
+        <tr class="TableNoneBorder">
+            <td>
+                @using (Html.BeginForm("AssignmentView", "Home", FormMethod.Get))
+                {
+                    @Html.ActionLink("Решить", "AssignmentView", "Home", new { MathAssignmentId = item.MathAssignmentId}, null)
+                }
+            </td>
+        </tr>
+        <tr class="TableNoneBorder"> <td colspan="12" class="TableBottomBorder"></td></tr>
+    }
 
 </table>

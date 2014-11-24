@@ -18,11 +18,13 @@ namespace MathPro.Domain.Entities
         [Required]
         [DisplayName("Раздел")]
         public int SectionId { get; set; }
+        [DisplayName("Раздел")]
         public virtual Section Section { get; set; }
 
         [Required]
         [DisplayName("Сложность")]
         public int ComplexityId { get; set; }
+        [DisplayName("Сложность")]
         public virtual Complexity Complexity { get; set; }
 
         [Required]

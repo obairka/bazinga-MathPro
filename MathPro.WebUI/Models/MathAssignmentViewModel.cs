@@ -15,6 +15,7 @@ namespace MathPro.WebUI.Models
         public SubsectionViewModel subsections { get; set; }
         public DbSet<Complexity> complexities { get; set; }
         public DbSet<Section> sections { get; set; }
+        public UserAttempt userAttempt { get; set; }
     }
 
     public class SubsectionViewModel

@@ -4,6 +4,9 @@
 @{
     ViewBag.Title = "Create";
 }
+<script type="text/javascript"
+        src="../../Scripts/MathAssignmentPreview.js">
+</script>
 
 <h2>Create</h2>
 
@@ -19,7 +22,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.mathAssignment.SectionId, "Раздел", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m.mathAssignment.SectionId, new SelectList(Model.sections, "SectionId", "Name"), String.Empty, new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.mathAssignment.SectionId, new SelectList(Model.sections, "SectionId", "Name"), new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.mathAssignment.Section, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -27,7 +30,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.mathAssignment.ComplexityId, "Сложность", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m.mathAssignment.ComplexityId, new SelectList(Model.complexities, "ComplexityId", "Name"), String.Empty, new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.mathAssignment.ComplexityId, new SelectList(Model.complexities, "ComplexityId", "Name"), new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.mathAssignment.ComplexityId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -35,7 +38,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.mathAssignment.AssignmentText, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.mathAssignment.AssignmentText, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.mathAssignment.AssignmentText, new { id = "MathInput", cols = "60", rows = "10", onkeyup = "UpdateMathAssignment(this.value)", style = "margin-top:5px" })
+                @Html.Raw("<br> <b> Preview: </b> <br>")
+                <div class="box" id="box">
+                    <div id="MathOutputAssignment" class="output" style="border:1px solid; padding: 3px; width:50%; height: 100%; margin-top:5px">$${}$$</div>
+                </div>
                 @Html.ValidationMessageFor(model => model.mathAssignment.AssignmentText, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -51,7 +58,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.mathAssignment.Answer, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.mathAssignment.Answer, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.mathAssignment.Answer, new { id = "MathInput", cols = "60", rows = "10", onkeyup = "UpdateMathAnswer(this.value)", style = "margin-top:5px" })
+                @Html.Raw("<br> <b> Preview: </b> <br>")
+                <div class="box" id="box">
+                    <div id="MathOutputAnswer" class="output" style="border:1px solid; padding: 3px; width:50%; height: 100%; margin-top:5px">$${}$$</div>
+                </div>
                 @Html.ValidationMessageFor(model => model.mathAssignment.Answer, "", new { @class = "text-danger" })
             </div>
         </div>

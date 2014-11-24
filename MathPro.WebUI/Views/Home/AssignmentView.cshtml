@@ -1,17 +1,34 @@
-﻿
+﻿@model MathPro.WebUI.Models.MathAssignmentViewModel
+
 @{
-    Layout = null;
+    ViewBag.Title = "AssignmentView";
 }
+<script type="text/javascript"
+        src="../../Scripts/MathAssignmentPreview.js">
+</script>
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>AssignmentView</title>
-</head>
-<body>
-    <div> 
-    </div>
-</body>
-</html>
+<h2>Задача</h2>
+@using (Html.BeginForm("AssignmentView", "Home", FormMethod.Post))
+{
+    <table class="table">
+        @Html.HiddenFor(m => m.userAttempt.MathAssignmentId)
+        <tr>
+            <td colspan="12">
+                @Html.DisplayFor(model => model.mathAssignment.AssignmentText)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="12">
+                @Html.TextAreaFor(model => model.userAttempt.AssignmentAnswer, new {id = "MathInput", cols = "60", rows = "10", onkeyup = "UpdateMathAnswer(this.value)", style = "margin-top:5px"})
+                @Html.Raw("<br> <b> Preview: </b> <br>")
+                <div class="box" id="box">
+                    <div id="MathOutputAnswer" class="output" style="border: 1px solid; padding: 3px; width: 50%; height: 100%; margin-top: 5px">$${}$$</div>
+                </div>
+                <input type="submit" value="Send" class="btn btn-default" style="margin-top: 30px; float: left;" />
+            </td>
+        </tr>
+    </table>
+}
+    <table class="table">
+    
+    </table>
