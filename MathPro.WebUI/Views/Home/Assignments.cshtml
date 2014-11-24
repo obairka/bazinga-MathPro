@@ -84,7 +84,7 @@
     {
         <tr class ="TableNoneBorder">
             <td colspan="8">
-                @Html.DisplayFor(modelItem => item.AssignmentText)
+                <div id="MathOutputAssignment">$${@Html.DisplayFor(modelItem => item.AssignmentText)}$$</div>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PointsForAssignment)

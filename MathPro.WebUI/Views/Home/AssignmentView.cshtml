@@ -12,7 +12,7 @@
         @Html.HiddenFor(m => m.userAttempt.MathAssignmentId)
         <tr>
             <td colspan="12">
-                @Html.DisplayFor(model => model.mathAssignment.AssignmentText)
+                <div id="MathOutputAssignment">$${@Html.DisplayFor(model => model.mathAssignment.AssignmentText)}$$</div>
             </td>
         </tr>
         <tr>

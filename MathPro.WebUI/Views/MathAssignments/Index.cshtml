@@ -32,36 +32,36 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Complexity.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Section.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AssignmentText)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PointsForAssignment)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Answer)
-        </td>
-        <td>
-            @foreach (var subs in item.Subsections)
-            {
-                @Html.DisplayFor(modelItem => subs.Name)
-                @Html.Raw("<br>")
-            }
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MathAssignmentId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MathAssignmentId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MathAssignmentId })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Complexity.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Section.Name)
+            </td>
+            <td>
+                <div id="MathOutputAssignment">$${@Html.DisplayFor(modelItem => item.AssignmentText)}$$</div>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PointsForAssignment)
+            </td>
+            <td>
+                <div id="MathOutputAnswer">$${@Html.DisplayFor(modelItem => item.Answer)}$$</div>
+            </td>
+            <td>
+                @foreach (var subs in item.Subsections)
+                {
+                    @Html.DisplayFor(modelItem => subs.Name)
+                    @Html.Raw("<br>")
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MathAssignmentId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MathAssignmentId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MathAssignmentId })
+            </td>
+        </tr>
+    }
 </table>
