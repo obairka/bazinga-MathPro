@@ -13,7 +13,7 @@ namespace MathPro.Domain.Entities
         public int TaskCommentId { get; set; }
 
         [Required]
-        public int ApplicationUserId { get; set; }
+        public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
 
         [Required]

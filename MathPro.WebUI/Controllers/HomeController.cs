@@ -215,12 +215,23 @@ namespace MathPro.WebUI.Controllers
                 maSmToView.userAttempt.MathAssignmentId = MathAssignmentId;
                 maSmToView.userAttempt.MathAssignment = db.MathAssignments.Find(MathAssignmentId);
                 maSmToView.userAttempt.AttemptDateTime = DateTime.Now;
+                var comIdList = db.TaskComments.Where(c => c.MathAssignmentId == MathAssignmentId).Select(c => c.ApplicationUserId).ToList();
+
+                foreach (var userId in comIdList)
+                {
+                    foreach (var comment in maSmToView.userAttempt.MathAssignment.TaskComments)
+                    {
+                        if(comment.ApplicationUserId == userId)
+                            comment.ApplicationUser = await UserManager.FindByIdAsync(userId);
+                    }
+                }
+
             }
             return View(maSmToView);
         }
 
         [HttpPost]
-        public async Task<ActionResult> AssignmentView(MathAssignmentViewModel maSm)
+        public ActionResult AssignmentView(MathAssignmentViewModel maSm)
         {
             UserAttempt userAttempt = new UserAttempt();
             userAttempt.AttemptDateTime = DateTime.Now;
@@ -229,6 +240,21 @@ namespace MathPro.WebUI.Controllers
             userAttempt.AssignmentAnswer = maSm.userAttempt.AssignmentAnswer;
             userAttempt.ApplicationUser = db.Users.Find(maSm.userAttempt.ApplicationUser.Id);
             db.UserAttempts.Add(userAttempt);
+            db.SaveChanges();
+            return RedirectToAction("Assignments");
+        }
+
+        [HttpPost]
+        public ActionResult CommentAdd(MathAssignmentViewModel maSm)
+        {
+            TaskComment taskComment = new TaskComment();
+            taskComment.Details = maSm.taskComment.Details;
+            taskComment.MathAssignmentId = maSm.userAttempt.MathAssignmentId;
+            taskComment.MathAssignment = db.MathAssignments.Find(taskComment.MathAssignmentId);
+            taskComment.PostedTime = DateTime.Now;
+            taskComment.ApplicationUser = db.Users.Find(maSm.userAttempt.ApplicationUser.Id);
+            taskComment.ApplicationUserId = db.Users.Find(maSm.userAttempt.ApplicationUser.Id).Id;
+            db.TaskComments.Add(taskComment);
             db.SaveChanges();
             return RedirectToAction("Assignments");
         }

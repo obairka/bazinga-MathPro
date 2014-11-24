@@ -29,6 +29,46 @@
         </tr>
     </table>
 }
+<footer>
     <table class="table">
-    
+        <tr>
+            <b><p>Write Comment: </p></b>
+        </tr>
+        <tr>
+            @using (Html.BeginForm("CommentAdd", "Home", FormMethod.Post))
+            {
+                @Html.HiddenFor(m => m.userAttempt.MathAssignmentId)
+                @Html.HiddenFor(model => model.userAttempt.ApplicationUser.Id)
+                @Html.HiddenFor(model => model.userAttempt.MathAssignmentId)
+                @Html.TextAreaFor(model => model.taskComment.Details, new { cols = "60", rows = "10", style = "margin-top:5px" })
+                <div>
+                    <input type="submit" value="Comment" class="btn btn-default" style="margin-top: 30px; float: left;" />
+                </div>
+            }
+        </tr>
+        <tr>
+            <td>
+                <b><p>Comments: </p></b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @foreach (var comment in Model.userAttempt.MathAssignment.TaskComments)
+                {
+                    <tr>
+                        <td>
+                            <div class="comment">
+                                @Html.DisplayFor(model => comment.PostedTime)
+                                @Html.Raw("<br>")
+                                @Html.DisplayFor(model => comment.ApplicationUser.UserName)
+                                @Html.Raw("<br>")
+                                @Html.DisplayFor(model => comment.Details)
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </td>
+        </tr>
     </table>
+</footer>
+
