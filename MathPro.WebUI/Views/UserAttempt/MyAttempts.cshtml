@@ -1,0 +1,59 @@
+﻿@model MathPro.WebUI.Models.UserAttemptsListViewModel
+
+@{
+    ViewBag.Title = "Мои попытки";
+}
+
+@Html.Partial("~/Views/Shared/_UserProfileBreadcrumbs.cshtml")
+
+<h2>@ViewBag.Title</h2>
+
+
+@using (Html.BeginForm())
+{
+
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>
+                @Html.ActionLink("Дата попытки", "MyAttempts",  new { sortOrder = ViewBag.DateSortParam })
+            </th>
+            <th>
+                @Html.DisplayName("ID Задачи")
+            </th>
+            <th>
+                @Html.ActionLink("Результат", "MyAttempts", new { onlySuccessResult = ViewBag.OnlySuccessResult })                
+            </th>
+
+            <th>
+                @Html.DisplayName("Баллы")
+            </th>
+
+        </tr>
+        @foreach (var item in Model.UserAttempts)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AttemptDateTime)
+                    <a href="@Url.Action("ShowAttempt", "UserAttempt", new { userAttemptId = item.UserAttemptId })"></a>
+                </td>
+                <td>
+                    <a href="@Url.Action("AssignmentView", "Home", new { MathAssignmentId = item.MathAssignmentId })"> @item.MathAssignmentId</a>
+                </td>
+                <td>
+                    @Html.Display(item.AttemptResultSuccess ? "success" : "fail");
+                </td>
+
+                <td>
+                    @Html.Display(item.Points.ToString());
+                </td>
+
+            </tr>
+        }
+
+    </table>
+}
+
+
+<div>
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("MyAttempts", new { page = x, sortOrder = ViewBag.DateSortParam, onlySuccessResult = ViewBag.OnlySuccessResult }))
+</div>

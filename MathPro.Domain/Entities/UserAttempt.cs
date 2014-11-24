@@ -8,7 +8,7 @@ namespace MathPro.Domain.Entities
     {
         public int UserAttemptId { get; set; }
         
-        public int ApplicationUserId { get; set; }
+        public string ApplicationUserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
         public int MathAssignmentId { get; set; }
         public virtual MathAssignment MathAssignment { get; set; }
@@ -20,5 +20,7 @@ namespace MathPro.Domain.Entities
 
         // Value obtained after comparing AssignmentAnswer and MathAssignment.Answer
         public bool AttemptResultSuccess { get; set; }
+
+        public int Points { get; set; }
     }
 }

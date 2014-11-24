@@ -28,5 +28,6 @@ namespace MathPro.WebUI.HtmlHelpers
 			}
             return MvcHtmlString.Create(result.ToString());
         }
+
     }
 }
