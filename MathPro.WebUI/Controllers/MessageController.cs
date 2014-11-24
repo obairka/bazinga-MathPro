@@ -19,8 +19,7 @@ namespace MathPro.WebUI.Controllers
     [Authorize]
     public class MessageController : Controller
     {
-
-        public int PagesSize = 4;
+        private const int PagesSize = 4;
 
         public MessageController()
         {
@@ -46,9 +45,6 @@ namespace MathPro.WebUI.Controllers
             }
         }
 
-
-
-        // 
         // GET: 
         public async Task<ActionResult> Index(int page=1)
         {
@@ -62,7 +58,17 @@ namespace MathPro.WebUI.Controllers
 
             MessageListViewModel model = new MessageListViewModel
             {
-                Messages = user.MyMessages.Select( m => new MessageViewModel(m, m.Sender, m.Recipient))
+                Messages = user.MyMessages.Select( m => 
+                        new MessageViewModel
+                        {
+                            Sender = m.Sender.UserName,
+                            Recipient = m.Recipient.UserName,
+                            OtherUser = !m.Sender.Id.Equals(user.Id) ? m.Sender.UserName : m.Recipient.UserName,
+                            IsRead = false,
+                            Created = m.CreatedOn.ToString(),
+                            Body = m.Body,
+                            Subject = m.Subject,                 
+                        })
                     .OrderByDescending(mv => mv.Created)
                     .Skip( (page-1) * PagesSize)
                     .Take(PagesSize),
@@ -70,28 +76,33 @@ namespace MathPro.WebUI.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = PagesSize,
-                    TotalPages = user.MyMessages.Count()
+                    TotalItems = user.MyMessages.Count()
                 }
             };
 
             return View(model);
         }
 
+        public ActionResult Reply(string username)
+        {
+            MessageSendModel msg = new MessageSendModel
+            {
+                ShowPrevMessage = false,
+                PrevMessage = null,
+                RecipientUserName = username,
+            };
+            return View("Send",msg);
+        }
          
         // GET: 
-        public async Task<ActionResult> Send()
+        public ActionResult Send()
         {
-            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-            //TODO:
-            if (user == null)
+            MessageSendModel msg = new MessageSendModel
             {
-                return HttpNotFound();
-            }
-            MessageSendModel message = new MessageSendModel
-            {
-
+                ShowPrevMessage = false,
+                PrevMessage = null,
             };
-            return View(message);
+            return View(msg);            
         }
 
         //

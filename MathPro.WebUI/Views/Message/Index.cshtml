@@ -10,7 +10,7 @@
     <h2>@ViewBag.Title</h2>
 </div>
 
-@if (Model.PagingInfo.TotalPages == 0)
+@if (0 == Model.PagingInfo.TotalPages)
 {
     <div class="row">
         <div class="col-md-4">
@@ -25,23 +25,20 @@
 
 }
 else { 
-<table class="table">
-    <tr>
-        <th>
-                    
-        </th>
-    </tr>
-    @foreach (var item in Model.Messages)
-    {
-        <tr>
-            <td>
-                @{ Html.RenderPartial("_Message", item); }
-            </td>
-        </tr>
-    }
-</table>
 
-<div>
-    @Html.PageLinks(Model.PagingInfo, x => Url.Action("Index", new { page = x }))
-</div>
+    foreach (var item in Model.Messages)
+    {
+        <div class="panel">
+            
+            @{ Html.RenderPartial("_MessageItem", item); }
+            
+            @Html.ActionLink("Написать", "Reply", "Message", new { username = item.OtherUser }, null)
+
+
+        </div>
+    }
+
+    <div>
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("Index", new { page = x }))
+    </div>
 }

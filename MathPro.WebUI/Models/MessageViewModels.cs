@@ -7,33 +7,15 @@ using System.Web;
 
 namespace MathPro.WebUI.Models
 {
-    public class PagingInfo
-    {
-        public int TotalPages { get; set; }
-        public int ItemsPerPage { get; set; }
-        public int CurrentPage { get; set; }
-    }
-
     public class MessageViewModel
     {
-        public MessageViewModel(Message message, ApplicationUser sender, ApplicationUser recipient)
-        {
-            MessageId = message.MessageId;
-            IsRead = message.IsRead;
-            Subject = message.Subject;
-            Body = message.Body;
-            Created = message.CreatedOn;
 
-            Sender = sender;
-            Recipient = recipient;
-        
-        }
         public int MessageId { get; set; }
+        public string OtherUser { get; set; }
+        public string Sender { get; set; }
+        public string Recipient { get; set; }
 
-        public ApplicationUser Sender { get; set; }
-        public ApplicationUser Recipient { get; set; }
-
-        public DateTime Created { get; set; }
+        public string Created { get; set; }
 
         // TODO: Default: IsRead = false
         public bool IsRead { get; set; }
@@ -52,6 +34,9 @@ namespace MathPro.WebUI.Models
         public string Subject { get; set; }
         [Required]
         public string Body { get; set; }
+
+        public bool ShowPrevMessage { get; set; }
+        public MessageViewModel PrevMessage { get; set; }
     }
 
 

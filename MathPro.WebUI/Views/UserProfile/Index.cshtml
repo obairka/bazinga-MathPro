@@ -3,10 +3,13 @@
     ViewBag.Title = "Информация о пользователе";
 }
 
-@Html.Partial("~/Views/Shared/_UserProfileBreadcrumbs.cshtml")
 
 <div class="page-header">
     <h2>@ViewBag.Title <span class="text-info">@Model.FullName</span> </h2>
 </div>
 
 @Html.Partial("_Profile", Model)
+
+@Html.ActionLink("Написать", "Reply", "Message", new { username = Model.UserName }, null)
+
+

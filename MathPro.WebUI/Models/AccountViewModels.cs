@@ -6,9 +6,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MathPro.WebUI.Models
 {
-    // TODO: Improve Age property
-    // TODO: Add Image 
-
     public class UserProfileBriefViewModel
     {
         public UserProfileBriefViewModel() {}

@@ -1,20 +1,21 @@
-﻿@model IEnumerable<MathPro.WebUI.Models.UserProfileBriefViewModel>
+﻿@model MathPro.WebUI.Models.UserRatingViewModel
 @{
-    ViewBag.Title = "Ratings";
+    ViewBag.Title = "Рейтинг пользователей";
 }
 
 <h2>@ViewBag.Title</h2>
 
-<table class="table">
+
+<table class="table table-striped table-hover">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.UserName)
+            @Html.DisplayName("Username")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Rating)
+            @Html.ActionLink("Рейтинг", "Ratings", new { sortOrder = ViewBag.RatingSortParam })
         </th>
     </tr>
-    @foreach (var item in Model)
+    @foreach (var item in Model.Users)
     {
         <tr>
             <td>
@@ -29,3 +30,6 @@
 </table>
 
 
+<div>
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("Ratings", new { page = x }))
+</div>

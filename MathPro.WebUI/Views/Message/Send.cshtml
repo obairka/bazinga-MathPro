@@ -2,14 +2,6 @@
 
 @{
     ViewBag.Title = "Написать сообщение";
-    AjaxOptions ajaxOpts = new AjaxOptions
-    {
-        UpdateTargetId = "tableBody",
-        Url = Url.Action("GetPeopleData"),
-        LoadingElementId = "loading",
-        LoadingElementDuration = 1000,
-        Confirm = "Do you wish to request new data?"
-    };
 }
 
 @Html.Partial("~/Views/Shared/_MessageBreadcrumbs.cshtml")
@@ -17,6 +9,10 @@
 <div class="page-header">
     <h2>@ViewBag.Title</h2>
 </div>
+
+@if (Model.ShowPrevMessage){
+    Html.Partial("_MessageItem", Model.PrevMessage);
+}
 
 
 @using (Html.BeginForm("Send", "Message", FormMethod.Post, new { @class = "form", role = "form" }))
@@ -44,7 +40,7 @@
     </div>
     
 }
-
+@section Scripts {
 <script>
     $(document).ready( function()
     {
@@ -62,15 +58,13 @@
                                 return { label: item, value: item}
                             }))
                         },
+                        
                     });
                 },
-                messages: {
-
-                    noResults: "", results: ""
-
-                }
+                minLength: 2,
             }
         );
     });
 
 </script>
+}
