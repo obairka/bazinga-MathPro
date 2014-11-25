@@ -73,3 +73,7 @@ textarea {
     width: 90px;
     opacity: .7;
 }
+
+.message-body{
+    word-wrap: break-word;
+}

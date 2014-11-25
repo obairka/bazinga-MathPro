@@ -5,12 +5,11 @@
         <img src="~/Resources/Images/user_small.png" alt="user_default_image" class="img-thumbnail  small-user-image">
     </a>
 
-    <a class="media-body" href="@Url.Action("Read", "Message", new { messageId = Model.MessageId })">
+    <div class="media-body">
         <h4 class="media-heading">@Model.Sender -> @Model.Recipient</h4>
-        <h4 class="text-info"> @Model.Subject <span class="text-right"> @Model.Created</span> </h4>
-        <p class="text-primary">
-            <span style="white-space: pre-line">@Model.Body</span>
-            
-        </p>
-    </a>
+        <h4 class="text-info"> @Model.Subject <span class="text-right"> @Model.Created</span> </h4>        
+    </div>
+    <p class="message-body">
+        @Model.Body
+    </p>
 </div>
