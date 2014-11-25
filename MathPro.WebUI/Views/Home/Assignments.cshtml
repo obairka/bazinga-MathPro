@@ -40,12 +40,7 @@
                         })
                     </div>
 
-                    <script type="text/javascript">
-                        $(".chosen").chosen({ });
-                        $(".chosen-deselect").chosen({ allow_single_deselect: true });
-                        $(".chosen").chosen().change();
-                        $(".chosen").trigger('liszt:updated');
-                    </script>
+                   
                 </div>
             </td>
             <td colspan="2">
@@ -115,3 +110,13 @@
     }
 
 </table>
+
+@section Scripts {
+<script type="text/javascript">
+    $(".chosen").chosen({});
+    $(".chosen-deselect").chosen({ allow_single_deselect: true });
+    $(".chosen").chosen().change();
+    $(".chosen").trigger('liszt:updated');
+</script>
+
+}

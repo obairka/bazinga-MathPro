@@ -62,7 +62,7 @@ namespace MathPro.WebUI.DbContexts
         
     }
 
-    public class ApplicationDbInitializer : DropCreateDatabaseIfModelChanges<ApplicationDb>
+    public class ApplicationDbInitializer : DropCreateDatabaseAlways<ApplicationDb>
     {
         protected override void Seed(ApplicationDb context)
         {
@@ -153,8 +153,12 @@ namespace MathPro.WebUI.DbContexts
         {
             // Add Admin user 
             
-            var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            var roleManager = HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();
+            //var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            //var roleManager = HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();
+            var userStore = new UserStore<ApplicationUser>(context);
+            var userManager = new ApplicationUserManager(userStore);
+            var roleStore = new RoleStore<IdentityRole>(context);
+            var roleManager = new ApplicationRoleManager(roleStore);
             const string name = "admin";
             const string password = "Admin@123456";
             const string roleName = "Admin";
