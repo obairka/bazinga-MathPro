@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Создать новую запись", "Create")
 </p>
 <table class="table">
     <tr>
@@ -52,9 +52,9 @@
                 }
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.MathAssignmentId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.MathAssignmentId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.MathAssignmentId })
+                @Html.ActionLink("Изменить", "Edit", new { id = item.MathAssignmentId }) |
+                @Html.ActionLink("Подробнее", "Details", new { id = item.MathAssignmentId }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.MathAssignmentId })
             </td>
         </tr>
     }

@@ -43,13 +43,13 @@
                         <li>@Html.ActionLink("Роли", "Index", "RolesAdmin")</li>
                         <li>@Html.ActionLink("Юзеры", "Index", "UsersAdmin")</li>
                         <li id="TableEdit">
-                            <a href="#">TableEdit</a>
+                            <a href="#">Задачи</a>
                             <ul id="TableListDropDown" class="navbar-nav">
                                 <li class="DropDownElement">@Html.ActionLink("Сложность", "Index", "Complexities")</li>
                                 <li class="DropDownElement">@Html.ActionLink("Разделы", "Index", "Sections")</li>
                                 <li class="DropDownElement">@Html.ActionLink("Подразделы", "Index", "Subsections")</li>
                                 <li class="DropDownElement">@Html.ActionLink("Задачи", "Index", "MathAssignments")</li>
-                                <li class="DropDownElement">@Html.ActionLink("TaskComment", "Index", "TaskComments")</li>
+                                <li class="DropDownElement">@Html.ActionLink("Комментарии", "Index", "TaskComments")</li>
 
                             </ul>
                         </li>
@@ -67,7 +67,6 @@
             <div class="col-md-3">
                 @if (Request.IsAuthenticated)
                 {
-                    
                     Html.RenderAction("BriefProfile", "UserProfile");
                 }
             </div>

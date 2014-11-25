@@ -360,7 +360,6 @@
     <Content Include="Views\UserAttempt\ShowAttempt.cshtml" />
     <Content Include="Views\Message\_ReadMessage.cshtml" />
     <Content Include="Views\Message\Read.cshtml" />
-    <Content Include="Views\TaskComments\Create.cshtml" />
     <Content Include="Views\TaskComments\Delete.cshtml" />
     <Content Include="Views\TaskComments\Edit.cshtml" />
     <Content Include="Views\TaskComments\Index.cshtml" />
