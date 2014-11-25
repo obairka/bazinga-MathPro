@@ -152,7 +152,7 @@ namespace MathPro.WebUI.DbContexts
             {
                 Section = mathematicalAnalysisSection,
                 Complexity = easy,
-                AssignmentText = "Найти\\ производную \\ от \\ следующей \\ функции \\ {y=\\left[\\sqrt[3]{\\frac{1}{7+x^2}}+\\frac{\\sqrt{x}}{\\sqrt{x}+1} \\right]\\cdot 24 \\\\ y'(1) = ?}",
+                AssignmentText = "Найти\\ производную \\ от \\ следующей \\ функции \\\\ {y=\\left[\\sqrt[3]{\\frac{1}{7+x^2}}+\\frac{\\sqrt{x}}{\\sqrt{x}+1} \\right]\\cdot 24 \\\\ y'(1) = ?}",
                 Answer = "{y' =24 \\left[((7 + x^2)^{-\\frac{1}{3}})' + \\left(\\frac{\\sqrt{x}}{\\sqrt{x} + 1}\\right)'\\ \\right] = \\\\24\\left[-\\frac{1}{3}(7 + x^2)^{-\\frac{4}{3}}2x + \\frac{1/2x^{-\\frac{1}{2}}(x^\\frac{1}{2})1/2x^{-\\frac{1}{2}}}{(\\sqrt{x} + 1)^2}\\right]} = \\\\ -\\frac{16x}{(7 + x^2)^\\frac{4}{3}} + \\frac{12}{\\sqrt{x} (\\sqrt{x} + 1)^2};\\\\ y'(1) = -\\frac{16}{8^\\frac{4}{3}} + \\frac{12}{4} = 2.",
                 Subsections = new Collection<Subsection>()
                 {
