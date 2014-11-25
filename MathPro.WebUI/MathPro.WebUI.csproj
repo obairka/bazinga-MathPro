@@ -185,6 +185,7 @@
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\SectionsController.cs" />
     <Compile Include="Controllers\SubsectionsController.cs" />
+    <Compile Include="Controllers\TaskCommentsController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Controllers\UserAttemptController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
@@ -359,6 +360,10 @@
     <Content Include="Views\UserAttempt\ShowAttempt.cshtml" />
     <Content Include="Views\Message\_ReadMessage.cshtml" />
     <Content Include="Views\Message\Read.cshtml" />
+    <Content Include="Views\TaskComments\Create.cshtml" />
+    <Content Include="Views\TaskComments\Delete.cshtml" />
+    <Content Include="Views\TaskComments\Edit.cshtml" />
+    <Content Include="Views\TaskComments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

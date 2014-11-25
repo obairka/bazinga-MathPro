@@ -32,7 +32,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.AssignmentText)
+            <div id="MathOutputAssignment">$${@Html.DisplayFor(model => model.AssignmentText)}$$</div>
         </dd>
 
         <dt>
@@ -48,7 +48,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Answer)
+            <div id="MathOutputAnswer">$${@Html.DisplayFor(model => model.Answer)}$$</div>
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Subsections)

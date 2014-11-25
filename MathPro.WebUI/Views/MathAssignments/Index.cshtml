@@ -19,12 +19,11 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.AssignmentText)
+            @Html.Raw(" / ")
+            @Html.DisplayNameFor(model => model.Answer)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.PointsForAssignment)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Answer)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Subsections)
@@ -43,18 +42,17 @@
             </td>
             <td>
                 <div id="MathOutputAssignment">$${@Html.DisplayFor(modelItem => item.AssignmentText)}$$</div>
+                @Html.Raw("<br>Ответ:<br>")
+                <div id="MathOutputAnswer">$${@Html.DisplayFor(modelItem => item.Answer)}$$</div>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PointsForAssignment)
             </td>
             <td>
-                <div id="MathOutputAnswer">$${@Html.DisplayFor(modelItem => item.Answer)}$$</div>
-            </td>
-            <td>
                 @foreach (var subs in item.Subsections)
                 {
                     @Html.DisplayFor(modelItem => subs.Name)
-                    @Html.Raw("<br>")
+                    @Html.Raw("<br><br>")
                 }
             </td>
             <td>

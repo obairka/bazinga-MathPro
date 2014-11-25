@@ -10,14 +10,14 @@
     @Styles.Render("~/Content/themes/base/css")
     @Scripts.Render("~/bundles/modernizr")
     
-	<script type="text/x-mathjax-config">
+    <script type="text/x-mathjax-config">
         MathJax.Hub.Config({
         showProcessingMessages: false,
         tex2jax: { inlineMath: [['$','$'],['\\(','\\)']] }
         });
     </script>
-    
-    <script type="text/javascript"src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>    
+
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
 </head>
 <body>
@@ -49,6 +49,8 @@
                                 <li class="DropDownElement">@Html.ActionLink("Разделы", "Index", "Sections")</li>
                                 <li class="DropDownElement">@Html.ActionLink("Подразделы", "Index", "Subsections")</li>
                                 <li class="DropDownElement">@Html.ActionLink("Задачи", "Index", "MathAssignments")</li>
+                                <li class="DropDownElement">@Html.ActionLink("TaskComment", "Index", "TaskComments")</li>
+
                             </ul>
                         </li>
                     }}
