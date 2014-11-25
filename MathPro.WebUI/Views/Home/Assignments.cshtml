@@ -91,6 +91,7 @@
             <td id="AssignmentInfoTable">
                 @foreach (var subs in item.Subsections)
                 {
+                    @Html.Raw("<br>");
                     @Html.DisplayFor(modelItem => subs.Name)
                     @Html.Raw("<br>");
                 }
