@@ -67,9 +67,9 @@ namespace MathPro.WebUI.DbContexts
         protected override void Seed(ApplicationDb context)
         {
             InitializeIdentity(context);
-            InitializeComplexity(context);
-            InitializeSection(context);
-            InitializeSubsection(context);
+            //InitializeComplexity(context);
+            //InitializeSection(context);
+            //InitializeSubsection(context);
             InitializeMathAssignment(context);
             context.SaveChanges();
             base.Seed(context);
@@ -130,17 +130,13 @@ namespace MathPro.WebUI.DbContexts
                     Name = "Новичок",
                     DefaultPoints = 20
                 },
-                AssignmentText = "text",
+                AssignmentText = "Найти\\ производную от \\ следующей \\ функции \\ y = \\left[\\sqrt[3]{\\frac{1}{7+x^2}}+\\frac{\\sqrt{x}}{\\sqrt{x}+1} \\ right]\\cdot 24; \\quady'(1).",
                 Answer = "answer",
                 Subsections = new Collection<Subsection>()
                 {
                     new Subsection()
                     {
-                        Name = "Подраздел1"
-                    },
-                    new Subsection()
-                    {
-                        Name = "Подраздел2"
+                        Name = "Вычисление производных"
                     }
                 }
             };

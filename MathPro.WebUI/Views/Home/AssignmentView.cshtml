@@ -37,7 +37,8 @@
         <tr>
             @using (Html.BeginForm("CommentAdd", "Home", FormMethod.Post))
             {
-                @Html.HiddenFor(m => m.userAttempt.MathAssignmentId)
+                @Html.HiddenFor(model => model.userAttempt.AssignmentAnswer);
+                @Html.HiddenFor(model => model.userAttempt.MathAssignmentId)
                 @Html.HiddenFor(model => model.userAttempt.ApplicationUser.Id)
                 @Html.HiddenFor(model => model.userAttempt.MathAssignmentId)
                 @Html.TextAreaFor(model => model.taskComment.Details, new { cols = "60", rows = "10", style = "margin-top:5px" })

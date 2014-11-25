@@ -254,9 +254,10 @@ namespace MathPro.WebUI.Controllers
             taskComment.PostedTime = DateTime.Now;
             taskComment.ApplicationUser = db.Users.Find(maSm.userAttempt.ApplicationUser.Id);
             taskComment.ApplicationUserId = db.Users.Find(maSm.userAttempt.ApplicationUser.Id).Id;
+            maSm.taskComment = taskComment;
             db.TaskComments.Add(taskComment);
             db.SaveChanges();
-            return RedirectToAction("Assignments");
+            return RedirectToAction("AssignmentView", new { MathAssignmentId = maSm.userAttempt.MathAssignmentId });
         }
     }
 }
