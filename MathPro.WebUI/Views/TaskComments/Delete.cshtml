@@ -1,0 +1,56 @@
+﻿@model MathPro.Domain.Entities.TaskComment
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>TaskComment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUser.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUser.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MathAssignment.AssignmentText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MathAssignment.AssignmentText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Details)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Details)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PostedTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostedTime)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

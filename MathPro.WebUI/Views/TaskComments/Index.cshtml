@@ -1,0 +1,50 @@
+﻿@model IEnumerable<MathPro.Domain.Entities.TaskComment>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ApplicationUser.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MathAssignment.MathAssignmentId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Details)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PostedTime)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MathAssignment.MathAssignmentId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Details)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PostedTime)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TaskCommentId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TaskCommentId })
+        </td>
+    </tr>
+}
+
+</table>
