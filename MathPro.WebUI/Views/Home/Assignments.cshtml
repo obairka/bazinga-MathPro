@@ -9,48 +9,46 @@
 @using (Html.BeginForm("Assignments", "Home", FormMethod.Post))
 {
     <table>
-        <tr>
-            <td colspan="2">@Html.LabelFor(model => model.mathAssignment.SectionId, "Раздел", htmlAttributes: new { @class = "control-label col-md-2" })</td>
-            <td colspan="2">@Html.LabelFor(model => model.mathAssignment.ComplexityId, "Сложность", htmlAttributes: new { @class = "control-label col-md-2" })</td>
-            <td colspan="2">@Html.LabelFor(model => model.subsections, "Подразделы", htmlAttributes: new { @class = "control-label col-md-2" })</td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <div class="col-md-10">
+        <div class="container body-content">
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.mathAssignment.SectionId, "Раздел", htmlAttributes: new { @class = "control-label col-md-3" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.mathAssignment.ComplexityId, "Сложность", htmlAttributes: new { @class = "control-label col-md-3" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.subsections, "Подразделы", htmlAttributes: new { @class = "control-label col-md-3" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
                     @Html.DropDownListFor(m => m.mathAssignment.SectionId, new SelectList(Model.sections, "SectionId", "Name"), String.Concat("--Выберете раздел--"))
                 </div>
-            </td>
-            <td colspan="2">
-                <div class="col-md-10">
-                    @Html.DropDownListFor(m => m.mathAssignment.ComplexityId, new SelectList(Model.complexities, "ComplexityId", "Name"), String.Concat("--Выберете подраздел--"))
+                <div class="col-md-3">
+                    @Html.DropDownListFor(m => m.mathAssignment.ComplexityId, new SelectList(Model.complexities, "ComplexityId", "Name"), String.Concat("--Выберете подраздел--"), new {style = "width: 350px;"})
                 </div>
-            </td>
-            <td colspan="2">
-                <div class="col-md-10">
-                    <div>
-                        @Html.ListBoxFor(model => model.subsections.PostedSubsection.SubsectionIds,
+                <div class="col-md-3">
+                    @Html.ListBoxFor(model => model.subsections.PostedSubsection.SubsectionIds,
                         new MultiSelectList(Model.subsections.AvailableSubsection,
-                        "SubsectionId", "Name",
-                        Model.subsections.SelectedSubsection),
+                            "SubsectionId", "Name",
+                            Model.subsections.SelectedSubsection),
                         new
                         {
                             @class = "chosen",
                             multiple = "multiple",
                             style = "width: 350px;",
                         })
-                    </div>
-
-                   
                 </div>
-            </td>
-            <td colspan="2">
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
                         <input type="submit" value="Filter" class="btn btn-default" />
                     </div>
                 </div>
-           </td>
-        </tr>
+            </div>
+        </div>
     </table>
 }
 
