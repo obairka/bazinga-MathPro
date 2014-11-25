@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -17,13 +18,16 @@ namespace MathPro.Domain.Entities
         public ApplicationUser ApplicationUser { get; set; }
 
         [Required]
+        [DisplayName("Номер задачи")]
         public int MathAssignmentId { get; set; }
         public MathAssignment MathAssignment { get; set; }
 
         [Required]
+        [DisplayName("Комментарий")]
         public string Details { get; set; }
 
         [Required]
+        [DisplayName("Время")]
         public DateTime PostedTime { get; set; }
     }
 }

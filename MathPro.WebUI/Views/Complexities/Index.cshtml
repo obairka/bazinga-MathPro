@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Создать новую запись", "Create")
 </p>
 <table class="table">
     <tr>
@@ -29,9 +29,9 @@
             @Html.DisplayFor(modelItem => item.DefaultPoints)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ComplexityId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ComplexityId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ComplexityId })
+            @Html.ActionLink("Изменить", "Edit", new { id=item.ComplexityId }) |
+            @Html.ActionLink("Подробнее", "Details", new { id=item.ComplexityId }) |
+            @Html.ActionLink("Удалить", "Delete", new { id=item.ComplexityId })
         </td>
     </tr>
 }

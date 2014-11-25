@@ -26,8 +26,9 @@ textarea {
     position: absolute;
     display: none;
     z-index: 50;
-    background: #000;
+    background: #ffffff;
 }
+
 
 #TableEdit:hover #TableListDropDown {
     display: block;

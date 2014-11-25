@@ -6,16 +6,13 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ApplicationUser.UserName)
+            @Html.DisplayName("Имя пользователя")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MathAssignment.MathAssignmentId)
+            @Html.DisplayName("Номер задачи")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Details)
@@ -41,8 +38,8 @@
             @Html.DisplayFor(modelItem => item.PostedTime)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TaskCommentId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TaskCommentId })
+            @Html.ActionLink("Изменить", "Edit", new { id=item.TaskCommentId }) |
+            @Html.ActionLink("Удалить", "Delete", new { id=item.TaskCommentId })
         </td>
     </tr>
 }
