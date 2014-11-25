@@ -24,7 +24,7 @@
                 <div class="box" id="box">
                     <div id="MathOutputAnswer" class="output" style="border: 1px solid; padding: 3px; width: 100%; height: 100%; margin-top: 5px">$${}$$</div>
                 </div>
-                <input type="submit" value="Send" class="btn btn-default" style="margin-top: 30px; float: left;" />
+                <input type="submit" value="Послать ответ" class="btn btn-default" style="margin-top: 30px; float: left;" />
             </td>
         </tr>
     </table>
@@ -32,7 +32,7 @@
 <footer>
     <table class="table">
         <tr>
-            <b><p>Write Comment: </p></b>
+            <b><p>Оставить комментарий: </p></b>
         </tr>
         <tr>
             @using (Html.BeginForm("CommentAdd", "Home", FormMethod.Post))
@@ -43,13 +43,13 @@
                 @Html.HiddenFor(model => model.userAttempt.MathAssignmentId)
                 @Html.TextAreaFor(model => model.taskComment.Details, new { cols = "60", rows = "10", style = "margin-top:5px" })
                 <div>
-                    <input type="submit" value="Comment" class="btn btn-default" style="margin-top: 30px; float: left;" />
+                    <input type="submit" value="Разместить комментарий" class="btn btn-default" style="margin-top: 30px; float: left;" />
                 </div>
             }
         </tr>
         <tr>
             <td>
-                <b><p>Comments: </p></b>
+                <b><p>Комментарии: </p></b>
             </td>
         </tr>
         <tr>
@@ -61,9 +61,13 @@
                             <div class="comment">
                                 @Html.DisplayFor(model => comment.PostedTime)
                                 @Html.Raw("<br>")
-                                @Html.DisplayFor(model => comment.ApplicationUser.UserName)
+                                <div id="username">
+                                    @Html.DisplayFor(model => comment.ApplicationUser.UserName)
+                                </div>
                                 @Html.Raw("<br>")
-                                @Html.DisplayFor(model => comment.Details)
+                                <div id="usercomment">
+                                    @Html.DisplayFor(model => comment.Details)
+                                </div>
                             </div>
                         </td>
                     </tr>
