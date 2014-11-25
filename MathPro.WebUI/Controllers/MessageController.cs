@@ -65,8 +65,8 @@ namespace MathPro.WebUI.Controllers
                             Sender = m.Sender.UserName,
                             Recipient = m.Recipient.UserName,
                             OtherUser = !m.Sender.Id.Equals(user.Id) ? m.Sender.UserName : m.Recipient.UserName,
-                            IsRead = false,
-                            Created = m.CreatedOn.ToString(),
+                            IsRead = m.IsRead,
+                            Created = m.CreatedOn.ToLocalTime().ToString(),
                             Body = m.Body,
                             Subject = m.Subject,                 
                         })
@@ -117,14 +117,21 @@ namespace MathPro.WebUI.Controllers
                 return HttpNotFound();
             }
 
+
             m.IsRead = true;
+            // Save that message was read
+            db.Messages.Attach(m);
+            var entry = db.Entry(m);
+            entry.Property(e => e.IsRead).IsModified = true;
+            // other changed properties
+            db.SaveChanges();
             return View(new MessageViewModel
             {
                 MessageId = m.MessageId,
                 Sender = m.Sender.UserName,
                 Recipient = m.Recipient.UserName,
                 OtherUser = !m.Sender.Id.Equals(user.Id) ? m.Sender.UserName : m.Recipient.UserName,
-                IsRead = false,
+                IsRead = m.IsRead,
                 Created = m.CreatedOn.ToString(),
                 Body = m.Body,
                 Subject = m.Subject,      

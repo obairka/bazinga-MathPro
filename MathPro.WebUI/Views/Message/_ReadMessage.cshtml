@@ -1,21 +1,16 @@
 ﻿@model MathPro.WebUI.Models.MessageViewModel
 
-
 <div class="media">
-    <a class="media-left" href="@Url.Action("Index", "UserProfile", new { username = Model.OtherUser })">
-        <img src="~/Resources/Images/user_small.png" alt="user_default_image" class="img-thumbnail">
+    <a class="media-left" href="@Url.Action("Index", "UserProfile", new { username = Model.Sender })">
+        <img src="~/Resources/Images/user_small.png" alt="user_default_image" class="img-thumbnail  small-user-image">
     </a>
 
-    <a class="media-body" href="@Url.Action("Read", "Message", new { model = Model })">
-        <h4 class="media-heading">@Model.OtherUser</h4>
-        <h4 class="text-info"> @Model.Subject</h4>
-        <p class="text-muted">
-            @Model.Body
-            <br />
-            ...
-
+    <a class="media-body" href="@Url.Action("Read", "Message", new { messageId = Model.MessageId })">
+        <h4 class="media-heading">@Model.Sender -> @Model.Recipient</h4>
+        <h4 class="text-info"> @Model.Subject <span class="text-right"> @Model.Created</span> </h4>
+        <p class="text-primary">
+            <span style="white-space: pre-line">@Model.Body</span>
+            
         </p>
     </a>
 </div>
-
-

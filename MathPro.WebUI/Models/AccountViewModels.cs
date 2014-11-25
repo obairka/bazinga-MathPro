@@ -19,9 +19,12 @@ namespace MathPro.WebUI.Models
                 Age = user.Age == null ? "-" : user.Age.ToString();
                 Rating = user.Rating;
                 UserId = user.Id;
+                UnreadMessageCount = user.UnreadMessageCount;
             }            
         }
         public string UserId { get; set; }
+
+        public int UnreadMessageCount { get; set; }
 
         [Required]
         [StringLength(30, ErrorMessage = "Логин должен быть не короче {2} символов", MinimumLength = 6)]

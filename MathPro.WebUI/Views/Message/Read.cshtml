@@ -8,4 +8,4 @@
 
 @{ Html.RenderPartial("_ReadMessage", Model); }
 
-@Html.ActionLink("Написать", "Reply", "Message", new { username = Model.OtherUser }, null)
+@Html.ActionLink("Ответить", "Reply", "Message", new { username = Model.OtherUser }, null)

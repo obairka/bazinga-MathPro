@@ -87,5 +87,14 @@ namespace MathPro.Domain.Entities
                 return MyMessages.Select(m => m.SenderId != this.Id ? m.Sender : m.Recipient);
             }
         }
+
+        public int UnreadMessageCount 
+        {
+            get
+            {
+                return MessagesIReceive.Where(m => !m.IsRead).Count();
+            }
+        }
+
     }
 }
