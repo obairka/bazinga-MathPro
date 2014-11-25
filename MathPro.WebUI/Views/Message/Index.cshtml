@@ -28,12 +28,8 @@ else {
 
     foreach (var item in Model.Messages)
     {
-        <div class="panel">
-            
+        <div class="panel">            
             @{ Html.RenderPartial("_MessageItem", item); }
-            
-            @Html.ActionLink("Написать", "Reply", "Message", new { username = item.OtherUser }, null)
-
 
         </div>
     }

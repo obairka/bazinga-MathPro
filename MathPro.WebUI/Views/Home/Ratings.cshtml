@@ -19,7 +19,7 @@
     {
         <tr>
             <td>                
-                <a href="@Url.Action("Index", "UserProfile", new { username = item.UserName })"></a>                    
+                <a href="@Url.Action("Index", "UserProfile", new { username = item.UserName })">@item.UserName</a>                    
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Rating)
