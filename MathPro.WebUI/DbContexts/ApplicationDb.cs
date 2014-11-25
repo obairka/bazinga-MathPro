@@ -119,28 +119,73 @@ namespace MathPro.WebUI.DbContexts
 
         public static void InitializeMathAssignment(ApplicationDb context)
         {
+            Complexity easy = new Complexity()
+            {
+                Name = "Новичок",
+                DefaultPoints = 20
+            };
+            Complexity intermediate = new Complexity()
+            {
+                Name = "Продвинутый",
+                DefaultPoints = 30
+            };
+            Complexity pro = new Complexity()
+            {
+                Name = "Профессионал",
+                DefaultPoints = 40
+            };
+
+            Section mathematicalAnalysisSection = new Section() { Name = "Математический анализ" };
+            Section differentialEquationSection = new Section() { Name = "Дифференцаиальные уравнения" };
+            Section probabilityTheorySectoin = new Section() { Name = "Теория вероятности" };
+            Section mathematicalStatisticsSection = new Section() { Name = "Математическая статистика" };
+            Section algebraSection = new Section() { Name = "Алгебра" };
+            Section mathematicalLogicSection = new Section() { Name = "Математическая логика" };
+            Section discreteMathematicsSection = new Section() { Name = "Дискретная математика" };
+            Section numericalAnalysisSection = new Section() { Name = "Вычислительная математика" };
+
+            Subsection subsection1 = new Subsection() { Name = "Вычисление производных" };
+            Subsection subsection2 = new Subsection() { Name = "Частные производные неявно заданной функции" };
+            Subsection subsection3 = new Subsection() { Name = "Производная параметрически заданной функции" };
+
             MathAssignment math1 = new MathAssignment
             {
-                Section = new Section()
-                {
-                    Name = "Математический анализ"
-                },
-                Complexity = new Complexity()
-                {
-                    Name = "Новичок",
-                    DefaultPoints = 20
-                },
-                AssignmentText = "Найти\\ производную от \\ следующей \\ функции \\ y = \\left[\\sqrt[3]{\\frac{1}{7+x^2}}+\\frac{\\sqrt{x}}{\\sqrt{x}+1} \\ right]\\cdot 24; \\quady'(1).",
-                Answer = "answer",
+                Section = mathematicalAnalysisSection,
+                Complexity = easy,
+                AssignmentText = "Найти\\ производную \\ от \\ следующей \\ функции \\ {y=\\left[\\sqrt[3]{\\frac{1}{7+x^2}}+\\frac{\\sqrt{x}}{\\sqrt{x}+1} \\right]\\cdot 24 \\\\ y'(1) = ?}",
+                Answer = "{y' =24 \\left[((7 + x^2)^{-\\frac{1}{3}})' + \\left(\\frac{\\sqrt{x}}{\\sqrt{x} + 1}\\right)'\\ \\right] = \\\\24\\left[-\\frac{1}{3}(7 + x^2)^{-\\frac{4}{3}}2x + \\frac{1/2x^{-\\frac{1}{2}}(x^\\frac{1}{2})1/2x^{-\\frac{1}{2}}}{(\\sqrt{x} + 1)^2}\\right]} = \\\\ -\\frac{16x}{(7 + x^2)^\\frac{4}{3}} + \\frac{12}{\\sqrt{x} (\\sqrt{x} + 1)^2};\\\\ y'(1) = -\\frac{16}{8^\\frac{4}{3}} + \\frac{12}{4} = 2.",
                 Subsections = new Collection<Subsection>()
                 {
-                    new Subsection()
-                    {
-                        Name = "Вычисление производных"
-                    }
+                    subsection1
+                }
+            };
+            var t = context.Subsections.Where(c => c.Name == "Вычисление производных");
+            MathAssignment math2 = new MathAssignment
+            {
+                Section = differentialEquationSection,
+                Complexity = intermediate,
+                AssignmentText = "Найти \\ y_{xx}^{''}, \\ если \\\\\\left\\{\\begin{array}{l}x=t^4-t^2+1,\\\\y=t^4+t^2+1.\\end{array}\\right.",
+                Answer = "Answer",
+                Subsections = new Collection<Subsection>()
+                {
+                    subsection1, subsection2
+                }
+            };
+            MathAssignment math3 = new MathAssignment
+            {
+                Section = mathematicalAnalysisSection,
+                Complexity = pro,
+                AssignmentText = "Функция z = z(x, y) задана \\ неявно \\ уравнением \\\\2x^2+2y^2+z^2-8xz-z+8=0 \\\\Вычислить \\\\\\frac{\\partial z}{\\partial x}(2,0,1), \\frac{\\partial z}{\\partial y}(2,0,1)",
+                Answer = "Answer",
+                Subsections = new Collection<Subsection>()
+                {
+                    subsection1, subsection2, subsection3
                 }
             };
             context.MathAssignments.AddOrUpdate(math1);
+            context.MathAssignments.AddOrUpdate(math2);
+            context.MathAssignments.AddOrUpdate(math3);
+
         }
 
 

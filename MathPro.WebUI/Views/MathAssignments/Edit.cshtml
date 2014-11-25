@@ -4,9 +4,8 @@
 @{
     ViewBag.Title = "Edit";
 }
-<script type="text/javascript"
-        src="../../Scripts/MathAssignmentPreview.js">
-</script>
+
+<script type="text/javascript" src="../../Scripts/MathAssignmentPreview.js"></script>
 
 <h2>Edit</h2>
 
@@ -43,7 +42,7 @@
                 @Html.TextAreaFor(model => model.mathAssignment.AssignmentText, new { id = "MathInput", cols = "60", rows = "10", onkeyup = "UpdateMathAssignment(this.value)", style = "margin-top:5px" })
                 @Html.Raw("<br> <b> Preview: </b> <br>")
                 <div class="box" id="box">
-                    <div id="MathOutputAssignment" class="output" style="border:1px solid; padding: 3px; width:50%; height: 100%; margin-top:5px">$${}$$</div>
+                    <div id="MathOutputAssignment" class="output" style="border:1px solid; padding: 3px; width:100%; height: 100%; margin-top:5px">$${}$$</div>
                 </div>
                 @Html.ValidationMessageFor(model => model.mathAssignment.AssignmentText, "", new { @class = "text-danger" })
             </div>
@@ -63,7 +62,7 @@
                 @Html.TextAreaFor(model => model.mathAssignment.Answer, new { id = "MathInput", cols = "60", rows = "10", onkeyup = "UpdateMathAnswer(this.value)", style = "margin-top:5px" })
                 @Html.Raw("<br> <b> Preview: </b> <br>")
                 <div class="box" id="box">
-                    <div id="MathOutputAnswer" class="output" style="border:1px solid; padding: 3px; width:50%; height: 100%; margin-top:5px">$${}$$</div>
+                    <div id="MathOutputAnswer" class="output" style="border:1px solid; padding: 3px; width:100%; height: 100%; margin-top:5px">$${}$$</div>
                 </div>
                 @Html.ValidationMessageFor(model => model.mathAssignment.Answer, "", new { @class = "text-danger" })
             </div>
