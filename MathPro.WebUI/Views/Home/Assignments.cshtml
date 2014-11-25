@@ -59,7 +59,7 @@
 <table class="table" >
     <tr>
         <th colspan="8">
-            @Html.DisplayNameFor(model => model.mathAssignment.AssignmentText)
+            @Html.DisplayName("Номер задачи")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.mathAssignment.PointsForAssignment)
@@ -79,7 +79,7 @@
     {
         <tr class ="TableNoneBorder">
             <td colspan="8">
-                <div id="MathOutputAssignment">$${@Html.DisplayFor(modelItem => item.AssignmentText)}$$</div>
+                @Html.DisplayFor(modelItem => item.MathAssignmentId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PointsForAssignment)
