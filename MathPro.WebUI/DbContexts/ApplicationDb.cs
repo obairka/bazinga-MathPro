@@ -157,7 +157,8 @@ namespace MathPro.WebUI.DbContexts
                 Subsections = new Collection<Subsection>()
                 {
                     subsection1
-                }
+                },
+                PointsForAssignment = easy.DefaultPoints
             };
             var t = context.Subsections.Where(c => c.Name == "Вычисление производных");
             MathAssignment math2 = new MathAssignment
@@ -169,7 +170,8 @@ namespace MathPro.WebUI.DbContexts
                 Subsections = new Collection<Subsection>()
                 {
                     subsection1, subsection2
-                }
+                },
+                PointsForAssignment = intermediate.DefaultPoints
             };
             MathAssignment math3 = new MathAssignment
             {
@@ -180,7 +182,8 @@ namespace MathPro.WebUI.DbContexts
                 Subsections = new Collection<Subsection>()
                 {
                     subsection1, subsection2, subsection3
-                }
+                },
+                PointsForAssignment = pro.DefaultPoints
             };
             context.MathAssignments.AddOrUpdate(math1);
             context.MathAssignments.AddOrUpdate(math2);
