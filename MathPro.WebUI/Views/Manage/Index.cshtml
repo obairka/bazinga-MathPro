@@ -1,6 +1,6 @@
 ﻿@model MathPro.WebUI.Models.IndexViewModel
 @{
-    ViewBag.Title = "Manage your account";
+    ViewBag.Title = "Настройки аккаунта";
 }
 @Html.Partial("~/Views/Shared/_UserProfileBreadcrumbs.cshtml")
 <h2>@ViewBag.Title.</h2>
@@ -11,24 +11,24 @@
         <p>
             @if (Model.HasPassword)
             {
-                @Html.ActionLink("Change your password", "ChangePassword")
+                @Html.ActionLink("Изменить пароль", "ChangePassword")
             }
             else
             {
-                @Html.ActionLink("Pick a password", "SetPassword")
+                @Html.ActionLink("Подобрать пароль", "SetPassword")
             }
         </p>
         <p>
-            Phone Number: @(Model.PhoneNumber ?? "None") [
+            Phone Number: @(Model.PhoneNumber ?? "-") [
             @if (Model.PhoneNumber != null)
             {
-                @Html.ActionLink("Change", "AddPhoneNumber")
+                @Html.ActionLink("Изменить", "AddPhoneNumber")
                 @: &nbsp;|&nbsp;
-                @Html.ActionLink("Remove", "RemovePhoneNumber")
+                @Html.ActionLink("Удалить", "RemovePhoneNumber")
             }
             else
             {
-                @Html.ActionLink("Add", "AddPhoneNumber")
+                @Html.ActionLink("Добавить", "AddPhoneNumber")
             }
             ]
         </p>

@@ -1,0 +1,11 @@
+﻿@model MathPro.WebUI.Models.MessageViewModel
+
+@{
+    ViewBag.Title = "Сообщение";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@{ Html.RenderPartial("_ReadMessage", Model); }
+
+@Html.ActionLink("Написать", "Reply", "Message", new { username = Model.OtherUser }, null)

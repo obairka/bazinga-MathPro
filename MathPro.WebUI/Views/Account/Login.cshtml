@@ -1,7 +1,7 @@
 ﻿@model MathPro.WebUI.Models.LoginViewModel
 
 @{
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "Войти";
 }
 <h2>@ViewBag.Title.</h2>
 <div class="row">
@@ -10,7 +10,6 @@
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                <h4>Use a local account to log in.</h4>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
@@ -41,10 +40,10 @@
                     </div>
                 </div>
                 <p>
-                    @Html.ActionLink("Register a new user?", "Register")
+                    @Html.ActionLink("Зарегистрироваться?", "Register")
                 </p>
                 <p>
-                    @Html.ActionLink("Forget your password?", "ForgotPassword")
+                    @Html.ActionLink("Забыли пароль?", "ForgotPassword")
                 </p>
             }
         </section>

@@ -61,6 +61,7 @@ namespace MathPro.WebUI.Controllers
                 Messages = user.MyMessages.Select( m => 
                         new MessageViewModel
                         {
+                            MessageId = m.MessageId,
                             Sender = m.Sender.UserName,
                             Recipient = m.Recipient.UserName,
                             OtherUser = !m.Sender.Id.Equals(user.Id) ? m.Sender.UserName : m.Recipient.UserName,
@@ -93,6 +94,44 @@ namespace MathPro.WebUI.Controllers
             };
             return View("Send",msg);
         }
+
+
+        public async Task<ActionResult> Read(int messageId)
+        {
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            //TODO:
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            var m = db.Messages.Find(messageId);
+
+            if (null == m)
+            {
+                return HttpNotFound();
+            }
+
+            if (! (m.SenderId.Equals(user.Id) || m.RecipientId.Equals(user.Id)) )
+            {
+                // TODO: Access denied
+                return HttpNotFound();
+            }
+
+            m.IsRead = true;
+            return View(new MessageViewModel
+            {
+                MessageId = m.MessageId,
+                Sender = m.Sender.UserName,
+                Recipient = m.Recipient.UserName,
+                OtherUser = !m.Sender.Id.Equals(user.Id) ? m.Sender.UserName : m.Recipient.UserName,
+                IsRead = false,
+                Created = m.CreatedOn.ToString(),
+                Body = m.Body,
+                Subject = m.Subject,      
+            });
+        }
+        
+
          
         // GET: 
         public ActionResult Send()
@@ -103,7 +142,7 @@ namespace MathPro.WebUI.Controllers
                 PrevMessage = null,
             };
             return View(msg);            
-        }
+        }        
 
         //
         // POST: /

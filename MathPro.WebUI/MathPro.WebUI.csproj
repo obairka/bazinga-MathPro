@@ -357,6 +357,8 @@
     <Content Include="Views\UserProfile\Index.cshtml" />
     <Content Include="Views\UserAttempt\MyAttempts.cshtml" />
     <Content Include="Views\UserAttempt\ShowAttempt.cshtml" />
+    <Content Include="Views\Message\_ReadMessage.cshtml" />
+    <Content Include="Views\Message\Read.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,10 +1,10 @@
 ﻿@model MathPro.Domain.Entities.ApplicationUser
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Подробнее";
 }
 
-<h2>Details.</h2>
+<h2>@ViewBag.Title</h2>
 
 <div>
     <h4>User</h4>
@@ -71,11 +71,11 @@
 
     </dl>
 </div>
-<h4>List of roles for this user</h4>
+<h4>Роли пользователя</h4>
 @if (ViewBag.RoleNames.Count == 0)
 {
     <hr />
-    <p>No roles found for this user.</p>
+    <p>Нет ролей</p>
 }
 
 <table class="table">
@@ -90,8 +90,8 @@
     }
 </table>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Изменить", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Обратно", "Index")
 </p>
 
 

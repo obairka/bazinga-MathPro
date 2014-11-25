@@ -1,10 +1,10 @@
 ﻿@model Microsoft.AspNet.Identity.EntityFramework.IdentityRole
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Подробнее";
 }
 
-<h2>Details.</h2>
+<h2>@ViewBag.Title</h2>
 
 <div>
     <h4>Roles.</h4>
@@ -37,8 +37,8 @@
     }
 </table>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Изменить", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Обратно", "Index")
 </p>
 
 

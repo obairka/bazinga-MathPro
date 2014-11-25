@@ -40,15 +40,15 @@
 
                     @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                     {
-                        <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
-                        <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
+                        <li>@Html.ActionLink("Роли", "Index", "RolesAdmin")</li>
+                        <li>@Html.ActionLink("Юзеры", "Index", "UsersAdmin")</li>
                         <li id="TableEdit">
                             <a href="#">TableEdit</a>
                             <ul id="TableListDropDown" class="navbar-nav">
-                                <li class="DropDownElement">@Html.ActionLink("Complexity", "Index", "Complexities")</li>
-                                <li class="DropDownElement">@Html.ActionLink("Section", "Index", "Sections")</li>
-                                <li class="DropDownElement">@Html.ActionLink("Subsection", "Index", "Subsections")</li>
-                                <li class="DropDownElement">@Html.ActionLink("MathAssignment", "Index", "MathAssignments")</li>
+                                <li class="DropDownElement">@Html.ActionLink("Сложность", "Index", "Complexities")</li>
+                                <li class="DropDownElement">@Html.ActionLink("Разделы", "Index", "Sections")</li>
+                                <li class="DropDownElement">@Html.ActionLink("Подразделы", "Index", "Subsections")</li>
+                                <li class="DropDownElement">@Html.ActionLink("Задачи", "Index", "MathAssignments")</li>
                             </ul>
                         </li>
                     }}

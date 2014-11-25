@@ -1,10 +1,10 @@
 ﻿@model MathPro.WebUI.Models.RoleViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Изменить";
 }
 
-<h2>Edit.</h2>
+<h2>@ViewBag.Title</h2>
 
 
 @using (Html.BeginForm())
@@ -34,7 +34,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Обратно", "Index")
 </div>
 
 @section Scripts {
