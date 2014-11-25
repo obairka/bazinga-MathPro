@@ -74,6 +74,11 @@ namespace MathPro.Domain.Entities
         {
             get
             {
+                if (MessagesISend == null)
+                {
+                    return new List<Message>();
+                }
+
                 return MessagesISend.Union(MessagesIReceive).OrderBy(m => m.CreatedOn);
             }
         }
@@ -84,6 +89,10 @@ namespace MathPro.Domain.Entities
         {
             get
             {
+                if (MyMessages == null)
+                {
+                    return new List<ApplicationUser>();
+                }
                 return MyMessages.Select(m => m.SenderId != this.Id ? m.Sender : m.Recipient);
             }
         }
@@ -92,6 +101,10 @@ namespace MathPro.Domain.Entities
         {
             get
             {
+                if (MessagesIReceive == null)
+                {
+                    return 0;
+                }
                 return MessagesIReceive.Where(m => !m.IsRead).Count();
             }
         }
