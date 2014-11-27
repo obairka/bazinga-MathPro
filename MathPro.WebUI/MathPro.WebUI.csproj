@@ -366,6 +366,7 @@
     <Content Include="Views\TaskComments\Index.cshtml" />
     <Content Include="Views\Message\IncomingBox.cshtml" />
     <Content Include="Views\Message\OutBox.cshtml" />
+    <Content Include="Views\Home\PageNotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

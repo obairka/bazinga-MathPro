@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity.Migrations;
+using System.Drawing.Printing;
 using MathPro.Domain.Entities;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
@@ -194,8 +195,10 @@ namespace MathPro.WebUI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> AssignmentView(int MathAssignmentId)
+        public async Task<ActionResult> AssignmentView(int? MathAssignmentId)
         {
+            if(MathAssignmentId == null)
+                return RedirectToAction("PageNotFound", "Home");
             MathAssignmentViewModel maSmToView = new MathAssignmentViewModel();
             maSmToView.mathAssignment = db.MathAssignments.Find(MathAssignmentId);
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
@@ -212,7 +215,7 @@ namespace MathPro.WebUI.Controllers
             {
                 maSmToView.userAttempt = new UserAttempt();
                 maSmToView.userAttempt.ApplicationUser = user;
-                maSmToView.userAttempt.MathAssignmentId = MathAssignmentId;
+                maSmToView.userAttempt.MathAssignmentId = (int)MathAssignmentId;
                 maSmToView.userAttempt.MathAssignment = db.MathAssignments.Find(MathAssignmentId);
                 maSmToView.userAttempt.AttemptDateTime = DateTime.Now;
                 
@@ -282,6 +285,11 @@ namespace MathPro.WebUI.Controllers
             db.TaskComments.Add(taskComment);
             db.SaveChanges();
             return RedirectToAction("AssignmentView", new { MathAssignmentId = maSm.userAttempt.MathAssignmentId });
+        }
+
+        public ActionResult PageNotFound()
+        {
+            return View();
         }
     }
 }
