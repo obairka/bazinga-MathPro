@@ -35,6 +35,14 @@ namespace MathPro.WebUI
 
                 switch (httpException.GetHttpCode())
                 {
+                    case 404:
+                        // page not found
+                        action = "PageNotFound";
+                        break;
+                    case 500:
+                        // server error
+                        action = "PageNotFound";
+                        break;
                     default:
                         action = "PageNotFound";
                         break;
@@ -43,7 +51,7 @@ namespace MathPro.WebUI
                 // clear error on server
                 Server.ClearError();
 
-                Response.Redirect("PageNotFound");
+                Response.RedirectToRoute(action);
             }
         }
     }

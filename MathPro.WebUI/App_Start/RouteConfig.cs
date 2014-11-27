@@ -18,11 +18,7 @@ namespace MathPro.WebUI
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
-            routes.MapRoute(
-                "PageNotFound",
-                "{*url}",
-                new { controller = "Home", action = "PageNotFound" }
-                );
+            routes.MapPageRoute("PageNotFound", "Home/PageNotFound", "~/Default.aspx");
         }
     }
 }
