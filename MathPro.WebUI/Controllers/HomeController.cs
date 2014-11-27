@@ -251,7 +251,7 @@ namespace MathPro.WebUI.Controllers
             userAttempt.AttemptResultSuccess = result;
             if (result)
             {
-                int attemptsCount = db.UserAttempts.Select(ua => ua.MathAssignmentId == task.MathAssignmentId).Count();
+                var attemptsCount = db.UserAttempts.Count(ua => ua.MathAssignmentId == task.MathAssignmentId);
                 int maxPoints = task.PointsForAssignment ?? 10;
                 ISimpleRatingCounter counter = new VerySimpleRatingCounter();
                 int points = counter.Count(maxPoints, attemptsCount);
@@ -261,6 +261,8 @@ namespace MathPro.WebUI.Controllers
                 user.Rating += points;
             }
             //////////////////////////////////////////////////////////////////////////////////////////
+
+            
             db.UserAttempts.Add(userAttempt);
             db.SaveChanges();
             return RedirectToAction("MyAttempts","UserAttempt");

@@ -2,7 +2,7 @@
 @model MathPro.WebUI.Models.MathAssignmentViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Создать";
 }
 
 <h2>Create</h2>
@@ -64,7 +64,7 @@
         </div>
         
         <div class="form-group">
-            @Html.LabelFor(model => model.subsections, "Подразделы", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.subsections, "Подразделы", htmlAttributes: new { @class = "control-label col-md-2"})
             
             <div class="col-md-10">
                 @using (Html.BeginForm("Create", "MathAssignments", FormMethod.Post))
