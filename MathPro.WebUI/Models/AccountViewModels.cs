@@ -20,20 +20,25 @@ namespace MathPro.WebUI.Models
                 Rating = user.Rating;
                 UserId = user.Id;
                 UnreadMessageCount = user.UnreadMessageCount;
+                HasImage = user.HasImage;
+                UserImageName = user.UserImageName;
             }            
         }
         public string UserId { get; set; }
 
         public int UnreadMessageCount { get; set; }
 
+        public bool HasImage { get; set; }
+        public string UserImageName { get; set; }
+
         [Required]
-        [StringLength(30, ErrorMessage = "Логин должен быть не короче {2} символов", MinimumLength = 6)]
+        [StringLength(30, ErrorMessage = "Логин должен быть не короче {2} символов", MinimumLength = 5)]
         [Display(Name = "Логин")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage="Введите свой email")]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "email")]
         public string Email { get; set; }
 
 

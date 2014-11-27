@@ -1,15 +1,28 @@
 ﻿@model MathPro.WebUI.Models.MessageViewModel
 
-<div class="media">
-    <a class="media-left" href="@Url.Action("Index", "UserProfile", new { username = Model.Sender })">
-        <img src="~/Resources/Images/user_small.png" alt="user_default_image" class="img-thumbnail  small-user-image">
+@{
+    bool IsIncoming = Convert.ToBoolean(ViewData["incoming"]);
+}
+
+<div class="media ">
+    <a class="media-left media-middle" style="padding-left: 10px;" href="@Url.Action("Index", "UserProfile", new { username = Model.SenderUserName })">
+        @if (File.Exists(Server.MapPath("~/Images/UserImages/" + Html.DisplayFor(modelItem => Model.SenderImageName))))
+        {
+            <img src="~/Images/UserImages/@Html.DisplayFor(modelItem => Model.SenderImageName)" alt="user_image" class="img-thumbnail small-user-image">
+        }
+        else
+        {
+            <img src="~/Resources/Images/user_small.png" alt="user_default_image" class="img-thumbnail small-user-image">
+        }
     </a>
 
     <div class="media-body">
-        <h4 class="media-heading">@Model.Sender -> @Model.Recipient</h4>
-        <h4 class="text-info"> @Model.Subject <span class="text-right"> @Model.Created</span> </h4>        
+        <h4 class="media-heading" style="padding-top: 10px;">@Model.SenderUserName </h4>
+        <h4 class="text-muted"> @Model.Subject <span class="text-right"> @Model.CreatedOn</span> </h4>
+
+        <p class="message-body text-justify">
+            @Model.Body
+        </p>
     </div>
-    <p class="message-body text-justify">
-        @Model.Body
-    </p>
 </div>
+

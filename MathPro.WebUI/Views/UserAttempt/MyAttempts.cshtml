@@ -11,7 +11,7 @@
 @if (Model.UserAttempts.Count() == 0)
 {
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="alert alert-info" role="alert">
                 <p>Ooops! Пока ни одной попытки !</p>
             </div>
@@ -47,18 +47,18 @@ else
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.AttemptDateTime)
-                        <a href="@Url.Action("ShowAttempt", "UserAttempt", new { userAttemptId = item.UserAttemptId })"></a>
+                        
+                        <a href="@Url.Action("ShowAttempt", "UserAttempt", new { userAttemptId = item.UserAttemptId })">@Html.DisplayFor(modelItem => item.AttemptDateTime)</a>
                     </td>
                     <td>
                         <a href="@Url.Action("AssignmentView", "Home", new { MathAssignmentId = item.MathAssignmentId })"> @item.MathAssignmentId</a>
                     </td>
                     <td>
-                        @Html.Display(item.AttemptResultSuccess ? "success" : "fail");
+                        @Html.Display(item.AttemptResultSuccess ? "success" : "fail")
                     </td>
 
                     <td>
-                        @Html.Display(item.Points.ToString());
+                        @Html.Display(item.Points.ToString())
                     </td>
 
                 </tr>

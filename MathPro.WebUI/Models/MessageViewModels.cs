@@ -9,21 +9,38 @@ namespace MathPro.WebUI.Models
 {
     public class MessageViewModel
     {
+        public MessageViewModel() { }
+        public MessageViewModel(Message message, string me)
+        {
+            MessageId = message.MessageId;
+            SenderImageName = message.Sender.UserImageName;
+            SenderUserName = message.Sender.UserName;
+            RecipientUserName = message.Recipient.UserName;
+            RecipientImageName = message.Recipient.UserImageName;
 
+            CreatedOn = message.CreatedOn;
+            IsRead = message.IsRead;
+            Subject = message.Subject;
+            Body = message.Body;
+            WatcherUserName = me;
+        }
+
+        public string WatcherUserName { get; set; }
         public int MessageId { get; set; }
-        public string OtherUser { get; set; }
-        public string Sender { get; set; }
-        public string Recipient { get; set; }
+        
+        public string SenderUserName { get; set; }
+        public string SenderImageName { get; set; }
 
-        public string Created { get; set; }
+        public string RecipientUserName { get; set; }
+        public string RecipientImageName { get; set; }
 
-        // TODO: Default: IsRead = false
+        public DateTime CreatedOn { get; set; }
+
         public bool IsRead { get; set; }
 
         public string Subject { get; set; }
 
         public string Body { get; set; }
-
     }
 
     public class MessageSendModel
@@ -35,8 +52,6 @@ namespace MathPro.WebUI.Models
         [Required]
         public string Body { get; set; }
 
-        public bool ShowPrevMessage { get; set; }
-        public MessageViewModel PrevMessage { get; set; }
     }
 
 
@@ -44,6 +59,5 @@ namespace MathPro.WebUI.Models
     {
         public IEnumerable<MessageViewModel> Messages { get; set; }
         public PagingInfo PagingInfo { get; set; }
-
     }
 }

@@ -2,12 +2,42 @@
 
 @{
     ViewBag.Title = "Сообщение";
+    bool isIncoming = Model.RecipientUserName == Model.WatcherUserName;
+    var otherUser =  (isIncoming) ? Model.SenderUserName : Model.RecipientUserName;
 }
 
 <div class="page-header">
     <h2>@ViewBag.Title</h2>
 </div>
 
-@{ Html.RenderPartial("_ReadMessage", Model); }
+@{ Html.RenderPartial("_ReadMessage", Model, new ViewDataDictionary { {"incoming", isIncoming} }); }
 
-@Html.ActionLink("Ответить", "Reply", "Message", new { username = Model.OtherUser }, null)
+
+
+<div class="page-header">
+    <h4>Ответить</h4>
+</div>
+
+
+@using (Html.BeginForm("Send", "Message", FormMethod.Post, new { @class = "form", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    @Html.Hidden("RecipientUserName", @otherUser)
+
+    <div class="form-group">
+        @Html.TextBox("Subject" , "", new { @class = "form-control", placeholder = "Тема" })
+
+    </div>
+
+
+    <div class="form-group">
+        @Html.TextArea("Body","" ,new { @class = "form-control", rows = "8", placeholder = "Введите сообщение" })
+    </div>
+
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Отправить" />
+    </div>
+
+}

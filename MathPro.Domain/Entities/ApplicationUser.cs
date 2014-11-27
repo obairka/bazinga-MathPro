@@ -21,36 +21,19 @@ namespace MathPro.Domain.Entities
             // Add custom user claims here
             return userIdentity;
         }
+
+        public ApplicationUser()
+        {
+            HasImage = false;
+        }
     
         public string FirstName { get; set; }
-        public string LastName { get; set; }
-
-        // BirthDate should be expressed as a date without time component
+        public string LastName { get; set; }        
         
         [DataType(DataType.Date)]
-        // BirthDate can't be in the future or present
         [PastDate]
         public DateTime? BirthDate { get; set; }
-
         
-        [NotMapped]
-        [Range(0, 200)]
-        public int? Age 
-        {
-            get
-            {
-                if (null == BirthDate)
-                {
-                    return null;
-                }
-                DateTime today = DateTime.Today;
-                int age = today.Year - BirthDate.Value.Year;
-                if (BirthDate.Value > today.AddYears(-age)) age--;
-                return age;
-            }  
-        }
-      
-        // TODO: auto setting
         [Required]
         public DateTime LastVisitDate { get; set; }
         
@@ -60,6 +43,34 @@ namespace MathPro.Domain.Entities
         [Required]               
         public int Rating { get; set; }
 
+        public bool HasImage
+        {
+            get;
+            private set;
+        }
+        
+        private string _userImageName;
+        
+        public string UserImageName 
+        { 
+            get 
+            {
+                return _userImageName ?? "";
+            }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    _userImageName = value;
+                    HasImage = true;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Navigation properties
+        /// </summary>
+
         public virtual ICollection<TaskComment> TaskComments { get; set; }
         // All one user's attempts
         public virtual ICollection<UserAttempt> UserAttempts { get; set; }
@@ -68,7 +79,10 @@ namespace MathPro.Domain.Entities
         public virtual ICollection<Message> MessagesISend { get; set; }
         [InverseProperty("Recipient")]
         public virtual ICollection<Message> MessagesIReceive { get; set; }
-
+        
+        /// <summary>
+        /// Additional fields
+        /// </summary>
         [NotMapped]
         public IEnumerable<Message> MyMessages
         {
@@ -97,6 +111,7 @@ namespace MathPro.Domain.Entities
             }
         }
 
+        [NotMapped]
         public int UnreadMessageCount 
         {
             get
@@ -106,6 +121,23 @@ namespace MathPro.Domain.Entities
                     return 0;
                 }
                 return MessagesIReceive.Where(m => !m.IsRead).Count();
+            }
+        }
+        
+        [NotMapped]
+        [Range(0, 200)]
+        public int? Age
+        {
+            get
+            {
+                if (null == BirthDate)
+                {
+                    return null;
+                }
+                DateTime today = DateTime.Today;
+                int age = today.Year - BirthDate.Value.Year;
+                if (BirthDate.Value > today.AddYears(-age)) age--;
+                return age;
             }
         }
 

@@ -92,9 +92,7 @@ namespace MathPro.WebUI.Controllers
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
             }
-        }
-
-       
+        }       
         
         //
         // GET: /Account/VerifyCode
@@ -139,6 +137,7 @@ namespace MathPro.WebUI.Controllers
                     return View(model);
             }
         }
+
         //
         // GET: /Account/Register
         [AllowAnonymous]

@@ -1,28 +1,33 @@
 ﻿@model MathPro.WebUI.Models.MessageViewModel
 
 @{
-    string message = "message";
-    int messageLen = 50;
+    string MessageStyle = "message";
+    bool IsIncoming = Convert.ToBoolean(ViewData["incoming"]);
 }
 
-@if (!Model.IsRead && Model.OtherUser.Equals(Model.Sender))
+@if (!Model.IsRead && IsIncoming)
 {
-    message = "unread-message";
+    MessageStyle = "unread-message";
 }
 
-<div class="media @message ">
-    <a class="media-left media-middle" style="padding-left: 10px;" href="@Url.Action("Index", "UserProfile", new { username = Model.Sender })">
-        <img src="~/Resources/Images/user_small.png" alt="user_default_image" class="img-thumbnail small-user-image">
+<div class="media @MessageStyle ">
+    <a class="media-left media-middle" style="padding-left: 10px;" href="@Url.Action("Index", "UserProfile", new { username = Model.SenderUserName })">
+        @if (File.Exists(Server.MapPath("~/Images/UserImages/" + Html.DisplayFor(modelItem => Model.SenderImageName))))
+        {
+            <img src="~/Images/UserImages/@Html.DisplayFor(modelItem => Model.SenderImageName)" alt="user_image" class="img-thumbnail small-user-image">
+        }
+        else
+        {
+            <img src="~/Resources/Images/user_small.png" alt="user_default_image" class="img-thumbnail small-user-image">
+        }
     </a>
 
     <a class="media-body" href="@Url.Action("Read", "Message", new { messageId = Model.MessageId })">
-        <h4 class="media-heading" style="padding-top: 10px;">@Model.Sender -> @Model.Recipient</h4>
-        <h4 class="text-info"> @Model.Subject <span class="text-right"> @Model.Created</span> </h4>
+        <h4 class="media-heading" style="padding-top: 10px;">@Model.SenderUserName </h4>
+        <h4 class="text-muted"> @Model.Subject <span class="text-right"> @Model.CreatedOn</span> </h4>
 
-        <p class="text">
-            @Model.Body.Substring(0, Math.Min(Model.Body.Length, messageLen))
-            <br />
-            ...
+        <p class="text-muted message-preview">
+            @Model.Body
         </p>
     </a>
 </div>

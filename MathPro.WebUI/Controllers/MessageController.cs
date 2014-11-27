@@ -19,17 +19,8 @@ namespace MathPro.WebUI.Controllers
     [Authorize]
     public class MessageController : Controller
     {
-        private const int PagesSize = 4;
-
-        public MessageController()
-        {
-           
-        }
-
-        public MessageController(ApplicationUserManager userManager)
-        {   
-            UserManager = userManager;            
-        }
+        // todo:
+        private const int PagesSize = 3;
 
         private ApplicationDb db = new ApplicationDb();
         private ApplicationUserManager _userManager;
@@ -45,108 +36,135 @@ namespace MathPro.WebUI.Controllers
             }
         }
 
-        // GET: 
-        public async Task<ActionResult> Index(int page=1)
+        public MessageController()
         {
-            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+           
+        }
+
+        public MessageController(ApplicationUserManager userManager)
+        {   
+            UserManager = userManager;            
+        }
+
+
+        private MessageListViewModel formMessageList(string direction, int page)
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
             //TODO:
             if (user == null)
             {
-                return HttpNotFound();
+                return null;
             }
-            // select last message with every user sorted by created date
 
+            ICollection<Message> messageList = null;
+            int totalItems = 0;
+            switch (direction)
+            {
+                case "in":
+                    messageList = user.MessagesIReceive;
+                    totalItems = user.MessagesIReceive.Count();
+                    break;
+                case "out":
+                default:
+                    messageList = user.MessagesISend;
+                    totalItems = user.MessagesISend.Count();
+                    break;
+            }
             MessageListViewModel model = new MessageListViewModel
             {
-                Messages = user.MyMessages.Select( m => 
-                        new MessageViewModel
-                        {
-                            MessageId = m.MessageId,
-                            Sender = m.Sender.UserName,
-                            Recipient = m.Recipient.UserName,
-                            OtherUser = !m.Sender.Id.Equals(user.Id) ? m.Sender.UserName : m.Recipient.UserName,
-                            IsRead = m.IsRead,
-                            Created = m.CreatedOn.ToLocalTime().ToString(),
-                            Body = m.Body,
-                            Subject = m.Subject,                 
-                        })
-                    .OrderByDescending(mv => mv.Created)
-                    .Skip( (page-1) * PagesSize)
+                Messages = messageList.Select(m => new MessageViewModel(m, user.UserName))
+                    .OrderByDescending(mv => mv.CreatedOn)
+                    .Skip((page - 1) * PagesSize)
                     .Take(PagesSize),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
                     ItemsPerPage = PagesSize,
-                    TotalItems = user.MyMessages.Count()
+                    TotalItems = totalItems,
                 }
             };
+            return model;
+        }
+
+        public ActionResult IncomingBox(int page = 1)
+        {
+            MessageListViewModel model = formMessageList("in", page);
+            if (null == model)
+            {
+                return HttpNotFound();
+            }
+
+            return View(model);
+        }
+
+        public ActionResult OutBox(int page = 1)
+        {
+            MessageListViewModel model = formMessageList("out", page);
+            if (null == model)
+            {
+                return HttpNotFound();
+            }
 
             return View(model);
         }
 
         public ActionResult Reply(string username)
         {
+            var user = UserManager.FindByName(username);
+            if (null == user)
+            {
+                // TODO:
+                return HttpNotFound();
+            }
+
             MessageSendModel msg = new MessageSendModel
             {
-                ShowPrevMessage = false,
-                PrevMessage = null,
                 RecipientUserName = username,
             };
             return View("Send",msg);
         }
 
-
-        public async Task<ActionResult> Read(int messageId)
+        public async Task<ActionResult> Read(int? messageId)
         {
+            if (null == messageId)
+            {
+                return HttpNotFound();
+            }
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             //TODO:
             if (user == null)
             {
                 return HttpNotFound();
             }
-            var m = db.Messages.Find(messageId);
+            var message = db.Messages.Find(messageId);
 
-            if (null == m)
+            if (null == message)
             {
                 return HttpNotFound();
             }
 
-            if (! (m.SenderId.Equals(user.Id) || m.RecipientId.Equals(user.Id)) )
+            if (! (message.SenderId.Equals(user.Id) || message.RecipientId.Equals(user.Id)) )
             {
                 // TODO: Access denied
                 return HttpNotFound();
             }
 
 
-            m.IsRead = true;
+            message.IsRead = true;
             // Save that message was read
-            db.Messages.Attach(m);
-            var entry = db.Entry(m);
+            db.Messages.Attach(message);
+            var entry = db.Entry(message);
             entry.Property(e => e.IsRead).IsModified = true;
             // other changed properties
             db.SaveChanges();
-            return View(new MessageViewModel
-            {
-                MessageId = m.MessageId,
-                Sender = m.Sender.UserName,
-                Recipient = m.Recipient.UserName,
-                OtherUser = !m.Sender.Id.Equals(user.Id) ? m.Sender.UserName : m.Recipient.UserName,
-                IsRead = m.IsRead,
-                Created = m.CreatedOn.ToString(),
-                Body = m.Body,
-                Subject = m.Subject,      
-            });
+            return View(new MessageViewModel(message, user.UserName));
         }
-        
-
-         
+                 
         // GET: 
         public ActionResult Send()
         {
             MessageSendModel msg = new MessageSendModel
             {
-                ShowPrevMessage = false,
-                PrevMessage = null,
             };
             return View(msg);            
         }        
@@ -186,7 +204,7 @@ namespace MathPro.WebUI.Controllers
                     
 
                     // TODO:
-                    return RedirectToAction("Index");
+                    return RedirectToAction("IncomingBox");
 
                 }
             }
@@ -198,19 +216,6 @@ namespace MathPro.WebUI.Controllers
             return View(sendMessage);
         }
 
-        [HttpPost]
-        public JsonResult AutoCompleteUserNames(string term)
-        {
-            string starter = term.Trim();
-            var userNames = UserManager.Users.ToList()
-                .Select(u => u.UserName)
-                .Where(s => s.Contains(starter))
-                .OrderBy(n => n)
-                .Take(4)
-                .ToList();
 
-            return Json(userNames);
-        }
-        
     }
 }

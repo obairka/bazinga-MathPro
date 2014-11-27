@@ -1,0 +1,41 @@
+﻿@model MathPro.WebUI.Models.MessageListViewModel
+@{
+    ViewBag.Title = "Отправленные";
+
+}
+
+@Html.Partial("~/Views/Shared/_MessageBreadcrumbs.cshtml")
+
+<div class="page-header">
+    <h2>@ViewBag.Title</h2>
+</div>
+
+@if (0 == Model.PagingInfo.TotalPages)
+{
+    <div class="row">
+        <div class="col-md-4">
+            <div class="alert alert-info" role="alert">
+                <p>Ooops! У тебя нет сообщений !</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+        </div>
+    </div>
+
+}
+else
+{
+
+    foreach (var item in Model.Messages)
+    {
+        <div class="panel">
+            @{ Html.RenderPartial("_MessageItem", item, new ViewDataDictionary { { "incoming", false } }); }
+
+        </div>
+    }
+
+    <div>
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("OutBox", new { page = x }))
+    </div>
+}

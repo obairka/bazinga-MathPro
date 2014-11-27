@@ -15,6 +15,7 @@ using MathPro.WebUI.DbContexts;
 
 namespace MathPro.WebUI.Controllers
 {    
+    [Authorize]
     public class UserProfileController : Controller
     {
         public UserProfileController()
@@ -39,7 +40,6 @@ namespace MathPro.WebUI.Controllers
             }
         }
          
-        [Authorize]
         // GET: /UserProfile/id
         public async Task<ActionResult> Index(string username)
         {
@@ -63,7 +63,6 @@ namespace MathPro.WebUI.Controllers
 
         
         // GET: /UserProfile/Me
-        [Authorize]
         public async Task<ActionResult> Me()
         {
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
@@ -72,7 +71,6 @@ namespace MathPro.WebUI.Controllers
         }
 
         // GET: /UserProfile/Edit
-        [Authorize]
         public async Task<ActionResult> Edit()
         {
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
@@ -86,7 +84,6 @@ namespace MathPro.WebUI.Controllers
 
         //
         // POST: /UserProfile/Edit
-        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(UserProfileViewModel editUser)
@@ -105,6 +102,7 @@ namespace MathPro.WebUI.Controllers
                 user.FirstName = editUser.FirstName;
                 user.LastName = editUser.LastName;
                 user.BirthDate = editUser.BirthDate;
+                user.UserImageName = editUser.UserImageName;
 
                 var result = await UserManager.UpdateAsync(user);
                 if (!result.Succeeded)
@@ -127,7 +125,7 @@ namespace MathPro.WebUI.Controllers
                 return View(editUser);
             }
         }
-        [Authorize]
+        
         // Get
         public ActionResult BriefProfile()
         {
@@ -137,6 +135,89 @@ namespace MathPro.WebUI.Controllers
                 return HttpNotFound();
             }
             return PartialView("_BriefProfile",new UserProfileBriefViewModel(user));            
+        }
+
+        
+        // Simple image checker :D
+        private static bool IsImage(HttpPostedFileBase postedFile)
+        {
+            try  {
+                using (var bitmap = new System.Drawing.Bitmap(postedFile.InputStream))
+                {
+                    if(bitmap.Size.IsEmpty)
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        }
+
+
+
+        [HttpPost]
+        public async Task<ActionResult> FileUpload(HttpPostedFileBase file)
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            if (null == user)
+            {
+                return HttpNotFound();
+            }
+
+            if (file != null)
+            {
+                if (!IsImage(file))
+                {
+                    // TODO:
+                    return RedirectToAction("Edit", "UserProfile");
+                }
+
+                if (user.HasImage)
+                {
+                    // Delete old image
+                    string fullPath = Request.MapPath("~/Images/UserImages/"+ user.UserImageName);
+                    if (System.IO.File.Exists(fullPath))
+                    {
+                        System.IO.File.Delete(fullPath);
+                    }
+                }
+
+                string pic = System.IO.Path.GetFileName(file.FileName);
+                user.UserImageName = pic;
+
+                var result = await UserManager.UpdateAsync(user);
+                if (!result.Succeeded)
+                {
+                    ModelState.AddModelError("", result.Errors.First());
+                }
+
+
+                string path = System.IO.Path.Combine(
+                                       Server.MapPath("~/Images/UserImages"), pic);
+                // file is uploaded
+                file.SaveAs(path);
+
+            }
+            // after successfully uploading redirect the user
+            return RedirectToAction("Edit", "UserProfile");
+        }
+        
+        [HttpPost]
+        public JsonResult AutoCompleteUserNames(string term)
+        {
+            string starter = term.Trim();
+            var userNames = UserManager.Users.ToList()
+                .Select(u => u.UserName)
+                .Where(s => s.Contains(starter))
+                .OrderBy(n => n)
+                .Take(4)
+                .ToList();
+
+            return Json(userNames);
         }
         
     }

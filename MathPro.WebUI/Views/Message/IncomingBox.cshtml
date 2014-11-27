@@ -1,7 +1,7 @@
 ﻿@model MathPro.WebUI.Models.MessageListViewModel
 @{
-    ViewBag.Title = "Мои сообщения";
-    
+    ViewBag.Title = "Входящие";
+
 }
 
 @Html.Partial("~/Views/Shared/_MessageBreadcrumbs.cshtml")
@@ -24,17 +24,18 @@
     </div>
 
 }
-else { 
+else
+{
 
     foreach (var item in Model.Messages)
     {
-        <div class="panel">            
-            @{ Html.RenderPartial("_MessageItem", item); }
+        <div class="panel">
+            @{ Html.RenderPartial("_MessageItem", item, new ViewDataDictionary { {"incoming", true} }); }
 
         </div>
     }
 
     <div>
-        @Html.PageLinks(Model.PagingInfo, x => Url.Action("Index", new { page = x }))
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("IncomingBox", new { page = x }))
     </div>
 }

@@ -1,8 +1,19 @@
 ﻿@model MathPro.Domain.Entities.UserAttempt
 
 @{
-    ViewBag.Title = "ShowAttempt";
+    ViewBag.Title = "Попытка";
 }
 
-<h2>ShowAttempt</h2>
+<script type="text/javascript" src="../../Scripts/MathAssignmentPreview.js"></script>
 
+
+<div class="page-header">
+    <h2>Попытка от @Model.AttemptDateTime</h2>
+</div>
+
+<h4 class="text-info">Задача: #<a href="@Url.Action("AssignmentView", "Home", new { MathAssignmentId = Model.MathAssignmentId })"> @Model.MathAssignmentId</a></h4>
+<h4 class="text-info">Ответ:</h4>
+<br/>
+<div class="box" id="box">
+    <div id="MathOutputAnswer" class="output" style="border: 1px solid; padding: 3px; width: 100%; height: 100%; margin-top: 5px">$${ @Model.AssignmentAnswer}$$</div>
+</div>
