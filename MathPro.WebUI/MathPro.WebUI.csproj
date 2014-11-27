@@ -197,6 +197,8 @@
     <Compile Include="Infrastructure\Binders\CustomDateTimeBinders.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\Logic\AnswerCheckerModels.cs" />
+    <Compile Include="Models\Logic\RatingCounterModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MathAssignmentViewModel.cs" />
     <Compile Include="Models\MessageViewModels.cs" />

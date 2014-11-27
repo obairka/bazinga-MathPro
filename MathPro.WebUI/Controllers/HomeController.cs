@@ -239,14 +239,31 @@ namespace MathPro.WebUI.Controllers
             userAttempt.AttemptDateTime = DateTime.Now;
             userAttempt.MathAssignmentId = maSm.userAttempt.MathAssignmentId;
             userAttempt.MathAssignment = db.MathAssignments.Find(userAttempt.MathAssignmentId);
-            userAttempt.AssignmentAnswer = maSm.userAttempt.AssignmentAnswer;
+            userAttempt.AssignmentAnswer = @maSm.userAttempt.AssignmentAnswer;
             userAttempt.ApplicationUser = db.Users.Find(maSm.userAttempt.ApplicationUser.Id);
+            //////////////////////////////////////////////////////////////////////////////////////////
             // TODO:
-            userAttempt.AttemptResultSuccess = false;
-            
+            IAnswerChecker answerChecker = new VerySimpleAnswerChecker();
+
+            var task = db.MathAssignments.Find(userAttempt.MathAssignmentId);
+            string expectedAnswer = task.Answer;
+            bool result = answerChecker.CheckAnswer(expectedAnswer, userAttempt.AssignmentAnswer);
+            userAttempt.AttemptResultSuccess = result;
+            if (result)
+            {
+                int attemptsCount = db.UserAttempts.Select(ua => ua.MathAssignmentId == task.MathAssignmentId).Count();
+                int maxPoints = task.PointsForAssignment ?? 10;
+                ISimpleRatingCounter counter = new VerySimpleRatingCounter();
+                int points = counter.Count(maxPoints, attemptsCount);
+                userAttempt.Points = points;
+
+                var user = UserManager.FindById(User.Identity.GetUserId());
+                user.Rating += points;
+            }
+            //////////////////////////////////////////////////////////////////////////////////////////
             db.UserAttempts.Add(userAttempt);
             db.SaveChanges();
-            return RedirectToAction("Assignments");
+            return RedirectToAction("MyAttempts","UserAttempt");
         }
 
         [HttpPost]
