@@ -41,7 +41,7 @@
                 @Html.HiddenFor(model => model.userAttempt.MathAssignmentId)
                 @Html.HiddenFor(model => model.userAttempt.ApplicationUser.Id)
                 @Html.HiddenFor(model => model.userAttempt.MathAssignmentId)
-                @Html.TextAreaFor(model => model.taskComment.Details, new { cols = "60", rows = "10", style = "margin-top:5px" })
+                @Html.TextAreaFor(model => model.taskComment.Details, new { cols = "60", rows = "10", style = "margin-top:5px", maxlength = "300" })
                 <div>
                     <input type="submit" value="Разместить комментарий" class="btn btn-default" style="margin-top: 30px; float: left;" />
                 </div>
@@ -58,15 +58,23 @@
                 {
                     <tr>
                         <td>
-                            <div class="comment">
-                                @Html.DisplayFor(model => comment.PostedTime)
-                                @Html.Raw("<br>")
-                                <div id="username">
-                                    @Html.DisplayFor(model => comment.ApplicationUser.UserName)
+                            <div class="media ">
+                                <h4 class="text-muted"> <span class="text-right"> @Html.DisplayFor(model => comment.PostedTime)</span> </h4>
+                                <div style="display: inline-block">
+                                    @if (File.Exists(Server.MapPath("~/Images/UserImages/" + Html.DisplayFor(model => comment.ApplicationUser.UserImageName))))
+                                    {
+                                        <img src="~/Images/UserImages/@Html.DisplayFor(model => comment.ApplicationUser.UserImageName)" alt="user_image" class="img-thumbnail small-user-image" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Resources/Images/user_small.png" alt="user_default_image" class="img-thumbnail small-user-image">
+                                    }
                                 </div>
-                                @Html.Raw("<br>")
-                                <div id="usercomment">
-                                    @Html.DisplayFor(model => comment.Details)
+                                <p class="message-body text-justify" style="horiz-align: right; display: inline-block; padding-left: 20px;">
+                                    @Html.Raw(comment.Details)
+                                </p>
+                                <div class="media-body">
+                                    <h4 class="media-heading" style="padding-top: 10px;">@Html.DisplayFor(model => comment.ApplicationUser.UserName) </h4>
                                 </div>
                             </div>
                         </td>

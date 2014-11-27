@@ -270,7 +270,7 @@ namespace MathPro.WebUI.Controllers
         public ActionResult CommentAdd(MathAssignmentViewModel maSm)
         {
             TaskComment taskComment = new TaskComment();
-            taskComment.Details = maSm.taskComment.Details;
+            taskComment.Details = maSm.taskComment.Details.Replace(Environment.NewLine, "<br/>");
             taskComment.MathAssignmentId = maSm.userAttempt.MathAssignmentId;
             taskComment.MathAssignment = db.MathAssignments.Find(taskComment.MathAssignmentId);
             taskComment.PostedTime = DateTime.Now;
