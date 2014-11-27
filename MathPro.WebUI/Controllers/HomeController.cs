@@ -215,6 +215,8 @@ namespace MathPro.WebUI.Controllers
                 maSmToView.userAttempt.MathAssignmentId = MathAssignmentId;
                 maSmToView.userAttempt.MathAssignment = db.MathAssignments.Find(MathAssignmentId);
                 maSmToView.userAttempt.AttemptDateTime = DateTime.Now;
+                
+
                 var comIdList = db.TaskComments.Where(c => c.MathAssignmentId == MathAssignmentId).Select(c => c.ApplicationUserId).ToList();
 
                 foreach (var userId in comIdList)
@@ -239,6 +241,9 @@ namespace MathPro.WebUI.Controllers
             userAttempt.MathAssignment = db.MathAssignments.Find(userAttempt.MathAssignmentId);
             userAttempt.AssignmentAnswer = maSm.userAttempt.AssignmentAnswer;
             userAttempt.ApplicationUser = db.Users.Find(maSm.userAttempt.ApplicationUser.Id);
+            // TODO:
+            userAttempt.AttemptResultSuccess = false;
+            
             db.UserAttempts.Add(userAttempt);
             db.SaveChanges();
             return RedirectToAction("Assignments");

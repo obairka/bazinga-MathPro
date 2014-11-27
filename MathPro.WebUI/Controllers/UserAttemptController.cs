@@ -105,8 +105,14 @@ namespace MathPro.WebUI.Controllers
 
 
         // GET
-        public ActionResult ShowAttempt(int userAttemptId)
+        public ActionResult ShowAttempt(int? userAttemptId)
         {
+            // TODO:
+            if (userAttemptId == null)
+            {
+                return HttpNotFound();
+            }
+
             var attempt = db.UserAttempts.Find(userAttemptId);
             if (null == attempt)
             {

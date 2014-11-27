@@ -54,11 +54,19 @@ else
                         <a href="@Url.Action("AssignmentView", "Home", new { MathAssignmentId = item.MathAssignmentId })"> @item.MathAssignmentId</a>
                     </td>
                     <td>
-                        @Html.Display(item.AttemptResultSuccess ? "success" : "fail")
+                        @if (item.AttemptResultSuccess)
+                        {
+                            <p class="text-info">success</p>
+                        }
+                        else
+                        {
+                            <p class="text-danger">fail</p>    
+                        }
+                        
                     </td>
 
                     <td>
-                        @Html.Display(item.Points.ToString())
+                        @Html.DisplayName(item.Points.ToString())
                     </td>
 
                 </tr>
