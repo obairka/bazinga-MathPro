@@ -67,54 +67,9 @@ namespace MathPro.WebUI.DbContexts
         protected override void Seed(ApplicationDb context)
         {
             InitializeIdentity(context);
-            //InitializeComplexity(context);
-            //InitializeSection(context);
-            //InitializeSubsection(context);
             InitializeMathAssignment(context);
             context.SaveChanges();
             base.Seed(context);
-        }
-
-        public static void InitializeComplexity(ApplicationDb context)
-        {
-            //Complexity Initialize with test data
-            Complexity easyComplexity = new Complexity() { Name = "Новичок", DefaultPoints = 20 };
-            Complexity intermediateComplexity = new Complexity() { Name = "Продвинутый", DefaultPoints = 30 };
-            Complexity hardComplexity = new Complexity() { Name = "Профессионал", DefaultPoints = 40 };
-            context.Complexities.AddOrUpdate(p => p.Name, easyComplexity);
-            context.Complexities.AddOrUpdate(p => p.Name, intermediateComplexity);
-            context.Complexities.AddOrUpdate(p => p.Name, hardComplexity);
-        }
-
-        public static void InitializeSection(ApplicationDb context)
-        {
-            //Section Initialize with test data
-            Section mathematicalAnalysisSection = new Section() { Name = "Математический анализ" };
-            Section differentialEquationSection = new Section() { Name = "Дифференцаиальный уравнения" };
-            Section probabilityTheorySectoin = new Section() { Name = "Теория вероятности" };
-            Section mathematicalStatisticsSection = new Section() { Name = "Математическая статистика" };
-            Section algebraSection = new Section() { Name = "Алгебра" };
-            Section mathematicalLogicSection = new Section() { Name = "Математическая логика" };
-            Section discreteMathematicsSection = new Section() { Name = "Дискретная математика" };
-            Section numericalAnalysisSection = new Section() { Name = "Вычислительная математика" };
-            context.Sections.AddOrUpdate(mathematicalAnalysisSection);
-            context.Sections.AddOrUpdate(differentialEquationSection);
-            context.Sections.AddOrUpdate(probabilityTheorySectoin);
-            context.Sections.AddOrUpdate(mathematicalStatisticsSection);
-            context.Sections.AddOrUpdate(algebraSection);
-            context.Sections.AddOrUpdate(mathematicalLogicSection);
-            context.Sections.AddOrUpdate(discreteMathematicsSection);
-            context.Sections.AddOrUpdate(numericalAnalysisSection);
-        }
-
-        public static void InitializeSubsection(ApplicationDb context)
-        {
-            //Complexity Initialize with test data
-            Subsection subsection1 = new Subsection() { Name = "Подраздел1" };
-            Subsection subsection2 = new Subsection() { Name = "Подраздел2" };
-            
-            context.Subsections.AddOrUpdate(p => p.Name, subsection1);
-            context.Subsections.AddOrUpdate(p => p.Name, subsection2);
         }
 
         public static void InitializeMathAssignment(ApplicationDb context)
@@ -192,7 +147,6 @@ namespace MathPro.WebUI.DbContexts
         }
 
 
-
         public static void InitializeIdentity(ApplicationDb context)
         {
             // Add Admin user 
@@ -238,7 +192,30 @@ namespace MathPro.WebUI.DbContexts
             {
                 var result = userManager.AddToRole(user.Id, role.Name);
             }
+
+
+            createTestUser(userManager, "testuser1", "test123");
+            createTestUser(userManager, "testuser2", "test123");
         }
 
+        private static void createTestUser(UserManager<ApplicationUser> userManager, string username, string password)
+        {
+            var user = userManager.FindByName(username);
+            if (user == null)
+            {
+                user = new ApplicationUser
+                {
+                    UserName = username,
+                    Email = username + "@test.ru",
+                    FirstName = username,
+                    LastName = username,
+                    LastVisitDate = DateTime.Today.ToUniversalTime(),
+                    RegistrationDate = DateTime.Today.ToUniversalTime(),
+
+                };
+                var result = userManager.Create(user, password);
+                result = userManager.SetLockoutEnabled(user.Id, false);
+            }
+        }
     }
 }

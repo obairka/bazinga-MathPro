@@ -3,6 +3,8 @@
 @{
     string MessageStyle = "message";
     bool IsIncoming = Convert.ToBoolean(ViewData["incoming"]);
+    string showName = (IsIncoming) ? Model.SenderUserName : Model.RecipientUserName;
+    string imageName = (IsIncoming) ? Model.SenderImageName : Model.RecipientImageName;
 }
 
 @if (!Model.IsRead && IsIncoming)
@@ -11,10 +13,10 @@
 }
 
 <div class="media @MessageStyle ">
-    <a class="media-left media-middle" style="padding-left: 10px;" href="@Url.Action("Index", "UserProfile", new { username = Model.SenderUserName })">
-        @if (File.Exists(Server.MapPath("~/Images/UserImages/" + Html.DisplayFor(modelItem => Model.SenderImageName))))
+    <a class="media-left media-middle" style="padding-left: 10px;" href="@Url.Action("Index", "UserProfile", new { username = showName })">
+        @if (File.Exists(Server.MapPath("~/Images/UserImages/" + @imageName)))
         {
-            <img src="~/Images/UserImages/@Html.DisplayFor(modelItem => Model.SenderImageName)" alt="user_image" class="img-thumbnail small-user-image">
+            <img src="~/Images/UserImages/@imageName" alt="user_image" class="img-thumbnail small-user-image">
         }
         else
         {
@@ -23,7 +25,7 @@
     </a>
 
     <a class="media-body" href="@Url.Action("Read", "Message", new { messageId = Model.MessageId })">
-        <h4 class="media-heading" style="padding-top: 10px;">@Model.SenderUserName </h4>
+        <h4 class="media-heading" style="padding-top: 10px;"> @showName </h4>
         <h4 class="text-muted"> @Model.Subject <span class="text-right"> @Model.CreatedOn</span> </h4>
 
         <p class="text-muted message-preview">
