@@ -17,7 +17,7 @@
         </tr>
         <tr>
             <td colspan="12">
-                @Html.TextAreaFor(model => model.userAttempt.AssignmentAnswer, new {id = "MathInput", cols = "60", rows = "10", onkeyup = "UpdateMathAnswer(this.value)", style = "margin-top:5px"})
+                @Html.TextAreaFor(model => model.userAttempt.AssignmentAnswer, new { id = "MathInput", cols = "60", rows = "10", onkeyup = "UpdateMathAnswer(this.value)", style = "margin-top:5px", required = "required" })
                 @Html.HiddenFor(model => model.userAttempt.ApplicationUser.Id)
                 @Html.HiddenFor(model => model.userAttempt.MathAssignmentId)
                 @Html.Raw("<br> <b> Preview: </b> <br>")
@@ -41,7 +41,7 @@
                 @Html.HiddenFor(model => model.userAttempt.MathAssignmentId)
                 @Html.HiddenFor(model => model.userAttempt.ApplicationUser.Id)
                 @Html.HiddenFor(model => model.userAttempt.MathAssignmentId)
-                @Html.TextAreaFor(model => model.taskComment.Details, new { cols = "60", rows = "10", style = "margin-top:5px", maxlength = "300" })
+                @Html.TextAreaFor(model => model.taskComment.Details, new { cols = "60", rows = "10", style = "margin-top:5px", maxlength = "300", required = "required"})
                 <div>
                     <input type="submit" value="Разместить комментарий" class="btn btn-default" style="margin-top: 30px; float: left;" />
                 </div>
